@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Steps:
 
-Things you may want to cover:
 
-* Ruby version
+1. Create a redux boilerplate app
+2. Create a "editor" component that has a scene and a number of pieces
+3. Every time the scene is refreshed it updates the a-frame view
+4. Put the a-frame
 
-* System dependencies
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
