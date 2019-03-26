@@ -5,6 +5,7 @@ import CabinArApp from "./cabin_ar_app.jsx"
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    pieceId: state.pieceId
   }
 }
 

@@ -11,6 +11,10 @@ import { Provider } from "react-redux";
 import CabinArAppContainer from "./cabin_ar_app_container"
 
 
+
+import { loadSpace } from '../actions'
+
+
 class App extends React.Component {
 
  constructor(props) {
@@ -27,11 +31,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    //
+    this.store.dispatch(loadSpace(this.props.spaceId))
   }
 
   baseStore() {
     return {
+      spaceId: this.props.spaceId,
+      pieceId: null,
+      space: {},
       pieces: [],
       index: {}
     }

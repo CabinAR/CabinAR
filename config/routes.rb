@@ -3,5 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+  namespace :api do
+    resources :spaces do
+      resources :pieces, shallow: true
+    end
+  end
+
   get "/app", to: "app#show"
 end

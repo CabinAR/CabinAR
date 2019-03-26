@@ -1,0 +1,54 @@
+class Api::PiecesController < Api::BaseController
+
+  before_action :get_piece, only: [ :show, :update, :destroy ]
+
+
+  def index
+    if space
+      render json: space.items.as_json
+    else
+      head 404
+    end
+  end
+
+
+  def show
+    render json: @piece.as_json 
+  end
+
+  def create
+    return head 404 unless space
+    @piece = current_user.pieces.create(space_id: space.id )
+    render json: @piece.as_json 
+  end
+
+
+  def update
+    @piece.update(piece_params)
+    render json: @piece.as_json 
+  end
+
+
+  def destroy
+    @piece.destroy 
+    render json: @piece.as_json 
+  end
+
+
+  protected
+
+  def piece_params
+    params.require(:piece).permit(:name, :marker_units, :marker_width, :code, :marker)
+  end
+
+  def get_piece
+    @piece = current_user.pieces.find_by_id(params[:id].to_i)
+    head :not_found unless @piece
+  end
+
+
+  def space
+    @space ||= current_user.spaces.find_by_id((params[:id] || params[:space_id]).to_i)
+  end
+
+end

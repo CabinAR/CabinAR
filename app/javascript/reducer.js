@@ -1,5 +1,67 @@
 let _allreducers = {};
 
+import {
+  LOAD_SPACE,
+  UPDATE_PIECE,
+  SELECT_PIECE,
+  ADD_PIECE,
+  DELETE_PIECE
+} from './actions'
+
+import { map, uniq, reject } from 'lodash'
+
+add(LOAD_SPACE,(state, action) => {
+  let index = {}
+  let pieces = map(action.space.pieces, (piece) => {
+    index[piece.id] = piece
+    return piece.id
+  })
+
+  let pieceId = index[state.pieceId] || pieces[0]
+
+  return { ...state,
+    space: action.space,
+    pieceId: pieceId,
+    pieces: pieces,
+    index: index
+  }
+  
+})
+
+
+add(UPDATE_PIECE, (state, action) => {
+  let index = { ...state.index }
+  let piece = { ...index[action.pieceId], dirty: true, ...action.props }
+  index[action.pieceId] = piece
+  return { ...state, index }
+})
+
+add(SELECT_PIECE, (state, action) => {
+  return { ...state, pieceId: action.pieceId }
+})
+
+add(ADD_PIECE, (state, action) => {
+  let index = { ...state.index }
+  let piece = action.piece
+
+  index[piece.id] = piece
+  let pieces = uniq([piece.id].concat(state.pieces))
+
+  return { ...state, index, pieces, pieceId: action.piece.id }
+})
+
+add(DELETE_PIECE, (state, action) => {
+  let pieceId = action.pieceId
+
+  let index = { ...state.index }
+  let pieces = reject(state.pieces, (pid) => pid == pieceId)
+
+  let nextPieceId = pieces[0]
+
+  delete index[pieceId]
+
+  return { ...state, index, pieces, pieceId: nextPieceId }
+})
 
 function add(name, reducer) {
   _allreducers[name] = _allreducers[name] || []

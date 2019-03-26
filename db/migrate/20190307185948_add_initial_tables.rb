@@ -21,6 +21,7 @@ class AddInitialTables < ActiveRecord::Migration[6.0]
     create_table :spaces do |t|
       t.integer :user_id
       t.string :name
+      t.datetime :created_at
     end
 
     create_table :pieces do |t|
@@ -28,8 +29,8 @@ class AddInitialTables < ActiveRecord::Migration[6.0]
       t.integer :space_id
       t.string :name
       t.boolean :published
+      t.integer :marker_units
       t.float :marker_width
-      t.float :marker_height
       # attachment for marker
       t.text :code
       t.jsonb :callbacks     
