@@ -16,27 +16,24 @@ Add in uploading marker for piece
 Add in orbit camera
 Remove VR view
 Get the image size back to editor
-
-Steps:
-
 Do Minimal Styling
+Style properties
 Resize the square by aspect ratio
 Resize the items to match the aspect ratio
 Add in scaling of items by the scale of the marker
 
+Steps:
 
 Add in API requests to mobile app
 Add in downloading marker and to mobile app
 Add in live updating of the piece 
 
+Fix scaling of and changing of the marker
 
 Figure out callbacks approach:
 - id of each the elements -> 
 - api for getting element
 - api for creating elements
-
-TODO:
-
 
 Buttons on editor:
 - edit (Default - move)

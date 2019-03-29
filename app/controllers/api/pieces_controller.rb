@@ -1,4 +1,6 @@
 class Api::PiecesController < Api::BaseController
+  # Pieces are only for users who are logged in
+
 
   before_action :get_piece, only: [ :show, :update, :destroy ]
 
@@ -13,19 +15,19 @@ class Api::PiecesController < Api::BaseController
 
 
   def show
-    render json: @piece.as_json 
+    render json: @piece.to_builder.attributes! 
   end
 
   def create
     return head 404 unless space
     @piece = current_user.pieces.create(space_id: space.id )
-    render json: @piece.as_json 
+    render json: @piece.to_builder.attributes! 
   end
 
 
   def update
     @piece.update(piece_params)
-    render json: @piece.as_json 
+    render json: @piece.to_builder.attributes! 
   end
 
 

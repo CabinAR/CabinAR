@@ -99,34 +99,59 @@ class PieceEditor extends React.Component {
   }
 
 
-  renderProperties() { 
-    return <div className='editor__properties'>
-      Properties<br/>
-      Name: 
-      <input value={this.props.name || ""} 
-             onChange={(e) => this.change('name',e) }              />
-      <br/>
-      Marker Width: 
-      <input value={this.props.marker_width || ""} 
-             onChange={(e) => this.change('marker_width',e) } 
-             />
-      <select 
-        onChange={
-          (e) => this.change('marker_units',e) 
-        } 
-        value={this.props.marker_units || "inches"}>
-        <option value='inches'>inches</option>
-        <option value='feet'>feet</option>
-        <option value='meters'>meters</option>
-      </select>
-      <br/>
+  label = (field) => {
+    return `piece-${this.props.pieceId}-${field}`
+  }
 
-      Marker:
-      <label htmlFor='uploadFile'>
-        + Add File
-      </label>
-       <input type='file' id='uploadFile' className='editor__fileInput' onChange={this.addFile} /> 
+  renderProperties() { 
+    const label = this.label;
+
+    return <div className='editor__properties'>
+
+    <div className='properties'>
+
+      <div className='properties__field'>
+        <label htmlFor={label('name')} 
+               className='properties__label'>
+               Name:
+        </label>
+        <div className='properties__input'>
+          <input value={this.props.name || ""} 
+             onChange={(e) => this.change('name',e) }           
+             id={label('name')} />
+        </div>
+      </div>
+
+      <div className='properties__field'>
+        <label htmlFor={label('marker_width')} 
+               className='properties__label'>
+               Marker Width:
+        </label>
+        <div className='properties__input'>
+          <input value={this.props.marker_width || ""} 
+                 onChange={(e) => this.change('marker_width',e) } 
+                  id={label('marker_width')} />
+          <select 
+            onChange={
+              (e) => this.change('marker_units',e) 
+            } 
+            value={this.props.marker_units || "inches"}>
+            <option value='inches'>inches</option>
+            <option value='feet'>feet</option>
+            <option value='meters'>meters</option>
+          </select>
+        </div>
+      </div>
+
+      <div className='properties__field'>
+        <label className='properties__label'>Marker:</label>
+        <div className='properties__input'>
+          <label className='properties__label-button' htmlFor={label('upload')}>+ {this.props.marker_url ? 'Change' : 'Add'} Marker Image</label>
+          <input type='file' id={label('upload')} className='editor__fileInput' onChange={this.addFile} /> 
+        </div>
+      </div>
        {this.renderMarker()}
+    </div>
     </div>    
   }
 

@@ -2,11 +2,17 @@ class Space < ApplicationRecord
   belongs_to :user
   has_many :pieces
 
+  scope :published, -> { where("1=1") }
+
 
   def as_json(with_pieces: false)
-    super.merge({
-      pieces: self.pieces.map { |p| p.to_builder.attributes! }
-    })
+    if with_pieces
+      super.merge({
+        pieces: self.pieces.map { |p| p.to_builder.attributes! }
+      })
+    else
+      super
+    end
   end
 
 end

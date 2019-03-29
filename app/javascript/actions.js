@@ -27,7 +27,7 @@ export function savePiece(pieceId) {
     const piece = getState().index[pieceId]
     dispatch(updatePiece(pieceId, { saving: true }))
     CabinAPI.savePiece(piece).then((data) => {
-      let pieceData = { ...data, saving: false, dirty: true }
+      let pieceData = { ...data, marker: null, saving: false, dirty: false }
       dispatch(updatePiece(pieceId, pieceData))
     })
   }

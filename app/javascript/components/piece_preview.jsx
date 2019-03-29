@@ -36,10 +36,14 @@ class PiecePreview extends React.Component {
   }
 
   renderMarkerImage() {
+    const { marker_meter_width, marker_meter_height } = this.props;
+
     if(this.props.marker_url) {
-      return <a-plane id="marker-box" src={this.props.marker_url}  position="0 0 0" rotation="-90 0 0" width="4" height="4" />
+      return <Entity geometry={{primitive: 'plane', width:  marker_meter_width, height: marker_meter_height }}  
+      id="marker-box" 
+      material={{ src: this.props.marker_url}}  shadow position="0 0 0" rotation="-90 0 0" />
     } else {
-       return <a-plane id="marker-box"  position="0 0 0" rotation="-90 0 0" width="4" height="4" />
+       return <Entity geometry={{primitive: 'plane'}}  id="marker-box" shadow position="0 0 0" rotation="-90 0 0"  />
     }
   }
 
@@ -54,10 +58,11 @@ class PiecePreview extends React.Component {
   }
 
   render() {
+    const { marker_meter_width } = this.props;
     return <div className='preview'>
     <div className='preview__actions'>
-      <button className='preview__action' onClick={this.savePiece}>Save</button>
       <button className='preview__action' onClick={this.deletePiece}>Delete</button>
+      <button className='preview__action' onClick={this.savePiece}>Save</button>
     </div>
     <div className='preview__wrapper'>
       <a-scene background="color: #ECECEC" embedded vr-mode-ui="enabled: false">
@@ -66,14 +71,14 @@ class PiecePreview extends React.Component {
           wasd-controls-enabled="false"
           orbit-controls='target: 0 0 0; 
             minDistance: 0.5; 
-            maxDistance: 10; 
+            maxDistance: 100; 
             maxPolarAngle: 89;
             initialPosition: 0 5 5;' 
           />
       <a-assets>
       </a-assets>
       {this.renderMarkerImage()}
-      <a-entity ref={this.previewRef}>
+      <a-entity ref={this.previewRef} scale={`${marker_meter_width} ${marker_meter_width} ${marker_meter_width}`}>
        </a-entity>
       </a-scene>
     </div>
