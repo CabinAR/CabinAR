@@ -4,7 +4,8 @@ import PiecePreview from "./piece_preview.jsx"
 
 import { 
   savePiece,
-  deletePiece
+  deletePiece,
+  updatePiece
  } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
@@ -15,7 +16,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     savePiece: (pieceId) => { dispatch(savePiece(pieceId)) },
-    deletePiece: (pieceId) => { dispatch(deletePiece(pieceId))}
+    deletePiece: (pieceId) => { dispatch(deletePiece(pieceId))},
+    updatePiece: (pieceId, props) => { dispatch(updatePiece(pieceId, props)) }
   }
 }
 

@@ -40,7 +40,8 @@ class App extends React.Component {
       pieceId: null,
       space: {},
       pieces: [],
-      index: {}
+      index: {},
+      gizmo: 'translate'
     }
   }
 

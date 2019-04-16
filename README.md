@@ -21,14 +21,83 @@ Style properties
 Resize the square by aspect ratio
 Resize the items to match the aspect ratio
 Add in scaling of items by the scale of the marker
+Add in API requests to mobile app
+Add in downloading marker and to mobile app
+Get Markers to load, play with it an see how it works
+Make sure markers are loading and updating correctly
+Add a back button
+Add a refresh button 
+- See about adding a socket connection to the server
+- Subscribe to the channel on connect
+- Broadcast updates of the space pieces to update a piece
+- Accept the incoming message and update
+Add in live updating of the piece 
+- Add login into the mobile app
+- segue to settings screen
+- segue to the login screen
+
+- Pass along API token for space
+
+- Fix the losing focus on the object issue (maybe just don't update the page from the code until the code is edited?)
+- Don't let users update the marker object
+
+- Add buttons to switch tools in inspector
+
+Fix updating / resetting the piece
+
+- fix the updating
+
+- figure out the component name vs. the attribute issue
+
+- get annotations, need to figure out timing issues:
+https://stackoverflow.com/questions/9506154/determine-if-javascript-syntax-is-valid-in-change-handler-of-ace
+validate xml
+
+- Don't update the scene if there's syntax errors in ace?
+
+- On scene switches deselect everything
+
 
 Steps:
 
-Add in API requests to mobile app
-Add in downloading marker and to mobile app
-Add in live updating of the piece 
 
+- Add a toggle inspector button
+
+- Catching errors
+
+- Separate Assets tab
+
+- Separate out preview into an iframe
+
+- Pass code messages in and out
+- If there's an error, do a full-rewrite refresh
+
+
+
+
+
+App:
+Pull to refresh
+
+
+Rails:
+
+
+- Add buttons to insert objects at the cursor position
+
+
+- Add play edit toggles
+Thumbnail of each piece?
+Add tab for files
 Fix scaling of and changing of the marker
+
+
+Polish:
+app - list of spaces I have access to
+create an account w/ omniauth?
+
+keep different undo managers for each piece / editor. Store the undomanagers in the component 
+
 
 Figure out callbacks approach:
 - id of each the elements -> 
@@ -36,6 +105,9 @@ Figure out callbacks approach:
 - api for creating elements
 
 Buttons on editor:
-- edit (Default - move)
+- edit (Default - click on object, turn on handles - move? rotate? scale? )
 - play (play the tick, interaction with objects handlers)
+
+- May need to do reverse transform matrix
+
 

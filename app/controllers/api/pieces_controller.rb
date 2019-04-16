@@ -27,6 +27,9 @@ class Api::PiecesController < Api::BaseController
 
   def update
     @piece.update(piece_params)
+
+    SpaceUpdatesChannel.broadcast_to(@piece.space, { message: "piece", data: @piece.to_builder.attributes! })
+
     render json: @piece.to_builder.attributes! 
   end
 

@@ -21,13 +21,16 @@ class PieceEditor extends React.Component {
   constructor(props) {
     super(props)
 
+    this.aceEditor = React.createRef()
   }
 
   toast = notify.createShowQueue()
 
   changeCode = (val) => {
     let props = {}
+
     props[this.activeTab()] = val
+    props['refresh'] = true // we want to refresh the preview
     this.props.updatePiece(this.props.pieceId, props)
   }
 
@@ -51,7 +54,7 @@ class PieceEditor extends React.Component {
       errs.push(`'${file.type}' is not a supported format`)
     }
 
-    if (file.size > 500000) {
+    if (file.size > 1500000) {
       errs.push(`'${file.name}' is too large, please pick a smaller file`)
     }
 
@@ -170,6 +173,7 @@ class PieceEditor extends React.Component {
           mode="html"
           theme="github"
           width="auto"
+          ref={this.aceEditor}
           height="auto"
           wrapEnabled={true}
           name="aframe-editor"
