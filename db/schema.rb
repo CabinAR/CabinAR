@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_03_134508) do
+ActiveRecord::Schema.define(version: 2019_04_16_225459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,8 @@ ActiveRecord::Schema.define(version: 2019_04_03_134508) do
     t.integer "marker_units"
     t.float "marker_width"
     t.text "code"
-    t.jsonb "callbacks"
+    t.text "scene"
+    t.text "assets"
   end
 
   create_table "spaces", force: :cascade do |t|

@@ -57,22 +57,33 @@ validate xml
 
 - On scene switches deselect everything
 
-
-Steps:
+keep different undo managers for each piece / editor. Store the undomanagers in the component 
 
 
 - Add a toggle inspector button
 
-- Catching errors
 
 - Separate Assets tab
+
+1. buttons to add elements at cursor
+
+Steps:
+
+
+- Catching errors
+
 
 - Separate out preview into an iframe
 
 - Pass code messages in and out
 - If there's an error, do a full-rewrite refresh
 
+- Save the camera positon to the piece and reset it when we bounce around
 
+
+Finalize Rails:
+2. add assets w/ keys on the src
+3. add support for drag and drop of assets onto the assets tab (or actually any tab)
 
 
 
@@ -80,34 +91,32 @@ App:
 Pull to refresh
 
 
+
+$piece.click("id",function() {
+  
+})
+
+$piece.load(function() {
+    piece.get("id")
+
+})
+
+$piece.tick(function() {
+})
+
+
 Rails:
 
 
-- Add buttons to insert objects at the cursor position
-
-
-- Add play edit toggles
 Thumbnail of each piece?
-Add tab for files
 Fix scaling of and changing of the marker
-
 
 Polish:
 app - list of spaces I have access to
 create an account w/ omniauth?
 
-keep different undo managers for each piece / editor. Store the undomanagers in the component 
-
-
 Figure out callbacks approach:
 - id of each the elements -> 
 - api for getting element
 - api for creating elements
-
-Buttons on editor:
-- edit (Default - click on object, turn on handles - move? rotate? scale? )
-- play (play the tick, interaction with objects handlers)
-
-- May need to do reverse transform matrix
-
 

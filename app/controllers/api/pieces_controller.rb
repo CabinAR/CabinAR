@@ -28,7 +28,7 @@ class Api::PiecesController < Api::BaseController
   def update
     @piece.update(piece_params)
 
-    SpaceUpdatesChannel.broadcast_to(@piece.space, { message: "piece", data: @piece.to_builder.attributes! })
+    SpaceUpdatesChannel.broadcast_to(@piece.space, { update: "piece", data: @piece.to_builder.attributes! })
 
     render json: @piece.to_builder.attributes! 
   end
@@ -43,7 +43,7 @@ class Api::PiecesController < Api::BaseController
   protected
 
   def piece_params
-    params.require(:piece).permit(:name, :marker_units, :marker_width, :code, :marker)
+    params.require(:piece).permit(:name, :marker_units, :marker_width, :code, :scene, :assets, :marker)
   end
 
   def get_piece

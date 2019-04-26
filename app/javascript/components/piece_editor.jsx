@@ -69,21 +69,66 @@ class PieceEditor extends React.Component {
     }
   }
 
-  componentDidMount() {
-
+  editor() {
+   if(this.aceEditor.current) {
+    return this.aceEditor.current.editor
+   }
   }
+
+  editorSession() {
+    return this.editor().session;
+  }
+
+  componentDidMount() {
+    this.setUndoManager()
+
+    var session = this.editorSession();
+    session.on("changeAnnotation", function() {
+      var annotations = session.getAnnotations()||[];
+      var len = annotations.length;
+      var i = len;
+      while (i--) {
+        if(/doctype first\. Expected/.test(annotations[i].text)) {
+          annotations.splice(i, 1);
+        }
+      }
+      if(len>annotations.length) {
+        session.setAnnotations(annotations);
+      }
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.pieceId != this.props.pieceId ||
+      prevProps.tab != this.props.tab &&
+      this.editor()) {
+      this.setUndoManager()
+    }
+  }
+
 
   activeTab() {
-    return this.props.tab || "code"
+    return this.props.tab || "scene"
   }
-
 
   codeToShow() {
     return this.props[this.activeTab()] || "";
   }
 
+  modeToShow() {
+    return this.activeTab() == "code" ? "javascript" : "html"
+  }
+
+  setUndoManager() {
+    if(this.editor()) { 
+      this.editorSession().setUndoManager(
+        this.props.undos[this.activeTab()] || new brace.UndoManager()
+        )
+    }
+  }
+
   tabs() {
-    return [ "code", "properties" ]
+    return [ "scene", "assets", "code",  "properties" ]
   }
 
   renderTab = (tab) => {
@@ -170,7 +215,7 @@ class PieceEditor extends React.Component {
     return <div className='editor__wrapper'>
        <AceEditor
           value={this.codeToShow()}
-          mode="html"
+          mode={this.modeToShow()}
           theme="github"
           width="auto"
           ref={this.aceEditor}
@@ -183,13 +228,35 @@ class PieceEditor extends React.Component {
       </div>
   }
 
+  tools = [
+    { name: "Sphere", code: `<a-sphere color="#FF0000"></a-sphere>`},
+    { name: "Box", code: `<a-box color="#FF0000"></a-box>`},
+    { name: "Cylinder", code: `<a-cylinder position="0 0 0 " radius="1" height="1.5" color="#00FF00"></a-cylinder>`},
+    { name: "Plane", code: ` <a-plane width="4" height="4" color="#0000BB" rotation="-90 0 0"></a-plane>`}
+  ]
+
+  clickTool =(tool) => {
+    this.editorSession().insert(this.editor().getCursorPosition(), tool.code)
+  }
+
+  renderTool = (tool) =>  {
+    return  <button key={tool.name} onClick={() => { this.clickTool(tool) }}className='editor__tool'>{tool.name}</button>
+  }
+
+
+  renderTools() {
+    return <div className='editor__tools'>
+      {this.tools.map(this.renderTool)}
+    </div>
+  }
+
   render() {
     return <div className='editor'>
     <div className='editor__tabs'>
       { map(this.tabs(),this.renderTab) }
-
     </div>
     { this.activeTab() == 'properties' ? this.renderProperties() : this.renderEditor() }
+    { this.activeTab() == 'scene' && this.renderTools() }
     </div>
   }
 

@@ -43,6 +43,15 @@ button, input {
     position:relative;
   }
 
+  &__tools {
+    flex: 0 0 auto;
+
+  }
+
+  &__tool {
+    
+  }
+
   &__tabs {
     background-color:#EEE;
     flex: 0 0 30px;
@@ -78,9 +87,6 @@ button, input {
     flex: 1 1 auto;
     overflow-x:hidden;
     overflow-y: auto;
-
-
-
   }
 
 

@@ -24,7 +24,7 @@ class Piece < ApplicationRecord
 
   def to_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :published, :marker_units,:marker_width,:code)
+      json.(self, :id, :name, :published, :marker_units,:marker_width,:code, :scene, :assets)
       if self.marker.present? && self.marker_meter_height.present?
         json.marker_url self.marker&.service_url
         json.marker_image_width self.marker.metadata["width"]

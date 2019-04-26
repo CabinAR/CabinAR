@@ -42,21 +42,28 @@ class PiecePreview extends React.Component {
 
 
   outputScene = () => {
-    this.props.updatePiece(this.props.pieceId, { code: getEntityInnerRepresentation(this.previewRef.current), refresh: false } ) 
+    this.props.updatePiece(this.props.pieceId, { scene: getEntityInnerRepresentation(this.previewRef.current), refresh: false } ) 
   }
 
   refreshNow= () => {
     if(this.inspector) { this.inspector.deselect() }
 
-    try { 
+    //try { 
       if(xmlChecker.check('<?xml version="1.0" encoding="UTF-8"?><scene>'
- + this.props.code + '</scene>')) {
-        this.previewRef.current.innerHTML = this.props.code
+ + this.props.scene + '</scene>')) {
+        this.previewRef.current.innerHTML = this.props.scene
+        if(!this.state.inspector) {
+          this.installBridge()
+        }
       }
-    } catch(err) { 
-      console.log(err)
-      //note invalid XML
-    }
+    //} catch(err) { 
+    //  console.log(err)
+    //  //note invalid XML
+   //}
+  }
+
+  installBridge() {
+    window.installBridge(this.props.code)
   }
 
   refresh = debounce(() => { this.refreshNow() }, 500)
@@ -71,7 +78,7 @@ class PiecePreview extends React.Component {
     if(prevProps.pieceId != this.props.pieceId) {
       // deselect selected piece
       this.refreshNow()
-    } else if(prevProps.code != this.props.code) {
+    } else if(prevProps.scene != this.props.scene) {
       if(this.props.refresh) {
         this.refresh()
       }
@@ -108,15 +115,20 @@ class PiecePreview extends React.Component {
 
   toggleInspector = (on) => {
     if(this.state.inspector != on) {
-      if(on) {
-        AFRAME.INSPECTOR.open()
-      } else {
-        AFRAME.INSPECTOR.close()
-      }
-      this.setState({ inspector: on })
-
+      this.setState({ inspector: on },() => { 
+        this.refreshNow()
+        if(on) {
+          AFRAME.INSPECTOR.open()
+        } else {
+          AFRAME.INSPECTOR.close()
+        }
+      })
+    } else if(!on) {
+      this.refreshNow()
     }
   }
+
+
 
   renderTool = (tool, label) => {
     var cls = 'preview__tool'
@@ -142,7 +154,7 @@ class PiecePreview extends React.Component {
       <button className='preview__action' onClick={this.savePiece}>Save</button>
     </div>
     <div className='preview__wrapper'>
-      <a-scene background="color: #ECECEC" embedded vr-mode-ui="enabled: false">
+      <a-scene background="color: #ECECEC" embedded vr-mode-ui="enabled: false" cursor="rayOrigin: mouse">
        <a-camera id="orbitCamera"
           look-controls="enabled: false; touchEnabled: false;"
           wasd-controls-enabled="false"
@@ -153,7 +165,7 @@ class PiecePreview extends React.Component {
             initialPosition: 0 ${marker_meter_width*5} ${marker_meter_width*5};`}
           />
       {this.renderMarkerImage()}
-      <a-entity data-aframe-inspector ref={this.previewRef} scale={`${marker_meter_width} ${marker_meter_width} ${marker_meter_width}`}>
+      <a-entity class='cabinar-wrapper' data-aframe-inspector ref={this.previewRef} scale={`${marker_meter_width} ${marker_meter_width} ${marker_meter_width}`}>
        </a-entity>
       </a-scene>
       <div className='preview__toggle'>

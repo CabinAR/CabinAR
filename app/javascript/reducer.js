@@ -1,3 +1,6 @@
+
+
+
 let _allreducers = {};
 
 import {
@@ -9,11 +12,21 @@ import {
 } from './actions'
 
 import { map, uniq, reject } from 'lodash'
+var brace = require('brace');
 
 add(LOAD_SPACE,(state, action) => {
   let index = {}
   let pieces = map(action.space.pieces, (piece) => {
+
+    piece.undos = {
+      scene: new brace.UndoManager(),
+      code: new brace.UndoManager(),
+      assets: new brace.UndoManager()
+    }
+
     index[piece.id] = piece
+
+
     return piece.id
   })
 

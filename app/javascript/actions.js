@@ -7,7 +7,7 @@ export const SELECT_PIECE = "SELECT_PIECE";
 export const ADD_PIECE = "ADD_PIECE";
 export const DELETE_PIECE = 'DELETE_PIECE';
 
-import { find } from 'lodash'
+import { find, omit } from 'lodash'
 
 export function loadSpace(spaceId) {
   return function(dispatch,getState) {
@@ -26,8 +26,10 @@ export function savePiece(pieceId) {
   return function(dispatch,getState) {
     const piece = getState().index[pieceId]
     dispatch(updatePiece(pieceId, { saving: true }))
-    CabinAPI.savePiece(piece).then((data) => {
-      let pieceData = { ...data, marker: null, saving: false, dirty: false }
+
+    const pieceData = omit(piece,['undos'])
+    CabinAPI.savePiece(pieceData).then((data) => {
+      let pieceData = { ...data, undos: null,marker: null, saving: false, dirty: false }
       dispatch(updatePiece(pieceId, pieceData))
     })
   }
