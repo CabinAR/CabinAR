@@ -21,7 +21,7 @@ class PieceList extends React.Component {
     return <div className='piece-list'>
       {map(this.props.pieces, this.renderPiece)}
 
-      <div className='piece-list__add-piece' onClick={this.props.addPiece} >
+      <div className='piece-list__add-piece button' onClick={this.props.addPiece} >
       + Add Piece
       </div>
 

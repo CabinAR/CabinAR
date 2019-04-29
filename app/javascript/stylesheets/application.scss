@@ -1,13 +1,39 @@
 * { box-sizing: border-box; }
 
+$primary-color: #656565;
+$secondary-color: #b1b1b1;
+$action-color: #6666FF;
+$light-border: #dedede;
+$action-light:#6666ff61;
+
 body { 
   padding:0px; margin:0px; 
   font-family: Arial;
   font-size:14px;
+  color:$primary-color;
+  font-family: 'Source Sans Pro', sans-serif;    
 }
 
 button, input {
   font-size:14px;
+    
+}
+
+.button {
+  color: $primary-color;
+  background-color: rgba(255,255,255,.5);
+  padding: 7px 10px;
+  margin:1px;    
+  border: 1px solid $primary-color;
+  border-radius:30px;    
+  text-transform: uppercase;
+  font-size: .7em;
+  letter-spacing: .05em;
+  cursor: pointer;
+  &:hover { color:$action-color; border-color:$action-color;}
+  &:active { background-color:$action-color; color: white; }
+  &:active, &:focus { outline: none; }  
+    
 }
 
 .page-wrapper {
@@ -18,11 +44,21 @@ button, input {
 
   &__piece-list {
     flex: 1 0 200px;
+    padding-top: 40px;
+    background-color: white;
+    border-right:1px solid $secondary-color; 
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.13);
+    z-index:10; 
   }
 
   &__editor {
     flex: 1 1 40%;
     position:relative;
+    background-color: white;
+    border-right:1px solid $secondary-color; 
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
+    z-index:1;
+  
   }
 
   &__preview {
@@ -36,47 +72,53 @@ button, input {
   display:flex;
   flex-direction:column;
   flex-wrap: nowrap;
-  padding-left:4px;
+   
 
   &__wrapper {
     flex: 1 1 100%;
     position:relative;
+    background-color:white;  
   }
 
   &__tools {
     flex: 0 0 auto;
+    margin: 0 0 5px 10px;  
 
   }
 
   &__tool {
+    margin: 3px;
     
   }
 
   &__tabs {
-    background-color:#EEE;
+    background-color:#FFF;
     flex: 0 0 30px;
     display:flex;
     justify-content:flex-start;
-    border-bottom:1px solid black;
+    border-bottom:1px solid $light-border;
+    color: $primary-color;  
   }
 
   &__tab {
     flex: 0 0 auto;
-    height:25px;
-    margin-top: 5px;
-    padding:3px 10px;
+    height:30px;
+    margin-top: 10px;
+    padding:5px 10px 3px 10px;
     margin-right:5px;
-    border: 1px solid black;
-    border-top-left-radius:5px;
-    border-top-right-radius:5px;
-    background-color:#CCC;
+    letter-spacing: .05em;  
+    color: $primary-color;
+    text-transform: uppercase;
+    font-size: .8em;
+    letter-spacing: .05em;
+    margin-left: 10px; 
+    &:hover { color:$action-color; border-bottom:3px solid $action-light;}  
 
     &--active {
       position:relative;
       top:1px;
-      border-bottom:0px;
-      padding-top:2px;
-      background-color:#EEE;
+      border-bottom:3px solid $action-color;
+      background-color:white;
 
     }
 
@@ -101,30 +143,30 @@ button, input {
 }
 
 .piece-list {
-  border-right:solid 2px #006;
   height:100%;
   padding-bottom:20px;
   position:relative;
   overflow-y:auto;
+  background-color: white;
+  color:$primary-color;    
 
   &__piece {
-    padding:5px 10px;
+    padding:15px;
     border-bottom:1px solid #CCC;
-    background-color:#EEE;
+    &:hover { border-left:10px solid $action-color;}  
+    
 
     &--active {
-      background-color:#6666FF;
-      color:white;
+      color:$action-color;
+      font-weight:600;    
     }
   }
 
   &__add-piece {
-    padding:5px 10px;
-    border-top:1px solid #CCC;
-    position:absolute;
-    width:100%;
-    bottom:0px;
-    left:0px
+    position:fixed;
+    bottom:8px;
+    left:12px;
+    background: white;  
   }
 
 
@@ -160,13 +202,22 @@ button, input {
 
 #aframe-editor {
   position:absolute;
-  top: 0;
+  top: 10px;
   right: 0;
   bottom: 0;
   left: 0;
+  background: white;    
+
+    
+    .ace_gutter {
+    background: white;
+    }
+    
+    .ace_string {
+        color:#bb8c22;
+    }
+  
 }
-
-
 
 .preview {
   width: 100%;
@@ -174,27 +225,22 @@ button, input {
 
   &__actions {
     position:absolute;
-    right:0px;
-    top:4px;
+    right:12px;
+    top:10px;
     z-index:1;
   }
 
   &__action {
-    color:white;
-    background-color:#777;
-    padding:4px;
-    border:1px solid white;
-    border-radius:5px;
-    margin-left:5px;
-    cursor:pointer;
-    &:hover { background-color:#555; }
-    &:active { background-color:#888; }
+    margin-left: 5px;
+    cursor: pointer;  
+    &:hover { color:$action-color; border-color:$action-color;}
+    &:active { background-color:$action-color; color: white; }
     &:active, &:focus { outline: none; }
   }
 
 
   &__wrapper {
-    padding-top:30px;
+    padding-top:0px;
     width:100%;
     height:100%;
     position:relative;
@@ -209,20 +255,31 @@ button, input {
 
   &__tools {
     position:absolute;
-    right:20px;
+    right:10px;
     top:50px;
   }
 
   &__tool {
     display:inline-block;
-    border-radius:10px;
-    background-color:white;
-    padding:10px;
-    margin:5px;
+    border-radius:30px;
+    padding: 7px 12px;
+    margin:2px;
+    color: $primary-color;
+    background-color: rgba(255,255,255,.6);
+    border: 1px solid $primary-color;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-left: 5px;
+    cursor: pointer;  
+    &:hover { color:$action-color; border-color:$action-color;}
+    &:active { background-color:$action-color; color: white; }
+    &:active, &:focus { outline: none; }  
 
     &--active {
-      background-color:black;
+      background-color:$primary-color;
       color:white;
+      border-color: $primary-color; 
+      &:hover { background-color:white; color:$action-color;}        
     }
   }
 }

@@ -150,8 +150,8 @@ class PiecePreview extends React.Component {
     const { marker_meter_width } = this.props;
     return <div className='preview'>
     <div className='preview__actions'>
-      <button className='preview__action' onClick={this.deletePiece}>Delete</button>
-      <button className='preview__action' onClick={this.savePiece}>Save</button>
+      <button className='preview__action button' onClick={this.deletePiece}>Delete</button>
+      <button className='preview__action button' onClick={this.savePiece}>Save</button>
     </div>
     <div className='preview__wrapper'>
       <a-scene background="color: #ECECEC" embedded vr-mode-ui="enabled: false" cursor="rayOrigin: mouse">

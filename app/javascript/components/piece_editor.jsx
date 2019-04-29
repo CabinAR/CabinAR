@@ -240,7 +240,7 @@ class PieceEditor extends React.Component {
   }
 
   renderTool = (tool) =>  {
-    return  <button key={tool.name} onClick={() => { this.clickTool(tool) }}className='editor__tool'>{tool.name}</button>
+    return  <button key={tool.name} onClick={() => { this.clickTool(tool) }}className='button editor__tool'>{tool.name}</button>
   }
 
 
