@@ -20,7 +20,7 @@ class Api::PiecesController < Api::BaseController
 
   def create
     return head 404 unless space
-    @piece = current_user.pieces.create(space_id: space.id )
+    @piece = current_user.pieces.create(space_id: space.id, marker_units: "inches", marker_width: 12 )
     render json: @piece.to_builder.attributes! 
   end
 

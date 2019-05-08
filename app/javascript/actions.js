@@ -27,10 +27,19 @@ export function savePiece(pieceId) {
     const piece = getState().index[pieceId]
     dispatch(updatePiece(pieceId, { saving: true }))
 
-    const pieceData = omit(piece,['undos'])
-    CabinAPI.savePiece(pieceData).then((data) => {
-      let pieceData = { ...data, undos: null,marker: null, saving: false, dirty: false }
+    const pieceJSON= omit(piece,['undos'])
+    CabinAPI.savePiece(pieceJSON).then((data) => {
+      let pieceData = { ...data, marker: null, saving: false, dirty: false }
       dispatch(updatePiece(pieceId, pieceData))
+    })
+  }
+}
+
+export function addAsset(files) {
+  return function(dispatch, getState) {
+    console.log(files)
+    CabinAPI.saveAsset(getState().pieceId, files).then((data) => {
+      console.log(data)
     })
   }
 }

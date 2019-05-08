@@ -4,6 +4,19 @@ import { map } from "lodash"
 
 class PieceList extends React.Component {
 
+
+  renderPieceImage = (piece) => {
+    if(piece.marker_url) {
+      return <div className='piece-list__piece-image'><img src={piece.marker_url} /></div>
+    }
+  }
+
+  renderUnsavedBadge = (piece) => {
+    if(piece.dirty) {
+      return <div className='piece-list__piece-unsaved'>unsaved</div>
+    }
+  }
+
   renderPiece = (piece) => {
     const { selectPiece } = this.props;
 
@@ -12,6 +25,8 @@ class PieceList extends React.Component {
       pieceClass += ' piece-list__piece--active'
     }
     return <div onClick={() => { selectPiece(piece.id) }} key={piece.id} className={pieceClass}>
+      {this.renderPieceImage(piece)}
+      {this.renderUnsavedBadge(piece)}
       {piece.name || "Unnamed"}
     </div>
   }

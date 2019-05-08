@@ -3,6 +3,7 @@ class Space < ApplicationRecord
   has_many :pieces
 
   scope :published, -> { where("1=1") }
+  scope :by_user, -> (user) { where(user: user)}
 
 
   def as_json(with_pieces: false)

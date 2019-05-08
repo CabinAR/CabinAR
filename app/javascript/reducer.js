@@ -55,7 +55,13 @@ add(SELECT_PIECE, (state, action) => {
 
 add(ADD_PIECE, (state, action) => {
   let index = { ...state.index }
-  let piece = action.piece
+  let piece = {...action.piece}
+
+  piece.undos = {
+      scene: new brace.UndoManager(),
+      code: new brace.UndoManager(),
+      assets: new brace.UndoManager()
+    }
 
   index[piece.id] = piece
   let pieces = uniq([piece.id].concat(state.pieces))

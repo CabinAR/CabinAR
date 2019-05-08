@@ -25,6 +25,7 @@ class PiecePreview extends React.Component {
     }
 
     this.previewRef = React.createRef()
+    this.assetRef = React.createRef()
   }
 
   componentDidMount() {
@@ -52,6 +53,7 @@ class PiecePreview extends React.Component {
       if(xmlChecker.check('<?xml version="1.0" encoding="UTF-8"?><scene>'
  + this.props.scene + '</scene>')) {
         this.previewRef.current.innerHTML = this.props.scene
+        this.assetRef.current.innerHTML = this.props.assets
         if(!this.state.inspector) {
           this.installBridge()
         }
@@ -128,8 +130,6 @@ class PiecePreview extends React.Component {
     }
   }
 
-
-
   renderTool = (tool, label) => {
     var cls = 'preview__tool'
     if(this.state.tool == tool) {
@@ -155,6 +155,7 @@ class PiecePreview extends React.Component {
     </div>
     <div className='preview__wrapper'>
       <a-scene background="color: #ECECEC" embedded vr-mode-ui="enabled: false" cursor="rayOrigin: mouse">
+       <a-assets ref={this.assetRef}></a-assets>
        <a-camera id="orbitCamera"
           look-controls="enabled: false; touchEnabled: false;"
           wasd-controls-enabled="false"
@@ -164,6 +165,7 @@ class PiecePreview extends React.Component {
             maxPolarAngle: 89;
             initialPosition: 0 ${marker_meter_width*5} ${marker_meter_width*5};`}
           />
+
       {this.renderMarkerImage()}
       <a-entity class='cabinar-wrapper' data-aframe-inspector ref={this.previewRef} scale={`${marker_meter_width} ${marker_meter_width} ${marker_meter_width}`}>
        </a-entity>

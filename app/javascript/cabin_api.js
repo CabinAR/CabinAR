@@ -59,6 +59,14 @@ class CabinAPI {
       )
   }
 
+  static saveAsset(pieceId, files) {
+    return CabinAPI.sendData(
+      `/api/pieces/${pieceId}/assets`,
+      { assets: files },
+      "POST"
+      )
+  }
+
   static savePiece(piece) {
     return CabinAPI.sendData(
        `/api/pieces/${piece.id}`,
@@ -83,7 +91,6 @@ class CabinAPI {
   }
 
   static sendData(url,params,method) {
-    console.log()
     return window.fetch(
       url, {
         method: method,

@@ -2,6 +2,10 @@ import { connect } from 'react-redux'
 
 import CabinArApp from "./cabin_ar_app.jsx"
 
+import {
+  addAsset
+} from "../actions"
+
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -10,7 +14,9 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return { }
+  return {
+    addAsset: (files) => { dispatch(addAsset(files)) }
+  }
 }
 
 const CabinArAppContainer = connect(

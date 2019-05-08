@@ -1,0 +1,12 @@
+
+
+.space-list 
+  - @spaces.each do |space|
+    %a.space-list__item{href: space_path(space.id)}
+      .space-list__title= space.name    
+      .space-list__details
+        = space.pieces.count
+        Pieces
+
+  %a.space-list__item.space-list__item--link{href: new_space_path}
+    + Create New Space
