@@ -217,7 +217,9 @@ function optimizeComponents(copy, source) {
 
     if(name == "position" ||
        name == "rotation" ||
-       name == "scale") {
+       name == "scale" || 
+       name == "material" ||
+       name == "geometry") {
       var doesNotNeedUpdate = optimalUpdate === null;
       if (isInherited && doesNotNeedUpdate) {
         removeAttribute.call(copy, name);

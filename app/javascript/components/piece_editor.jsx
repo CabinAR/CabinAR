@@ -41,33 +41,7 @@ class PieceEditor extends React.Component {
   }
 
 
-  addFile = (e) => {
-    const files = Array.from(e.target.files)
 
-    const formData = new FormData()
-    const types = ['image/png', 'image/jpeg', 'image/gif']
-
-    let errs = []
-    let file = files[0]
-
-    if (types.every(type => file.type !== type)) {
-      errs.push(`'${file.type}' is not a supported format`)
-    }
-
-    if (file.size > 1500000) {
-      errs.push(`'${file.name}' is too large, please pick a smaller file`)
-    }
-
-    if (errs.length) {
-      return errs.forEach(err => this.toast(err, 'custom', 2000, toastColor))
-    } else {
-      let reader = new FileReader()
-      reader.onload = (e) => {
-        this.props.updatePiece(this.props.pieceId, { marker: file, marker_url: e.target.result })
-      }
-      reader.readAsDataURL(file)
-    }
-  }
 
   editor() {
    if(this.aceEditor.current) {
@@ -193,10 +167,7 @@ class PieceEditor extends React.Component {
 
       <div className='properties__field'>
         <label className='properties__label'>Marker:</label>
-        <div className='properties__input'>
-          <label className='properties__label-button' htmlFor={label('upload')}>+ {this.props.marker_url ? 'Change' : 'Add'} Marker Image</label>
-          <input type='file' id={label('upload')} className='editor__fileInput' onChange={this.addFile} /> 
-        </div>
+        Drag to add marker.
       </div>
        {this.renderMarker()}
     </div>
@@ -232,7 +203,8 @@ class PieceEditor extends React.Component {
     { name: "Sphere", code: `<a-sphere color="#FF0000"></a-sphere>`},
     { name: "Box", code: `<a-box color="#FF0000"></a-box>`},
     { name: "Cylinder", code: `<a-cylinder position="0 0 0 " radius="1" height="1.5" color="#00FF00"></a-cylinder>`},
-    { name: "Plane", code: ` <a-plane width="4" height="4" color="#0000BB" rotation="-90 0 0"></a-plane>`}
+    { name: "Plane", code: ` <a-plane width="4" height="4" color="#0000BB" rotation="-90 0 0"></a-plane>`},
+    { name: "Text", code: `<a-entity text-geometry="value: CHANGE ME;" position="0 5 0" material="color: #000000"></a-entity>`}
   ]
 
   clickTool =(tool) => {

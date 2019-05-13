@@ -38,11 +38,49 @@ export function savePiece(pieceId) {
 export function addAsset(files) {
   return function(dispatch, getState) {
     var pieceId = getState().pieceId
-    CabinAPI.saveAsset(pieceId, files).then((data) => {
-      dispatch(addAssetCode(pieceId, data.code))
-    })
+
+    var piece = getState().index[pieceId]
+
+    if(piece.tab == "properties") {
+      dispatch(addMarkerFile(pieceId,files))
+    } else {
+      CabinAPI.saveAsset(pieceId, files).then((data) => {
+        dispatch(addAssetCode(pieceId, data.code))
+      })
+    }
   }
 }
+
+
+function addMarkerFile(pieceId,files) {
+  return function(dispatch, getState) {
+    const formData = new FormData()
+    const types = ['image/png', 'image/jpeg', 'image/gif']
+
+    let errs = []
+    let file = files[0]
+
+    if (types.every(type => file.type !== type)) {
+      errs.push(`'${file.type}' is not a supported format`)
+    }
+
+    if (file.size > 1500000) {
+      errs.push(`'${file.name}' is too large, please pick a smaller file`)
+    }
+
+    if (errs.length) {
+      //return errs.forEach(err => this.toast(err, 'custom', 2000, toastColor))
+    } else {
+      let reader = new FileReader()
+      reader.onload = (e) => {
+        dispatch(updatePiece(pieceId, { marker: file, marker_url: e.target.result }))
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+}
+
+
 
 export function addAssetCode(pieceId, code) {
   return function(dispatch, getState) {
