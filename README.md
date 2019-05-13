@@ -7,14 +7,18 @@ Thumbnail of each piece - use the markre
 Fix scaling of and changing of the marker
 app - list of spaces I have access to
 create an account w/ omniauth?
-
-Steps:
 - add assets in
 - add drag and drop in
+- camera toggle
+
+Steps:
 - style login form
 - create homepage
 - add edit page
 - add geo location + map to edit space bar
+
+
+- ctrl-s saves
 
 
 - next do the the big refactor into an iframe
@@ -35,3 +39,4 @@ Mobile app:
 - send location if don't alrady
 
 
+fix src: [object HTMLImageElement] issue

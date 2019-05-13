@@ -33,5 +33,6 @@ module CabinAR
     config.generators.system_tests = nil
 
 
+    config.active_storage.service_urls_expire_in = 1.week
   end
 end

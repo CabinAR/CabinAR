@@ -6,6 +6,10 @@ $action-color: #6666FF;
 $light-border: #dedede;
 $action-light:#6666ff61;
 
+
+$titlebar: $light-border;
+$titlebar-item: #ccc;
+
 body { 
   padding:0px; margin:0px; 
   font-family: Arial;
@@ -36,6 +40,48 @@ button, input {
     
 }
 
+.titlebar {
+  background-color: $titlebar;
+  display:flex;
+  box-shadow: 2px 2px rgba(0,0,0,0.5);
+
+  &__wrapper {
+    padding-bottom:10px;
+  }
+
+  &__item { 
+    display:block;
+    flex: 0 0 auto; 
+    color: $primary-color;
+    padding:10px 20px;
+    text-decoration: none;
+  }
+
+  &__spacer {
+    flex: 1 0 auto;
+  }
+
+  &__logo {
+    font-size:24px;
+    font-weight:bold;
+
+  }
+
+  &__my-spaces {
+    padding:16px 20px;
+    background-color: $titlebar-item;
+  }
+
+
+  &__logout {
+    padding:16px 20px;
+    background-color: $titlebar-item;
+  }
+}
+
+
+
+
 .page-wrapper {
   display:flex;
   width:100%;
@@ -44,7 +90,6 @@ button, input {
 
   &__piece-list {
     flex: 1 0 200px;
-    padding-top: 40px;
     background-color: white;
     border-right:1px solid $secondary-color; 
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.13);
@@ -112,6 +157,7 @@ button, input {
     font-size: .8em;
     letter-spacing: .05em;
     margin-left: 10px; 
+    cursor:pointer;
     &:hover { color:$action-color; border-bottom:3px solid $action-light;}  
 
     &--active {
@@ -144,16 +190,29 @@ button, input {
 
 .piece-list {
   height:100%;
+  padding-top:40px;
   padding-bottom:20px;
   position:relative;
   overflow-y:auto;
   background-color: white;
   color:$primary-color;    
 
+  &__back {
+    position:absolute;
+    width:100%;
+    top:0px;
+    padding:10px;
+    background-color:$light-border;
+    left:0px;
+    cursor:pointer;
+  }
+
   &__piece {
     padding:10px 0px 15px 10px;
     overflow:hidden;
+    cursor:pointer;
 
+    position:relative;
     display:flex;
     border-bottom:1px solid #CCC;
     border-left:10px solid white;
@@ -384,4 +443,49 @@ button, input {
     text-align:right;
   }
 
+}
+
+
+.homepage {
+  margin:0 auto;
+  width:400px;
+
+  &__logo {
+    font-size:100px;
+    font-weight:bold;
+    text-align:center;
+  }
+
+  &__or {
+    text-align:center;
+    font-size:24px;
+    margin:10px 0px;
+  }
+
+  &__link {
+    display:block;
+    background-color:$light-border;
+    color:black;
+    padding:10px;
+    text-decoration:none;
+    font-size:16px;
+    font-weight:bold;
+    text-align:center;
+    border:1px solid $secondary-color;
+    margin-bottom:10px;
+  }
+
+  &__signin--form {
+    padding:10px;
+    border:1px solid $light-border;
+  }
+
+  &__signin-field {
+    padding:5px;
+
+    input[type=text], input[type=password] {
+      padding:5px 2px;
+      width:100%;
+    }
+  }
 }

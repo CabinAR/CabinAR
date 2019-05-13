@@ -201,6 +201,7 @@ function prepareForSerialization(entity) {
 function optimizeComponents(copy, source) {
   var removeAttribute = HTMLElement.prototype.removeAttribute;
   var setAttribute = HTMLElement.prototype.setAttribute;
+  var getAttribute = HTMLElement.prototype.getAttribute;
   var components = source.components || {};
   Object.keys(components).forEach(function(name) {
     var component = components[name];
@@ -213,17 +214,24 @@ function optimizeComponents(copy, source) {
       implicitValue,
       currentValue
     );
-    var doesNotNeedUpdate = optimalUpdate === null;
-    if (isInherited && doesNotNeedUpdate) {
-      removeAttribute.call(copy, name);
-    } else {
-      var schema = component.schema;
-      var value = stringifyComponentValue(schema, optimalUpdate);
-      if(value == "" && (name == 'material' || name == 'geometry')) {
-       removeAttribute.call(copy, name);
+
+    if(name == "position" ||
+       name == "rotation" ||
+       name == "scale") {
+      var doesNotNeedUpdate = optimalUpdate === null;
+      if (isInherited && doesNotNeedUpdate) {
+        removeAttribute.call(copy, name);
       } else {
-        setAttribute.call(copy, name, value);
+        var schema = component.schema;
+        var value = stringifyComponentValue(schema, optimalUpdate);
+        if(value == "" && (name == 'material' || name == 'geometry')) {
+         removeAttribute.call(copy, name);
+        } else {
+          setAttribute.call(copy, name, value);
+        }
       }
+    } else {
+      setAttribute.call(copy, name, getAttribute.call(source,name))
     }
   });
   if(!components['scale']) {

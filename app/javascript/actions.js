@@ -37,10 +37,20 @@ export function savePiece(pieceId) {
 
 export function addAsset(files) {
   return function(dispatch, getState) {
-    console.log(files)
-    CabinAPI.saveAsset(getState().pieceId, files).then((data) => {
-      console.log(data)
+    var pieceId = getState().pieceId
+    CabinAPI.saveAsset(pieceId, files).then((data) => {
+      dispatch(addAssetCode(pieceId, data.code))
     })
+  }
+}
+
+export function addAssetCode(pieceId, code) {
+  return function(dispatch, getState) {
+    var piece = getState().index[pieceId]
+
+    var assets = piece.assets || ""
+    assets += "\n" + code
+    dispatch(updatePiece(pieceId,{ assets: assets, dirty: true }))
   }
 }
 

@@ -1,1 +1,34 @@
-= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path 
+
+= render partial: '/layouts/titlebar'
+
+
+
+.homepage
+  .homepage__logo
+    CabinAR
+  .homepage__text
+    %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc augue nunc, bibendum non lacinia at, congue et turpis. Nulla placerat mattis tortor. Nullam vitae velit sem. Mauris consectetur venenatis justo, ut tristique ligula efficitur at. Nam non gravida leo, in pretium magna. 
+
+  .homepage__links
+    - if current_user
+      %a.homepage__link{href: spaces_path}
+        Go To My Spaces
+    - else
+      %a.homepage__link{href: user_google_oauth2_omniauth_authorize_path}
+        Sign in with Google &raquo;
+
+
+      .homepage__or
+        OR
+
+      .homepage__signin-form
+        = form_tag session_path(:user) do
+          .homepage__signin-field
+            = text_field_tag 'user[email]', "",placeholder:"Email"
+          .homepage__signin-field
+            = password_field_tag 'user[password]', "",placeholder:"password"
+          .homepage__signin-field
+            = check_box_tag 'user[remember_me]'
+            = label_tag 'user[remember_me]', 'Remember me'
+          %button Sign in
+          = link_to "Forgot your password?", new_password_path(:user)

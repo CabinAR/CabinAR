@@ -31,9 +31,17 @@ class PieceList extends React.Component {
     </div>
   }
 
+  gotoMySpaces = () => {
+    if(!this.props.dirty ||
+     confirm("You have unsaved changes, really quit editor?")) {
+      document.location = "/spaces"
+    }
+  }
+
 
   render() {
     return <div className='piece-list'>
+      <div className='piece-list__back' onClick={this.gotoMySpaces}>&laquo; My Spaces</div>
       {map(this.props.pieces, this.renderPiece)}
 
       <div className='piece-list__add-piece button' onClick={this.props.addPiece} >

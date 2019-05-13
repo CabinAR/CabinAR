@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %title CabinAR
+    = csrf_meta_tags 
+    = csp_meta_tag 
+    = stylesheet_link_tag("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700")
+
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' 
+  %body
+    = yield

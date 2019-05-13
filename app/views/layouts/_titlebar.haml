@@ -1,0 +1,11 @@
+.titlebar__wrapper
+  .titlebar
+    %a.titlebar__item.titlebar__logo{href: root_path}
+      CabinAR
+    - if current_user
+      %a.titlebar__item.titlebar__my-spaces{ href: spaces_path}
+        My Spaces &raquo;
+
+      .titlebar__spacer
+      %a.titlebar__item.titlebar__logout{href: destroy_user_session_path, data: { method: "delete" }}
+        Logout

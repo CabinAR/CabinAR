@@ -139,7 +139,7 @@ function Viewport(inspector) {
 
   function disableControls() {
     mouseCursor.disable();
-    transformControls.dispose();
+    //transformControls.dispose();
     controls.enabled = false;
   }
 
@@ -238,8 +238,8 @@ function Viewport(inspector) {
         });
     } else {
       disableControls();
-      inspector.cameras.original.setAttribute('camera', 'active', 'true');
-      AFRAME.scenes[0].camera = inspector.cameras.original.getObject3D('camera');
+      //inspector.cameras.original.setAttribute('camera', 'active', 'true');
+      //AFRAME.scenes[0].camera = inspector.cameras.original.getObject3D('camera');
       Array.prototype.slice
         .call(document.querySelectorAll('.a-enter-vr,.rs-base'))
         .forEach(element => {
