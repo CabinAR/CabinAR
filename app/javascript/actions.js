@@ -45,7 +45,7 @@ export function addAsset(files) {
       dispatch(addMarkerFile(pieceId,files))
     } else {
       CabinAPI.saveAsset(pieceId, files).then((data) => {
-        dispatch(addAssetCode(pieceId, data.code))
+        dispatch(addAssetCode(pieceId, data.assets, data.scene))
       })
     }
   }
@@ -82,13 +82,19 @@ function addMarkerFile(pieceId,files) {
 
 
 
-export function addAssetCode(pieceId, code) {
+export function addAssetCode(pieceId, assets, scene) {
   return function(dispatch, getState) {
     var piece = getState().index[pieceId]
 
-    var assets = piece.assets || ""
-    assets += "\n" + code
-    dispatch(updatePiece(pieceId,{ assets: assets, dirty: true }))
+    var existing_assets = piece.assets || ""
+    existing_assets += "\n" + assets
+
+    var existing_scene = piece.scene || ""
+    if(existing_scene != "") {
+      existing_scene += "\n" + scene
+    }
+
+    dispatch(updatePiece(pieceId,{ assets: existing_assets, scene: existing_scene, dirty: true }))
   }
 }
 
