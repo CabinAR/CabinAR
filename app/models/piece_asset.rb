@@ -107,7 +107,7 @@ class PieceAsset < ApplicationRecord
   end
 
   def asset_url(a)
-    "/file/#{self.id}/#{a.blob.filename}"
+    "/ar-file/#{self.id}/#{a.blob.filename}"
   end
 
   def id_name(a)

@@ -2,14 +2,8 @@ import React from 'react'
 
 import { debounce } from "lodash"
 
-import {Entity, Scene} from 'aframe-react';
+import Frame, { FrameContextConsumer } from 'react-frame-component';
 
-
-import Inspector from "../inspector"
-
-import Events from '../lib/Events';
-
-import { getEntityInnerRepresentation } from "../lib/entity"
 
 import xmlChecker from 'xmlchecker'
 
@@ -29,12 +23,6 @@ class PiecePreview extends React.Component {
   }
 
   componentDidMount() {
-    this.refreshNow();
-    AFRAME.INSPECTOR = this.inspector = new Inspector()
-
-    Events.emit('transformmodechange',this.props.gizmo)
-    Events.on("updatedScene",this.outputScene)
-    Events.on('objectremove', this.removeObject);
   }
 
   removeObject = (e) => {
@@ -43,25 +31,24 @@ class PiecePreview extends React.Component {
 
 
   outputScene = () => {
-    this.props.updatePiece(this.props.pieceId, { scene: getEntityInnerRepresentation(this.previewRef.current), refresh: false } ) 
+    this.props.updatePiece(this.props.pieceId, { scene: this.previewWindow.getEntityInnerRepresentation(this.previewRef.current), refresh: false } ) 
   }
 
   refreshNow= () => {
-    if(this.inspector) { this.inspector.deselect() }
+    if(this.aframeInspector()) { this.aframeInspector().deselect() }
 
-    //try { 
-      if(xmlChecker.check('<?xml version="1.0" encoding="UTF-8"?><scene>'
- + this.props.scene + '</scene>')) {
+    try { 
+      //if(xmlChecker.check('<?xml version="1.0" encoding="UTF-8"?><scene>'+ this.props.scene.replace("\n"," ") + '</scene>')) {
         this.previewRef.current.innerHTML = this.props.scene
         this.assetRef.current.innerHTML = this.props.assets
         if(!this.state.inspector) {
-          this.installBridge()
+          this.previewWindow.installBridge()
         }
-      }
-    //} catch(err) { 
-    //  console.log(err)
-    //  //note invalid XML
-   //}
+      //}
+    } catch(err) { 
+      console.log(err)
+      //note invalid XML
+   }
   }
 
   installBridge() {
@@ -76,8 +63,10 @@ class PiecePreview extends React.Component {
     //       (nextProps.code != this.props.code)
   }
 
-  componentDidUpdate(prevProps) {
-    if(prevProps.pieceId != this.props.pieceId) {
+  componentDidUpdate(prevProps,prevState) {
+    
+    if(prevProps.pieceId != this.props.pieceId ||
+       prevState.iframeMounted != this.state.iframeMounted) {
       // deselect selected piece
       this.refreshNow()
     } else if(prevProps.scene != this.props.scene) {
@@ -91,12 +80,12 @@ class PiecePreview extends React.Component {
     const { marker_meter_width, marker_meter_height } = this.props;
 
     if(this.props.marker_url) {
-      return <Entity geometry={{primitive: 'plane', width:  marker_meter_width, height: marker_meter_height }}  
+      return <a-entity geometry={`primitive: plane; width:  ${marker_meter_width}; height: ${marker_meter_height}` }
       key={`marker-${this.props.pieceId}`}
       id="marker-box"  data-aframe-inspector
-      material={{ src: this.props.marker_url}}  shadow position="0 0 0" rotation="-90 0 0" />
+      material={`src: ${this.props.marker_url}`}  shadow position="0 0 0" rotation="-90 0 0" />
     } else {
-       return <Entity key={`no-marker-${this.props.pieceId}`} geometry={{primitive: 'plane'}} data-aframe-inspector  id="marker-box" shadow position="0 0 0" rotation="-90 0 0"  />
+       return <a-entity key={`no-marker-${this.props.pieceId}`} geometry="primitive: plane" data-aframe-inspector  id="marker-box" shadow position="0 0 0" rotation="-90 0 0"  />
     }
   }
 
@@ -111,7 +100,7 @@ class PiecePreview extends React.Component {
   }
 
   selectTool = (tool) => {
-    Events.emit('transformmodechange',tool)
+    this.Events.emit('transformmodechange',tool)
     this.setState({ tool: tool })
   }
 
@@ -120,14 +109,18 @@ class PiecePreview extends React.Component {
       this.setState({ inspector: on },() => { 
         this.refreshNow()
         if(on) {
-          AFRAME.INSPECTOR.open()
+          this.aframeInspector().open()
         } else {
-          AFRAME.INSPECTOR.close()
+          this.aframeInspector().close()
         }
       })
     } else if(!on) {
       this.refreshNow()
     }
+  }
+
+  aframeInspector() {
+    return this.previewWindow.AFRAME.INSPECTOR;
   }
 
   renderTool = (tool, label) => {
@@ -146,21 +139,70 @@ class PiecePreview extends React.Component {
     return <div onClick={(e)=> this.toggleInspector(on) } className={cls}>{label}</div>
   }
 
-  render() {
-    const { marker_meter_width } = this.props;
-    return <div className='preview'>
-    <div className='preview__actions'>
-      <button className='preview__action button' onClick={this.deletePiece}>Delete</button>
-      <button className='preview__action button' onClick={this.savePiece}>Save</button>
-    </div>
-    <div className='preview__wrapper'>
-      <a-scene background="color: #ECECEC" embedded vr-mode-ui="enabled: false" cursor="rayOrigin: mouse">
+  renderScene() {
+    if(!this.state.aframeMounted) { return null; }
+        const { marker_meter_width } = this.props;
+
+      return <a-scene background="color: #ECECEC" vr-mode-ui="enabled: false" cursor="rayOrigin: mouse" >
+      <a-camera id="orbitCamera"
+          look-controls="enabled: false; touchEnabled: false;"
+          wasd-controls-enabled="false"
+          orbit-controls={`target: 0 0 0; 
+            minDistance: 0.5; 
+            maxDistance: 100; 
+            maxPolarAngle: 89;
+            initialPosition: 0 ${marker_meter_width*5} ${marker_meter_width*5};`}
+          />
        <a-assets ref={this.assetRef}></a-assets>
 
       {this.renderMarkerImage()}
       <a-entity class='cabinar-wrapper' data-aframe-inspector ref={this.previewRef} scale={`${marker_meter_width} ${marker_meter_width} ${marker_meter_width}`}>
        </a-entity>
       </a-scene>
+  }
+
+  iframeHead() {
+    const aframePack = this.props.aframePack;
+
+    return `<!DOCTYPE html><html><head></head><body><div id="preview"></div><script src="${aframePack}"></script></body></html>`
+
+  }
+
+  iframeMounted = (document,window) => {
+    this.previewDocument = document
+    this.previewWindow = window
+    this.Events = window.Events
+    console.log("mounted")
+    this.setState({ aframeMounted: true },() => {
+      this.refreshNow();
+
+      this.Events.emit('transformmodechange',this.props.gizmo)
+      this.Events.on("updatedScene",this.outputScene)
+      this.Events.on('objectremove', this.removeObject);
+    })
+  }
+
+  render() {
+    return <div className='preview'>
+    <div className='preview__actions'>
+      <button className='preview__action button' onClick={this.deletePiece}>Delete</button>
+      <button className='preview__action button' onClick={this.savePiece}>Save</button>
+    </div>
+    <div className='preview__wrapper'>
+      <Frame initialContent={this.iframeHead()} mountTarget='#preview' className='preview__iframe' ><div>
+        {this.renderScene()}
+      </div>
+      <FrameContextConsumer>
+      {
+        // Callback is invoked with iframe's window and document instances
+        ({document, window}) => {
+          // Render Children
+          window.addEventListener("load",() => this.iframeMounted(document,window))
+        }
+      }
+    </FrameContextConsumer>
+      </Frame>
+
       <div className='preview__toggle'>
         {this.renderToggle(true,'||')}
         {this.renderToggle(false,'>')}

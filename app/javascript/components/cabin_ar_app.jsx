@@ -47,7 +47,7 @@ class CabinArApp extends React.Component {
           <div className='preview page-wrapper__preview' >
             {pieceId && <PiecePreviewContainer />}
           </div>
-        </div>`
+        </div>
         </div>
     )}
     </Dropzone>

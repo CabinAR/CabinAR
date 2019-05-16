@@ -6849,6 +6849,11 @@ react-dropzone@^10.1.4:
     file-selector "^0.1.11"
     prop-types "^15.7.2"
 
+react-frame-component@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/react-frame-component/-/react-frame-component-4.1.0.tgz#bef04039c6af687314f27b20ef9893d85eefe3e6"
+  integrity sha512-2HkO0iccSjd+xRA+aOxq7Mm50WUmCjdmhbQhOiG6gQTChaW//Y3mdkGeUfVA3YkXvDVbigRDvJd/VTUlqaZWSw==
+
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.4.tgz#90f336a68c3a29a096a3d648ab80e87ec61482a2"

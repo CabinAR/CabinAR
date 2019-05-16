@@ -73,7 +73,7 @@ function addMarkerFile(pieceId,files) {
     } else {
       let reader = new FileReader()
       reader.onload = (e) => {
-        dispatch(updatePiece(pieceId, { marker: file, marker_url: e.target.result }))
+        dispatch(updatePiece(pieceId, { marker: file  }))
       }
       reader.readAsDataURL(file)
     }

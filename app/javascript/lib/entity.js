@@ -473,13 +473,22 @@ function getOptimalUpdate(component, implicit, reference) {
   return optimal;
 }
 
+
+function isSingleProperty(schema) {
+  if ('type' in schema) {
+    return typeof schema.type === 'string';
+  }
+
+  return 'default' in schema;
+}
+
 /**
  * @param {Schema} schema Component's schema to test if it is single property.
  * @return                `true` if component is single property.
  */
-function isSingleProperty(schema) {
+/*function isSingleProperty(schema) {
   return AFRAME.schema.isSingleProperty(schema);
-}
+}*/
 
 /**
  * Detect element's Id collision and returns a valid one

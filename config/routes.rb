@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get "/file/:id/*name", to: "api/piece_assets#show"
+  get "/ar-file/:id/*name", to: "api/piece_assets#show"
 
   get "/app", to: redirect("/spaces")
 

@@ -10,7 +10,10 @@ import {
 
 const mapStateToProps = (state, ownProps) => {
   const piece = state.index[state.pieceId]
-  return { ...piece, pieceId: piece.id }
+  return { ...piece, 
+    pieceId: piece.id, 
+    aframePack: state.aframePack 
+  }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {

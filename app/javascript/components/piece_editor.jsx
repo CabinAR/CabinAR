@@ -102,7 +102,8 @@ class PieceEditor extends React.Component {
   }
 
   tabs() {
-    return [ "scene", "assets", "code",  "properties" ]
+    // return [ "scene", "assets", "code",  "properties" ]
+    return [ "scene", "assets", "properties" ]
   }
 
   renderTab = (tab) => {

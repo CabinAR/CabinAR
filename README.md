@@ -18,6 +18,8 @@ Steps:
 - add geo location + map to edit space bar
 
 
+- add obj model drag and drop onto the window
+
 - ctrl-s saves
 
 

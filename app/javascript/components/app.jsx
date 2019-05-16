@@ -41,7 +41,8 @@ class App extends React.Component {
       space: {},
       pieces: [],
       index: {},
-      gizmo: 'translate'
+      gizmo: 'translate',
+      aframePack: this.props.aframePack
     }
   }
 
