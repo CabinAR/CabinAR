@@ -389,11 +389,33 @@ button, input {
     text-decoration:none;
   }
 
-  &__item {
+  &__row {
     margin-top:5px;
-    padding:10px;
     border-bottom:1px solid #333;
     display:block;
+    display:flex;
+
+    &:last-child {
+      border-bottom:none;
+    }
+  }
+
+  &__edit {
+    padding:10px;
+    flex: 0 0 40px;
+    font-size:24px;
+    text-decoration:none;
+    &:hover {
+      background-color:#AAA;
+      color:white;
+
+      div { color:white; }
+    }
+  }
+
+  &__item {
+    flex: 1 1 auto;
+    padding:10px;
 
     &:hover {
       background-color:#AAA;
@@ -427,7 +449,7 @@ button, input {
 
 
 .space-form {
-  max-width:400px;
+  max-width:700px;
   margin:20px auto;
 
   padding:10px 10px;
@@ -449,6 +471,11 @@ button, input {
 
   &__submit {
     text-align:right;
+  }
+
+
+  &__map {
+    height: 400px;
   }
 
 }

@@ -18,6 +18,11 @@ class User < ApplicationRecord
   end
 
 
+  def name
+    self.email.split("@")[0]
+  end
+
+
 
   def generate_token!
     if !self.api_token.present? 

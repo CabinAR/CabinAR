@@ -85,7 +85,7 @@ class PiecePreview extends React.Component {
       id="marker-box"  data-aframe-inspector
       material={`src: ${this.props.marker_url}`}  shadow position="0 0 0" rotation="-90 0 0" />
     } else {
-       return <a-entity key={`no-marker-${this.props.pieceId}`} geometry="primitive: plane" data-aframe-inspector  id="marker-box" shadow position="0 0 0" rotation="-90 0 0"  />
+       return <a-entity key={`no-marker-${this.props.pieceId}`} geometry="primitive: plane" color="#FFFFFF" data-aframe-inspector  id="marker-box" shadow position="0 0 0" rotation="-90 0 0"  />
     }
   }
 

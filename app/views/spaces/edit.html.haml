@@ -1,0 +1,32 @@
+= stylesheet_link_tag 'https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css'
+
+= javascript_include_tag "https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js"
+
+= javascript_include_tag "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js"
+= stylesheet_link_tag "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css"
+
+
+.space-form
+  = form_for @space, url: space_path(@space), method: :put do |f|
+    .space-form__field
+      %label.space-form__label
+        Name of this Space:
+      .space-form__input
+        = f.text_field :name
+
+    .space-form__field
+      %label.space-form__label
+        Published
+      .space-form__checkbox
+        %label
+          = f.check_box :published
+          Make this space visible to non-collaborators
+
+    .space-form__field
+      %label.space-form__label
+        Location
+      .space-form__input
+        = react_component("map_picker", { accessToken: ENV['MAPBOX'], radius: @space.radius, latitude: @space.latitude, longitude: @space.longitude })
+
+    .space-form__submit
+      = f.submit :save, class: "button"

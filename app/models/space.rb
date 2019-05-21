@@ -1,6 +1,6 @@
 class Space < ApplicationRecord
   belongs_to :user
-  has_many :pieces
+  has_many :pieces,dependent: :destroy
 
   scope :published, -> { where("1=1") }
   scope :by_user, -> (user) { where(user: user)}
@@ -14,6 +14,25 @@ class Space < ApplicationRecord
     else
       super
     end
+  end
+
+  def self.create_default_for(user)
+      space = Space.by_user(user).create(name: user.name + "'s Space")
+      space.create_default_piece
+      space
+    end
+
+
+  def create_default_piece
+    self.pieces.create({
+      scene: '<a-sphere color="#FF0099" position="0 1"></a-sphere>
+<a-entity text-geometry="value: Hello; bevelEnabled: true; bevelSize:.0; bevelThickness:.5; size:2" position="-2.5 2.5 0" material="color: #3300ff" scale=""></a-entity>',
+      name: "hello",
+      user: self.user,
+      marker_units: "inches",
+      marker_width: 8.5
+    })
+
   end
 
 end

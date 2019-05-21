@@ -10,35 +10,30 @@ create an account w/ omniauth?
 - add assets in
 - add drag and drop in
 - camera toggle
+- create homepage
+- add obj model drag and drop onto the window
+- next do the the big refactor into an iframe
+- "preview pack", has aframe + all the editor code
+- w/ message passing back and forth
+- passes message back and forth between the iframe and cabin
 
 Steps:
 - style login form
-- create homepage
 - add edit page
 - add geo location + map to edit space bar
-
-
-- add obj model drag and drop onto the window
-
+- add support for multiple editors to single space,
+   - collaborators by email?
+- Add floor / wall option in properties
 - ctrl-s saves
+- send location if don't alrady
 
-
-- next do the the big refactor into an iframe
-- w/ message passing back and forth
-- "preview pack", has aframe + all the editor code
-- passes message back and forth between the iframe and cabin
 - if we can't get an ack on a message, then reinitialize the iframe
 
 - Save the camera positon to the piece and reset it when we bounce around
-
-- add support for multiple editors to single space,
-   - collaborators by email?
-
 - add history tab, load all the saved histories
 
+
+
 Mobile app:
-
-- send location if don't alrady
-
 
 fix src: [object HTMLImageElement] issue
