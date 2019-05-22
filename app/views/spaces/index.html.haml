@@ -8,8 +8,9 @@
         .space-list__details
           = space.pieces.count
           Pieces
-      %a.space-list__edit{href: edit_space_path(space.id)}
-        = "..."
+      - if space.user == current_user
+        %a.space-list__edit{href: space_user_spaces_path(space.id)}
+          = "..."
 
   .space-list__row 
     %a.space-list__item.space-list__item--link{href: new_space_path}

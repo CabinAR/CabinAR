@@ -7,8 +7,11 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[google_oauth2]
 
 
-  has_many :spaces
+  has_many :user_spaces
+  has_many :spaces, through: :user_spaces
   has_many :pieces
+
+  after_create :convert_user_spaces
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -23,11 +26,17 @@ class User < ApplicationRecord
   end
 
 
-
   def generate_token!
     if !self.api_token.present? 
      self.api_token = SecureRandom.urlsafe_base64(64).gsub(/\-/,"")[0..47].downcase
      self.save
    end
+ end
+
+
+ def convert_user_spaces 
+  UserSpace.where(email: self.email).where(user_id: nil).each do |us|
+    us.convert!
+  end
  end
 end

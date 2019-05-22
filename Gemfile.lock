@@ -264,6 +264,9 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    valid_email2 (3.0.1)
+      activemodel (>= 3.2)
+      mail (~> 2.5)
     warden (1.2.8)
       rack (>= 2.0.6)
     websocket-driver (0.7.0)
@@ -291,6 +294,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   turbolinks (~> 5)
   tzinfo-data
+  valid_email2
   web-console!
   webpacker!
 

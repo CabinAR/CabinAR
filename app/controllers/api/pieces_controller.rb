@@ -47,13 +47,13 @@ class Api::PiecesController < Api::BaseController
   end
 
   def get_piece
-    @piece = current_user.pieces.find_by_id(params[:id].to_i)
+    @piece = Piece.where(space_id: current_user.space_ids).find_by_id(params[:id].to_i)
     head :not_found unless @piece
   end
 
 
   def space
-    @space ||= current_user.spaces.find_by_id((params[:id] || params[:space_id]).to_i)
+    @space ||= Space.by_user(current_user).find_by_id((params[:id] || params[:space_id]).to_i)
   end
 
 end

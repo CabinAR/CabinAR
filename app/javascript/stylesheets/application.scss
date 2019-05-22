@@ -6,6 +6,7 @@ $action-color: #6666FF;
 $light-border: #dedede;
 $action-light:#6666ff61;
 
+$error-color: #aa1111;
 
 $titlebar: $light-border;
 $titlebar-item: #ccc;
@@ -22,6 +23,12 @@ button, input {
   font-size:14px;
     
 }
+
+.hidden { 
+  display:none;
+}
+
+
 
 .button {
   color: $primary-color;
@@ -478,6 +485,77 @@ button, input {
     height: 400px;
   }
 
+   &__tabs {
+    background-color:#FFF;
+    flex: 0 0 30px;
+    display:flex;
+    justify-content:flex-start;
+    border-bottom:1px solid $light-border;
+    color: $primary-color;  
+  }
+
+  &__tab {
+    flex: 0 0 auto;
+    height:30px;
+    margin-top: 10px;
+    padding:5px 10px 3px 10px;
+    margin-right:5px;
+    letter-spacing: .05em;  
+    color: $primary-color;
+    text-transform: uppercase;
+    font-size: .8em;
+    letter-spacing: .05em;
+    margin-left: 10px; 
+    cursor:pointer;
+    &:hover { color:$action-color; border-bottom:3px solid $action-light;}  
+
+    &--active {
+      position:relative;
+      top:1px;
+      border-bottom:3px solid $action-color;
+      background-color:white;
+
+    }
+
+  }
+}
+
+
+.collaborator {
+  &__table {
+    padding:10px;
+
+  }
+
+  &__error {
+    margin:10px;
+    background-color:$error-color;
+    color:white;
+    padding:5px;
+    text-align:center;
+  }
+
+  &__row {
+    display:flex;
+    width:100%;
+    border-bottom:1px solid $light-border;
+    padding:10px 0px;
+  }
+
+  &__name {
+    flex: 0 0 60%;
+
+    input { 
+      width:100%;
+      padding:5px;
+    }
+  }
+
+  &__actions { 
+    flex: 0 0 40%;
+    text-align:right;
+
+  }
 }
 
 

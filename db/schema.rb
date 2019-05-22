@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_17_120728) do
+ActiveRecord::Schema.define(version: 2019_05_21_132705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,8 @@ ActiveRecord::Schema.define(version: 2019_05_17_120728) do
     t.string "email"
     t.integer "user_id"
     t.integer "space_id"
-    t.datetime "craeted_at"
+    t.datetime "created_at"
+    t.boolean "admin", default: false
   end
 
   create_table "users", force: :cascade do |t|

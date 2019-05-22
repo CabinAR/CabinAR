@@ -1,0 +1,28 @@
+= render partial: '/layouts/titlebar'
+
+.space-form
+  .space-form__tabs
+    %a.space-form__tab.space-form__tab--active Collaborators
+    %a.space-form__tab{href:edit_space_path(@space)} Details
+  .js-space-collaborators
+    - if flash[:user_space_errors]
+      .collaborator__error
+        = flash[:user_space_errors]
+    .collaborator__table 
+      - @space.user_spaces.preload(:user).each do |user_space|
+        .collaborator__row
+          .collaborator__name
+            = user_space.user&.email || user_space.email
+            - if !user_space.user_id
+              %em (invited)
+          .collaborator__actions
+            - if user_space.admin?
+              Admin
+            - else 
+              = link_to "X remove", space_user_space_path(@space.id, user_space), method: :delete, data: { confirm: "Delete user?" }
+      = form_for UserSpace.new, url: space_user_spaces_path(@space.id) do |f|
+        .collaborator__row
+          .collaborator__name
+            = f.text_field :email, placeholder: "user email"
+          .collaborator__actions
+            %button.button{type:"submit"} Add

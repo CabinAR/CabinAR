@@ -4,29 +4,34 @@
 
 = javascript_include_tag "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js"
 = stylesheet_link_tag "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css"
+= render partial: '/layouts/titlebar'
 
 
 .space-form
-  = form_for @space, url: space_path(@space), method: :put do |f|
-    .space-form__field
-      %label.space-form__label
-        Name of this Space:
-      .space-form__input
-        = f.text_field :name
+  .space-form__tabs
+    %a.space-form__tab{href:space_user_spaces_path(@space)} Collaborators
+    .space-form__tab.space-form__tab--active  Details
+  .js-space-details
+    = form_for @space, url: space_path(@space), method: :put do |f|
+      .space-form__field
+        %label.space-form__label
+          Name of this Space:
+        .space-form__input
+          = f.text_field :name
 
-    .space-form__field
-      %label.space-form__label
-        Published
-      .space-form__checkbox
-        %label
-          = f.check_box :published
-          Make this space visible to non-collaborators
+      .space-form__field
+        %label.space-form__label
+          Published
+        .space-form__checkbox
+          %label
+            = f.check_box :published
+            Make this space visible to non-collaborators
 
-    .space-form__field
-      %label.space-form__label
-        Location
-      .space-form__input
-        = react_component("map_picker", { accessToken: ENV['MAPBOX'], radius: @space.radius, latitude: @space.latitude, longitude: @space.longitude })
+      .space-form__field
+        %label.space-form__label
+          Location
+        .space-form__input
+          = react_component("map_picker", { accessToken: ENV['MAPBOX'], radius: @space.radius, latitude: @space.latitude, longitude: @space.longitude })
 
-    .space-form__submit
-      = f.submit :save, class: "button"
+      .space-form__submit
+        = f.submit :save, class: "button"

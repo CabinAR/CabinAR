@@ -22,7 +22,9 @@ Rails.application.routes.draw do
 
   get "/app", to: redirect("/spaces")
 
-  resources :spaces
+  resources :spaces do
+    resources :user_spaces
+  end
 
   root to: "home#index"
 end

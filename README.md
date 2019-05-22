@@ -16,16 +16,20 @@ create an account w/ omniauth?
 - "preview pack", has aframe + all the editor code
 - w/ message passing back and forth
 - passes message back and forth between the iframe and cabin
+- add edit page
+- add geo location + map to edit space bar
 
 Steps:
 - style login form
-- add edit page
-- add geo location + map to edit space bar
+
 - add support for multiple editors to single space,
    - collaborators by email?
 - Add floor / wall option in properties
 - ctrl-s saves
-- send location if don't alrady
+- send location if don't already
+- add ability to take screenshot
+
+add active admin - https://activeadmin.info/documentation.html
 
 - if we can't get an ack on a message, then reinitialize the iframe
 
