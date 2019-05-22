@@ -41,7 +41,7 @@ class Space < ApplicationRecord
   end
 
   def create_admin_user_space
-    user_spaces.create(user: self.user, admin: true )
+    user_spaces.create(user: self.user, email: self.user.email, admin: true )
   end
 
 end
