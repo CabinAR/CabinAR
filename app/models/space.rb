@@ -22,7 +22,7 @@ class Space < ApplicationRecord
   end
 
   def self.create_default_for(user)
-      space = Space.by_user(user).create(name: user.name + "'s Space")
+      space = Space.create(user: user,name: user.name + "'s Space")
       space.create_default_piece
       space
     end
