@@ -1,0 +1,15 @@
+= render partial: '/layouts/titlebar', locals: { my_account: true }
+
+
+
+
+.account-form
+  .account-form__header
+    Mobile App Key
+  .account-form__subtitle
+    Enter the 6 characters below in settings on the mobile app to view your unpublished pieces.
+
+  .account-form__key
+    = current_user.api_token
+
+

@@ -40,7 +40,7 @@ export function initCameras (inspector) {
   perspectiveCamera.far = 10000;
   perspectiveCamera.near = 0.01;
   perspectiveCamera.position.set(0, 1.6, 2);
-  perspectiveCamera.lookAt(new THREE.Vector3(0, 1.6, -1));
+  perspectiveCamera.lookAt(new THREE.Vector3(0, 0, 0));
   perspectiveCamera.updateMatrixWorld();
   sceneEl.object3D.add(perspectiveCamera);
   sceneEl.camera = perspectiveCamera;

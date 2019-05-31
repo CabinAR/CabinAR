@@ -47,7 +47,7 @@ class SpacesController < ApplicationController
   protected
 
   def space_params
-    params.require(:space).permit(:name,:published,:latitude,:longitude,:radius)
+    params.require(:space).permit(:name,:published,:latitude,:longitude,:radius,:icon,:tagline)
   end
 
   def space_id

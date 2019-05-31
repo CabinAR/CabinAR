@@ -3,34 +3,16 @@ class Api::LoginsController < Api::BaseController
 
   def show
     if current_user
-      render json: { user: current_user.as_json }
+      render json: current_user.to_builder.attributes! 
     else
-      render json: { error: "Invalid user" }
+      render json: { error: "Invalid Key" }
     end
   end
 
 
   def create
-    user = User.find_by_email(user_params[:email])
-
-    if user
-      if user.valid_password?(user_params[:password])
-        user.generate_token!
-        render json: user.as_json, status: :accepted
-      else
-        render json: { error: "Invalid username or password" }
-      end
-    else
-      render json: { error: "No user with that username" }
-    end
+    show
   end
 
-  protected
-
-  def user_params
-    params.require(:user).permit(:email,
-                                 :password
-                                )
-  end
 
 end

@@ -2,12 +2,18 @@ class Api::SpacesController < Api::BaseController
 
 
   def index
-    spaces = if current_user
-      current_user.spaces
-    else
-      Space.all
+
+    spaces = []
+    if current_user
+      spaces += Space.by_user(current_user)
     end
-    # if passed in a lat and lon, show those spaces, otherwise just show users space
+
+    if params[:latitude].present? && params[:longitude].present?
+      spaces += Space.published_nearby_to(params[:longitude].to_f,
+                                        params[:latitude].to_f)
+    end
+
+    spaces = spaces.uniq.sort_by { |s| s.name }
     render json: spaces.as_json
   end
 
@@ -17,7 +23,7 @@ class Api::SpacesController < Api::BaseController
     space = Space.published.find_by_id(params[:id].to_s)
 
     if !space && current_user
-      space = current_user.spaces.find_by_id(params[:id].to_s)
+      space = Space.by_user(current_user).find_by_id(params[:id].to_s)
     end
 
     if space

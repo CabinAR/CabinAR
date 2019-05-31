@@ -127,7 +127,7 @@ function Viewport(inspector) {
 
   // Controls need to be added *after* main logic.
   const controls = new THREE.EditorControls(camera, inspector.container);
-  controls.center.set(0, 1.6, 0);
+  controls.center.set(0, 0, 0);
   controls.rotationSpeed = 0.0035;
   controls.zoomSpeed = 0.05;
   controls.setAspectRatio(sceneEl.canvas.width / sceneEl.canvas.height);

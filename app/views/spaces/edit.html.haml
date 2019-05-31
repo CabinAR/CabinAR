@@ -21,11 +21,25 @@
 
       .space-form__field
         %label.space-form__label
+          Tagline for this Space:
+        .space-form__input
+          = f.text_field :tagline
+
+      .space-form__field
+        %label.space-form__label
           Published
         .space-form__checkbox
           %label
             = f.check_box :published
             Make this space visible to non-collaborators
+
+      .space-form__field
+        %label.space-form__label
+          Icon 
+        .space-form__input
+          = f.file_field :icon
+          = image_tag(@space.icon, width: 64) if @space.icon.present?
+
 
       .space-form__field
         %label.space-form__label

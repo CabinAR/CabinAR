@@ -144,15 +144,6 @@ class PiecePreview extends React.Component {
         const { marker_meter_width } = this.props;
 
       return <a-scene background="color: #ECECEC" vr-mode-ui="enabled: false" cursor="rayOrigin: mouse" >
-      <a-camera id="orbitCamera"
-          look-controls="enabled: false; touchEnabled: false;"
-          wasd-controls-enabled="false"
-          orbit-controls={`target: 0 0 0; 
-            minDistance: 0.5; 
-            maxDistance: 100; 
-            maxPolarAngle: 89;
-            initialPosition: 0 ${marker_meter_width*5} ${marker_meter_width*5};`}
-          />
        <a-assets ref={this.assetRef}></a-assets>
 
       {this.renderMarkerImage()}

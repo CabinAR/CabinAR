@@ -3,8 +3,10 @@
     %a.titlebar__item.titlebar__logo{href: root_path}
       CabinAR
     - if current_user
-      %a.titlebar__item.titlebar__my-spaces{ href: spaces_path}
+      %a.titlebar__item.titlebar__my-spaces{ href: spaces_path, class: local_assigns[:my_spaces] ? "titlebar__item--active" : ""}
         My Spaces &raquo;
+      %a.titlebar__item.titlebar__my-account{ href: account_path,class: local_assigns[:my_account] ? "titlebar__item--active" : "" }
+        My Account
 
       .titlebar__spacer
       %a.titlebar__item.titlebar__logout{href: destroy_user_session_path, data: { method: "delete" }}

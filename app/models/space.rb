@@ -3,29 +3,37 @@ class Space < ApplicationRecord
   has_many :pieces,dependent: :destroy
   has_many :user_spaces, dependent: :destroy
 
-  scope :published, -> { where("1=1") }
+  scope :published, -> { where(published: true) }
   scope :by_user, -> (user) { Space.where(id: UserSpace.where(user: user).pluck(:space_id)) }
 
+  has_one_attached :icon
 
   after_create :create_admin_user_space
 
+  def self.published_nearby_to(longitude,latitude) 
+    Space.published.where("ST_DistanceSphere(ST_MakePoint(spaces.longitude,spaces.latitude), ST_MakePoint(?,?)) <= radius",longitude,latitude)
+  end
 
 
   def as_json(with_pieces: false)
-    if with_pieces
-      super.merge({
-        pieces: self.pieces.map { |p| p.to_builder.attributes! }
-      })
-    else
-      super
-    end
+    Jbuilder.new do |json|
+      json.(self,:id,:name,:longitude,:latitude,:radius,:tagline)
+
+      if self.icon.present?
+        json.icon_url self.icon.service_url
+      end
+
+      if with_pieces
+        json.pieces self.pieces.map { |p| p.to_builder.attributes! }
+      end
+    end.attributes!
   end
 
   def self.create_default_for(user)
-      space = Space.create(user: user,name: user.name + "'s Space")
-      space.create_default_piece
-      space
-    end
+    space = Space.create(user: user,name: user.name + "'s Space")
+    space.create_default_piece
+    space
+  end
 
 
   def create_default_piece

@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   get "/app", to: redirect("/spaces")
 
+  resource :account, only: :show
+
   resources :spaces do
     resources :user_spaces
   end

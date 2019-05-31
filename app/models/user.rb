@@ -21,6 +21,14 @@ class User < ApplicationRecord
   end
 
 
+  def to_builder
+    Jbuilder.new do |json|
+      json.(self, :id, :api_token, :email)
+    end
+  end
+
+
+
   def name
     self.email.split("@")[0]
   end
@@ -28,10 +36,18 @@ class User < ApplicationRecord
 
   def generate_token!
     if !self.api_token.present? 
-     self.api_token = SecureRandom.urlsafe_base64(64).gsub(/\-/,"")[0..47].downcase
+     self.api_token = token_try
+     while User.find_by_api_token(api_token)
+       self.api_token = token_try
+     end
      self.save
    end
  end
+
+ def token_try 
+   SecureRandom.urlsafe_base64(64).downcase.gsub(/\-10ol/,"")[0..4].downcase
+ end
+
 
 
  def convert_user_spaces 

@@ -1,4 +1,4 @@
-= render partial: '/layouts/titlebar'
+= render partial: '/layouts/titlebar', locals: { my_spaces: true } 
 
 .space-list 
   - @spaces.each do |space|
