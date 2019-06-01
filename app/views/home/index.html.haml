@@ -5,9 +5,10 @@
 
 .homepage
   .homepage__logo
+    = image_tag("cabin-logo.svg", class:"homepage__logo-image")
     CabinAR
   .homepage__text
-    %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc augue nunc, bibendum non lacinia at, congue et turpis. Nulla placerat mattis tortor. Nullam vitae velit sem. Mauris consectetur venenatis justo, ut tristique ligula efficitur at. Nam non gravida leo, in pretium magna. 
+    %p CabinAR allows you to make and share web-based augmented reality. To get started, create a new Space. Spaces are tied to a specific location, and deliver your creations to audiences using the CabinAR mobile application, available for Android and IOS. CabinAR is built using A-frame and ARcore. 
 
   .homepage__links
     - if current_user
@@ -15,11 +16,11 @@
         Go To My Spaces
     - else
       %a.homepage__link{href: user_google_oauth2_omniauth_authorize_path}
-        Sign in with Google &raquo;
+        Sign in with Google
 
 
       .homepage__or
-        OR
+        Or Sign In
 
       .homepage__signin-form
         = form_tag session_path(:user) do

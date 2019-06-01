@@ -1,16 +1,17 @@
 * { box-sizing: border-box; }
 
-$primary-color: #656565;
-$secondary-color: #b1b1b1;
-$action-color: #6666FF;
+$primary-color: #000000;
+$secondary-color: #0f0f0f;
+$light-color: #a3a3a3;
+$action-color: #EB008B;
 $light-border: #dedede;
-$action-light:#6666ff61;
+$action-light:#ff50a1;
 
 $error-color: #aa1111;
 
-$titlebar: $light-border;
+$titlebar: #ffffff;
 $titlebar-item: #ccc;
-$titlebar-item-active: #ddd;
+$titlebar-item-active: $action-color;
 
 body { 
   padding:0px; margin:0px; 
@@ -25,9 +26,26 @@ button, input {
     
 }
 
+button, .primary-button {
+    background-color:black;
+    color:white;
+    padding:10px;
+    text-decoration:none;
+    text-align:center;
+    margin-bottom:10px;
+    text-transform:uppercase;
+    letter-spacing: .03em;  
+    border:none;
+    border-radius:3px;
+    &:hover { color:$primary-color; background-color:$action-light;}
+    
+}
+
 .hidden { 
   display:none;
 }
+
+
 
 
 
@@ -51,7 +69,6 @@ button, input {
 .titlebar {
   background-color: $titlebar;
   display:flex;
-  box-shadow: 2px 2px rgba(0,0,0,0.5);
 
   &__wrapper {
     padding-bottom:10px;
@@ -63,12 +80,11 @@ button, input {
     color: $primary-color;
     text-decoration: none;
     margin-left:2px;
-    background-color: $titlebar-item;
     padding:16px 20px;
 
 
     &--active { 
-      background-color: $titlebar-item-active;
+      border-top:2px solid $titlebar-item-active;
     }
   }
 
@@ -77,11 +93,17 @@ button, input {
   }
 
   &__logo {
-    font-size:24px;
+    font-size:20px;
     font-weight:bold;
     padding:10px 20px;
+      
 
   }
+
+   &__image{
+     display: inline-block;
+     width: 20px;
+      }  
 
 }
 
@@ -143,7 +165,7 @@ button, input {
   }
 
   &__tabs {
-    background-color:#FFF;
+    background-color:white;
     flex: 0 0 30px;
     display:flex;
     justify-content:flex-start;
@@ -274,7 +296,7 @@ button, input {
 
   &__input input, &__input select {
     width:100%;
-    border:1px solid #666;
+    border:1px solid $light-border;
     padding:4px 6px;
     display:block;
     margin-bottom:2px;
@@ -386,10 +408,8 @@ button, input {
 .space-list {
   margin: 20px auto;
   max-width:300px;
-
   padding:2px 10px;
-  border:1px solid #CCC;
-  border-radius:5px;
+
 
   &__item, &__item * {
     text-decoration:none;
@@ -397,7 +417,7 @@ button, input {
 
   &__row {
     margin-top:5px;
-    border-bottom:1px solid #333;
+    border-bottom:1px solid $secondary-color;
     display:block;
     display:flex;
 
@@ -424,31 +444,31 @@ button, input {
     padding:10px;
 
     &:hover {
-      background-color:#AAA;
-      color:white;
+      
+      color:$action-color;
 
-      div { color:white; }
+      
     }
 
     &:last-child { border:none; }
 
     &--link {
-      font-size:16px;
-      background-color:#666;
-      color:white;
-      padding:10px;
+      color:$action-color;
     }
   }
 
   &__title {
     font-size:24px;
-    color:#666;
+    color:$primary-color;  
+    &:hover {
+      color:$action-color;      
+    }  
   }
 
 
   &__details {
     font-size:16px;
-    color:#999;
+    color:$light-color;
   }
 
 }
@@ -458,9 +478,7 @@ button, input {
 .account-form {
   max-width:700px;
   margin:20px auto;
-
   padding:10px 10px;
-  border:1px solid #CCC;
   border-radius:5px;
 
   &__header { 
@@ -473,7 +491,7 @@ button, input {
   }
 
   &__key {
-    margin:20px;
+    margin:20px 0;
     text-align:center;
     background-color: #AAA;
     color:#333;
@@ -593,29 +611,43 @@ button, input {
   margin:0 auto;
   width:400px;
 
+  p {
+    font-size:18px;
+    line-height: 1.55em;    
+    }
+    
   &__logo {
-    font-size:100px;
+    font-size:55px;
     font-weight:bold;
     text-align:center;
+    line-height:50px;  
   }
+    
+  &__logo-image {
+    width:200px;
+    }    
 
   &__or {
     text-align:center;
     font-size:24px;
-    margin:10px 0px;
+    margin-top: 20px;
+    font-weight: 900;
   }
 
   &__link {
     display:block;
-    background-color:$light-border;
-    color:black;
+    background-color:$action-color;
+    color:white;
     padding:10px;
     text-decoration:none;
     font-size:16px;
-    font-weight:bold;
     text-align:center;
-    border:1px solid $secondary-color;
     margin-bottom:10px;
+    text-transform:uppercase;
+    letter-spacing: .03em;  
+    &:hover { color:$primary-color; background-color:$action-light;}
+    &:active { background-color:$action-color; color: white; }
+    &:active, &:focus { outline: none; }  
   }
 
   &__signin--form {
@@ -624,7 +656,7 @@ button, input {
   }
 
   &__signin-field {
-    padding:5px;
+    padding:10px 0;
 
     input[type=text], input[type=password] {
       padding:5px 2px;

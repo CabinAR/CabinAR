@@ -1,6 +1,7 @@
 .titlebar__wrapper
   .titlebar
     %a.titlebar__item.titlebar__logo{href: root_path}
+      = image_tag("cabin-logo.svg", class:"titlebar__image")
       CabinAR
     - if current_user
       %a.titlebar__item.titlebar__my-spaces{ href: spaces_path, class: local_assigns[:my_spaces] ? "titlebar__item--active" : ""}
