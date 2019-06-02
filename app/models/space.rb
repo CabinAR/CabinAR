@@ -11,7 +11,7 @@ class Space < ApplicationRecord
   after_create :create_admin_user_space
 
   def self.published_nearby_to(longitude,latitude) 
-    Space.published.where("ST_DistanceSphere(ST_MakePoint(spaces.longitude,spaces.latitude), ST_MakePoint(?,?)) <= radius",longitude,latitude)
+    Space.published.where("(ST_DistanceSphere(ST_MakePoint(spaces.longitude,spaces.latitude), ST_MakePoint(?,?)) <= radius) OR always_show",longitude,latitude)
   end
 
 

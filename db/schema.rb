@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_29_141024) do
+ActiveRecord::Schema.define(version: 2019_06_02_131248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2019_05_29_141024) do
     t.float "longitude"
     t.float "radius"
     t.string "tagline"
+    t.boolean "always_show", default: false
   end
 
   create_table "spatial_ref_sys", primary_key: "srid", id: :integer, default: nil, force: :cascade do |t|
