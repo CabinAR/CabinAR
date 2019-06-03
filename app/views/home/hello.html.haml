@@ -1,0 +1,18 @@
+
+= render partial: '/layouts/titlebar'
+
+
+
+.homepage
+  .homepage__logo
+    = image_tag("cabin-logo.svg", class:"homepage__logo-image")
+    CabinAR
+  .homepage__text
+    %p To view the "Hello Cabin" space, print out the markers below on 8.5"x11" paper, and point the CabinAR app at the markers.
+    %p Keep an eye on the homepage for details of AR shows coming soon to the Boston area.
+    .sample-marker-images
+      %a{href:image_path("CabinAR-Marker1.jpg"), target: "_blank"}
+        = image_tag "CabinAR-Marker1.jpg"
+      %a{href:image_path("CabinAR-Marker2.jpg"), target: "_blank"}
+        = image_tag "CabinAR-Marker2.jpg"
+

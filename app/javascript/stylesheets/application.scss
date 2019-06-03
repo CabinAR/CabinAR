@@ -689,3 +689,17 @@ button, .primary-button {
     }
   }
 }
+
+.sample-marker-images  {
+  display:flex;
+
+  a { 
+    display:block;
+      flex: 1 1 50%;
+  }
+
+  img { max-width: 100%; }
+
+}
+
+

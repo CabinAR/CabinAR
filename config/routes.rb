@@ -28,5 +28,6 @@ Rails.application.routes.draw do
     resources :user_spaces
   end
 
+  get "/hello", to: "home#hello"
   root to: "home#index"
 end
