@@ -688,6 +688,18 @@ button, .primary-button {
       width:100%;
     }
   }
+
+  &__footer {
+    margin-top:40px;
+    padding:10px 0px;
+
+    width:100%;
+    background-color: black;
+    text-align:center;
+    color:white;
+
+    a { color:white; }
+  }
 }
 
 .sample-marker-images  {

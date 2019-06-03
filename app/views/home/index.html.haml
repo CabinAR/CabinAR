@@ -8,7 +8,7 @@
     = image_tag("cabin-logo.svg", class:"homepage__logo-image")
     CabinAR
   .homepage__text
-    %p CabinAR allows you to make and share web-based augmented reality. To get started, create a new Space. Spaces are tied to a specific location, and deliver your creations to audiences using the CabinAR mobile application, available for Android and IOS. CabinAR is built using A-frame and ARcore. 
+    %p CabinAR allows you to make and share web-based augmented reality. To get started, create a new Space. Spaces are tied to a specific location, and deliver your creations to audiences using the CabinAR mobile application, available for IOS. CabinAR is built using A-frame and ARKit. 
 
   .homepage__links
     - if current_user
@@ -33,3 +33,11 @@
             = label_tag 'user[remember_me]', 'Remember me'
           %button Sign in
           = link_to "Create an account", new_user_registration_path
+
+.homepage__footer
+  Please contact 
+  = mail_to "cabinar@cykod.com" 
+  for support.
+  = "|"
+  = link_to "Privacy Policy", privacy_policy_path
+

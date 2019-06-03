@@ -29,5 +29,6 @@ Rails.application.routes.draw do
   end
 
   get "/hello", to: "home#hello"
+  get "/privacy-policy", to: "home#privacy"
   root to: "home#index"
 end
