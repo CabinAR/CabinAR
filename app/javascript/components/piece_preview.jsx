@@ -176,7 +176,7 @@ class PiecePreview extends React.Component {
   render() {
     return <div className='preview'>
     <div className='preview__actions'>
-      <button className='preview__action button' onClick={this.deletePiece}>Delete</button>
+      <button className='preview__delete' onClick={this.deletePiece}>Delete</button>
       <button className='preview__action button' onClick={this.savePiece}>Save</button>
     </div>
     <div className='preview__wrapper'>

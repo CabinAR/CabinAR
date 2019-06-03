@@ -13,10 +13,7 @@
 ActiveRecord::Schema.define(version: 2019_06_02_131248) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "cube"
-  enable_extension "earthdistance"
   enable_extension "plpgsql"
-  enable_extension "postgis"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,6 +50,7 @@ ActiveRecord::Schema.define(version: 2019_06_02_131248) do
     t.integer "marker_units"
     t.float "marker_width"
     t.text "code"
+    t.jsonb "callbacks"
     t.text "scene"
     t.text "assets"
   end
@@ -69,13 +67,6 @@ ActiveRecord::Schema.define(version: 2019_06_02_131248) do
     t.boolean "always_show", default: false
   end
 
-  create_table "spatial_ref_sys", primary_key: "srid", id: :integer, default: nil, force: :cascade do |t|
-    t.string "auth_name", limit: 256
-    t.integer "auth_srid"
-    t.string "srtext", limit: 2048
-    t.string "proj4text", limit: 2048
-  end
-
   create_table "user_spaces", force: :cascade do |t|
     t.string "email"
     t.integer "user_id"
@@ -90,8 +81,8 @@ ActiveRecord::Schema.define(version: 2019_06_02_131248) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "api_token"
     t.string "provider"
     t.string "uid"

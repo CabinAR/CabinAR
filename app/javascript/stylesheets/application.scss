@@ -37,7 +37,7 @@ button, .primary-button {
     letter-spacing: .03em;  
     border:none;
     border-radius:3px;
-    &:hover { color:$primary-color; background-color:$action-light;}
+    &:hover { color:#000000; background-color:$action-color;}
     
 }
 
@@ -47,6 +47,13 @@ button, .primary-button {
 
 
 
+.label {
+    color: #000000;
+    text-transform: uppercase;
+    font-size: .7em;
+    letter-spacing: .05em;
+    cursor: pointer;
+}
 
 
 .button {
@@ -60,7 +67,7 @@ button, .primary-button {
   font-size: .7em;
   letter-spacing: .05em;
   cursor: pointer;
-  &:hover { color:$action-color; border-color:$action-color;}
+  &:hover { color:$action-color; background-color:white; border-color:$action-color;}
   &:active { background-color:$action-color; color: white; }
   &:active, &:focus { outline: none; }  
     
@@ -123,7 +130,7 @@ button, .primary-button {
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.13);
     z-index:10; 
   }
-
+    
   &__editor {
     flex: 1 1 40%;
     position:relative;
@@ -171,6 +178,7 @@ button, .primary-button {
     justify-content:flex-start;
     border-bottom:1px solid $light-border;
     color: $primary-color;  
+    margin-top:10px;  
   }
 
   &__tab {
@@ -218,7 +226,6 @@ button, .primary-button {
 
 .piece-list {
   height:100%;
-  padding-top:40px;
   padding-bottom:20px;
   position:relative;
   overflow-y:auto;
@@ -228,27 +235,33 @@ button, .primary-button {
   &__back {
     position:absolute;
     width:100%;
-    top:0px;
-    padding:10px;
-    background-color:$light-border;
-    left:0px;
+    top:5px;
+    left:10px;
     cursor:pointer;
+    text-transform:none;
+    font-size:.8em;
+    &:hover { color:$action-color;}
   }
+    
+    &__name {
+    font-size: 1.3em;
+    margin: 20px 0 20px 10px;
+    }    
 
   &__piece {
-    padding:10px 0px 15px 10px;
+    padding:10px 0px 15px 0px;
     overflow:hidden;
     cursor:pointer;
 
     position:relative;
     display:flex;
-    border-bottom:1px solid #CCC;
+    border-bottom:1px solid $light-border;
     border-left:10px solid white;
 
     &--active {
       color:$action-color;
       font-weight:600;    
-      border-left:10px solid $light-border; 
+; 
     }
     &:hover { 
       border-left:10px solid $action-color;
@@ -334,6 +347,15 @@ button, .primary-button {
 .preview {
   width: 100%;
   height:100%;
+    
+    &__delete {
+        background-color:#ffffff00;
+        font-size:.7em;
+        color:black;
+        &:hover { color:$action-color; background-color:#ffffff00;}
+        &:active { background-color:#ffffff00; color: action-color; font-weight:bold; }
+        &:active, &:focus { outline: none; }  
+    }    
 
   &__actions {
     position:absolute;
@@ -345,8 +367,11 @@ button, .primary-button {
   &__action {
     margin-left: 5px;
     cursor: pointer;  
-    &:hover { color:$action-color; border-color:$action-color;}
-    &:active { background-color:$action-color; color: white; }
+    background-color:$action-color;
+    color:white;
+    border:1px solid $action-color;  
+    &:hover { background-color:black; border-color:black; color:white;}
+    &:active { background-color:white; color: $action-color; border-color:$action-color;  }
     &:active, &:focus { outline: none; }
   }
 
@@ -383,7 +408,7 @@ button, .primary-button {
     letter-spacing: .05em;
     margin-left: 5px;
     cursor: pointer;  
-    &:hover { color:$action-color; border-color:$action-color;}
+    &:hover { background-color:$action-color; color:white; border-color:$action-color;}
     &:active { background-color:$action-color; color: white; }
     &:active, &:focus { outline: none; }  
 
@@ -393,6 +418,7 @@ button, .primary-button {
       border-color: $primary-color; 
       &:hover { background-color:white; color:$action-color;}        
     }
+      
   }
 
   &__iframe {
@@ -406,8 +432,8 @@ button, .primary-button {
 
 
 .space-list {
-  margin: 20px auto;
-  max-width:300px;
+  margin:20px;
+  max-width:400px;
   padding:2px 10px;
 
 
@@ -417,7 +443,7 @@ button, .primary-button {
 
   &__row {
     margin-top:5px;
-    border-bottom:1px solid $secondary-color;
+    border-bottom:1px solid $light-border;
     display:block;
     display:flex;
 
@@ -432,8 +458,7 @@ button, .primary-button {
     font-size:24px;
     text-decoration:none;
     &:hover {
-      background-color:#AAA;
-      color:white;
+      color:$action-color;
 
       div { color:white; }
     }
@@ -493,7 +518,7 @@ button, .primary-button {
   &__key {
     margin:20px 0;
     text-align:center;
-    background-color: #AAA;
+    background-color: $light-border;
     color:#333;
     font-size:36px;
     padding:10px;

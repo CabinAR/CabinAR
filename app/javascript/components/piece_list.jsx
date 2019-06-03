@@ -40,10 +40,15 @@ class PieceList extends React.Component {
 
 
   render() {
+      let { name } = this.props.space
+      
     return <div className='piece-list'>
-      <div className='piece-list__back' onClick={this.gotoMySpaces}>&laquo; My Spaces</div>
+        <div className='piece-list__title'>
+      <div className='piece-list__back'  onClick={this.gotoMySpaces}>&laquo; back</div>
+    <div className='piece-list__name' >{name}</div>
+            </div>
       {map(this.props.pieces, this.renderPiece)}
-
+      
       <div className='piece-list__add-piece button' onClick={this.props.addPiece} >
       + Add Piece
       </div>

@@ -15,6 +15,7 @@ const mapStateToProps = (state, ownProps) => {
   const dirty = find(pieceList, (piece) => piece.dirty)
 
   return {
+    space: state.space,
     pieces: pieceList,
     selected: state.pieceId,
     dirty: dirty
