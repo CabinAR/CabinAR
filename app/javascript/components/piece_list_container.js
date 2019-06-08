@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import PieceList from "./piece_list.jsx"
 
-import { map, find } from "lodash"
+import { map, find, sortBy } from "lodash"
 
 import {
   selectPiece,
@@ -10,7 +10,7 @@ import {
 } from "../actions"
 
 const mapStateToProps = (state, ownProps) => {
-  const pieceList = map(state.pieces, (pieceId) => state.index[pieceId])
+  const pieceList = sortBy(map(state.pieces, (pieceId) => state.index[pieceId]), (piece) => piece.name || "")
 
   const dirty = find(pieceList, (piece) => piece.dirty)
 

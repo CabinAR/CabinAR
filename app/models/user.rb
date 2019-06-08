@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :spaces, through: :user_spaces
   has_many :pieces
 
+  before_create :generate_token!
+
   after_create :convert_user_spaces
 
   def self.from_omniauth(auth)
@@ -40,7 +42,6 @@ class User < ApplicationRecord
      while User.find_by_api_token(api_token)
        self.api_token = token_try
      end
-     self.save
    end
  end
 
