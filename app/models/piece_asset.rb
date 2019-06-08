@@ -63,7 +63,7 @@ class PieceAsset < ApplicationRecord
   end
 
   def asset_tag(a, tag='a-asset-item')
-    html = "<#{tag} id=\"#{id_name(a)}\" src=\"#{asset_url(a)}\""
+    html = "<#{tag} id=\"#{id_name(a)}\" crossorigin=\"anonymous\" src=\"#{asset_url(a)}\""
 
     if tag == 'img'
       html + "/>"
