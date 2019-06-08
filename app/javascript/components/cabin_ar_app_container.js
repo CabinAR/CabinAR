@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import CabinArApp from "./cabin_ar_app.jsx"
 
 import {
-  addAsset
+  addAsset,
+  saveCurrentPiece
 } from "../actions"
 
 
@@ -15,7 +16,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addAsset: (files) => { dispatch(addAsset(files)) }
+    addAsset: (files) => { dispatch(addAsset(files)) },
+    saveCurrentPiece: () => { dispatch(saveCurrentPiece())}
   }
 }
 

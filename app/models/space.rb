@@ -15,12 +15,22 @@ class Space < ApplicationRecord
   end
 
 
+  def icon_url
+    if ENV['ASSET_PATH'].blank?
+      self.icon.service_url
+    else
+      "#{ENV['ASSET_PATH']}#{self.icon.key}"
+    end
+  end
+
+
+
   def as_json(with_pieces: false)
     Jbuilder.new do |json|
       json.(self,:id,:name,:longitude,:latitude,:radius,:tagline)
 
       if self.icon.present?
-        json.icon_url self.icon.service_url
+        json.icon_url self.icon_url
       end
 
       if with_pieces

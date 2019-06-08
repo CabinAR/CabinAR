@@ -168,7 +168,7 @@ class PieceEditor extends React.Component {
 
       <div className='properties__field'>
         <label className='properties__label'>Marker:</label>
-        Drag to add marker.
+        Drag to change marker.
       </div>
        {this.renderMarker()}
     </div>
@@ -177,8 +177,14 @@ class PieceEditor extends React.Component {
 
   renderMarker() {
     const markerUrl = this.props.marker_url
+    const markerFile = this.props.markerDataUrl
 
-    if(markerUrl) {
+    if(markerFile) {
+      return <div className='editor__image-wrapper'>
+        Save this piece to update marker
+         <img className='editor__image' src={markerFile} />
+      </div>
+    } else if(markerUrl) {
       return <img className='editor__image' src={markerUrl} />
     }
   }
@@ -209,7 +215,10 @@ class PieceEditor extends React.Component {
   ]
 
   clickTool =(tool) => {
-    this.editorSession().insert(this.editor().getCursorPosition(), tool.code)
+    this.editorSession().insert({
+     row: this.editorSession().getLength(),
+      column: 0
+    }, "\n" + tool.code)
   }
 
   renderTool = (tool) =>  {

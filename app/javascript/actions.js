@@ -21,6 +21,14 @@ export function loadSpace(spaceId) {
   }
 }
 
+export function saveCurrentPiece() {
+  return function(dispatch,getState) {
+    var currentPieceId = getState().pieceId
+    if(currentPieceId) {
+      dispatch(savePiece(currentPieceId))
+    }
+  }
+}
 
 export function savePiece(pieceId) {
   return function(dispatch,getState) {
@@ -29,7 +37,7 @@ export function savePiece(pieceId) {
 
     const pieceJSON= omit(piece,['undos'])
     CabinAPI.savePiece(pieceJSON).then((data) => {
-      let pieceData = { ...data, marker: null, saving: false, dirty: false }
+      let pieceData = { ...data, marker: null, markerDataUrl: null, saving: false, dirty: false }
       dispatch(updatePiece(pieceId, pieceData))
     })
   }
@@ -73,7 +81,7 @@ function addMarkerFile(pieceId,files) {
     } else {
       let reader = new FileReader()
       reader.onload = (e) => {
-        dispatch(updatePiece(pieceId, { marker: file  }))
+        dispatch(updatePiece(pieceId, { marker: file, markerDataUrl: reader.result  }))
       }
       reader.readAsDataURL(file)
     }

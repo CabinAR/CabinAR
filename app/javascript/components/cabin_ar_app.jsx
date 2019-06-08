@@ -20,7 +20,22 @@ class CabinArApp extends React.Component {
 
   constructor(props) {
     super(props)
+  }
 
+  componentDidMount() {
+    window.addEventListener('keydown', this.onKeyDown, false);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("keydown",this.onKeyDown)
+  }
+
+  onKeyDown = (e) => {
+    if(e.keyCode == 83 && (e.metaKey || e.ctrlKey)) {
+      this.props.saveCurrentPiece()
+      e.preventDefault()
+      e.stopPropagation()
+    }
   }
 
   addAssets = (acceptedFiles) => {
