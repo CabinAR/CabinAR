@@ -18,7 +18,11 @@ class Api::PieceAssetsController < Api::BaseController
 
     piece_asset.assets.each do |asset|
       if asset.blob.filename.to_s == filename 
-        redirect_to url_for(asset)
+        if ENV['ASSET_PATH'].blank?
+          redirect_to url_for(asset)
+        else
+          redirect_to "#{ENV['ASSET_PATH']}#{asset.key}"
+        end
         return
       end
     end
