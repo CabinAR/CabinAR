@@ -32,6 +32,13 @@ module CabinAR
     # Don't generate system test files.
     config.generators.system_tests = nil
 
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '/ar-file/*', headers: :any, methods: [:get, :head, :options]
+      end
+    end
+
 
     config.active_storage.service_urls_expire_in = 1.week
   end
