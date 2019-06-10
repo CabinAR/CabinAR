@@ -13,6 +13,10 @@ $titlebar: #ffffff;
 $titlebar-item: #ccc;
 $titlebar-item-active: $action-color;
 
+@mixin for-phone-only {
+  @media screen and (max-width: 599px) { @content; }
+}
+
 body { 
   padding:0px; margin:0px; 
   font-family: Arial;
@@ -22,8 +26,7 @@ body {
 }
 
 button, input {
-  font-size:14px;
-    
+  font-size:14px;   
 }
 
 button, .primary-button {
@@ -79,6 +82,11 @@ button, .primary-button {
 
   &__wrapper {
     padding-bottom:10px;
+    
+    @include for-phone-only {
+      padding:20px;
+    }
+    
   }
 
   &__item { 
@@ -88,6 +96,10 @@ button, .primary-button {
     text-decoration: none;
     margin-left:2px;
     padding:16px 20px;
+    
+    @include for-phone-only {
+      padding:0px;
+    }
 
 
     &--active { 
@@ -103,7 +115,10 @@ button, .primary-button {
     font-size:20px;
     font-weight:bold;
     padding:10px 20px;
-      
+    
+    @include for-phone-only {
+      padding:0px;
+    }
 
   }
 
@@ -162,12 +177,15 @@ button, .primary-button {
 
   &__tools {
     flex: 0 0 auto;
-    margin: 0 0 5px 10px;  
-
+    border-bottom: 1px solid #dedede;
+    padding: 10px; 
   }
 
   &__tool {
-    margin: 3px;
+    margin: 0 5px;
+    font-size:.6em;
+    padding:5px 12px;
+    border-radius:20px;  
     
   }
 
@@ -367,12 +385,18 @@ button, .primary-button {
   &__action {
     margin-left: 5px;
     cursor: pointer;  
-    background-color:$action-color;
+    background:black;
+    border:1px solid black;
     color:white;
-    border:1px solid $action-color;  
+    
     &:hover { background-color:black; border-color:black; color:white;}
     &:active { background-color:white; color: $action-color; border-color:$action-color;  }
     &:active, &:focus { outline: none; }
+    
+    &--dirty {
+      background-color:$action-color;
+      border:1px solid $action-color;  
+    }
   }
 
 
@@ -386,20 +410,20 @@ button, .primary-button {
 
   &__toggle {
     position:absolute;
-    left:20px;
+    right:20px;
     top:50px;
   }
 
   &__tools {
     position:absolute;
-    right:10px;
+    left:10px;
     top:50px;
   }
 
   &__tool {
     display:inline-block;
     border-radius:30px;
-    padding: 7px 12px;
+    padding: 5px 12px;
     margin:2px;
     color: $primary-color;
     background-color: rgba(255,255,255,.6);
@@ -632,24 +656,61 @@ button, .primary-button {
 }
 
 
+
 .homepage {
   margin:0 auto;
-  width:400px;
+  width:800px;
+  display: flex;
+  margin-top:50px;
+  
+  @include for-phone-only {
+    width: 100%;
+    margin-top: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
 
   p {
-    font-size:18px;
-    line-height: 1.55em;    
+    font-size: 18px;
+    line-height: 1.65em;
+    margin: 20px 0 10px 0; 
+    
+    @include for-phone-only {
+      font-size: 16px;
+      line-height: 1.65em;
+      text-align: center;
     }
     
-  &__logo {
+    }
+  &__head {
+    margin-right:5%;
+  }
+    
+  &__header {
     font-size:55px;
     font-weight:bold;
-    text-align:center;
     line-height:50px;  
+    
+    @include for-phone-only {    
+      font-size: 30px;
+      font-weight: bold;
+      line-height: 1em;
+      text-align: center;
+      margin-top: 20px;
+    }
   }
     
   &__logo-image {
-    width:200px;
+    width:250px;
+    
+    
+    
+    @include for-phone-only { 
+      width: 80%;
+      margin: 0 auto;
+      display: inherit;
+    }
     }    
 
   &__or {
@@ -660,19 +721,46 @@ button, .primary-button {
   }
 
   &__link {
-    display:block;
+    display:inline-block;
     background-color:$action-color;
     color:white;
-    padding:10px;
+    padding:10px 20px;
     text-decoration:none;
     font-size:16px;
     text-align:center;
-    margin-bottom:10px;
+    margin: 0px 0px 10px 0px;
     text-transform:uppercase;
     letter-spacing: .03em;  
-    &:hover { color:$primary-color; background-color:$action-light;}
-    &:active { background-color:$action-color; color: white; }
+    &:hover { color:white; background-color:$action-light;}
+    &:active { background-color:black; color: white; }
     &:active, &:focus { outline: none; }  
+    
+    @include for-phone-only { 
+      display: block;
+      width: 50%;
+      margin: 10px auto;
+    }
+  }
+  
+  &__small-link {
+    display: inline;
+    margin-left: 10px;
+    font-size: 1em;
+    text-decoration: underline;
+    
+    @include for-phone-only { 
+      display:block;
+      text-align:center;
+      margin:0;
+    }
+  }
+  
+  &__app-image {
+    
+    @include for-phone-only { 
+      display: block;
+      margin: 20px auto;
+    }
   }
 
   &__signin--form {
@@ -700,7 +788,47 @@ button, .primary-button {
 
     a { color:white; }
   }
+  
+  &__signin {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+    width:500px;
+    height:260px;
+     z-index: 1001;
+  }
+  
+  &__signin-guts {
+    padding:20px;
+    background-color:white;
+    border:4px solid black;
+  }
+  
+  &__signin-title {
+    
+  }
 }
+
+.modal-overlay {
+
+  /* recommendation:
+     don't focus on the number "1000" here, but rather,
+     you should have a documented system for z-index and 
+     follow that system. This number should be pretty
+     high on the scale in that system.
+  */
+  z-index: 1000;
+  
+  background-color:rgba(100,100,100,0.8);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+}
+
 
 .sample-marker-images  {
   display:flex;

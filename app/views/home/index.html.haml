@@ -4,35 +4,46 @@
 
 
 .homepage
-  .homepage__logo
-    = image_tag("cabin-logo.svg", class:"homepage__logo-image")
-    CabinAR
-  .homepage__text
-    %p CabinAR allows you to make and share web-based augmented reality. To get started, create a new Space. Spaces are tied to a specific location, and deliver your creations to audiences using the CabinAR mobile application, available for IOS. CabinAR is built using A-frame and ARKit. 
-
-  .homepage__links
+  .homepage__head
+    .homepage__header
+      Make and share web-based augmented reality.
+    .homepage__text
+      %p  CabinAR is an free, web-based application that allows you to make and share marker-based augmented reality. Create an account to use the online editor and build original content.  
     - if current_user
       %a.homepage__link{href: spaces_path}
         Go To My Spaces
     - else
       %a.homepage__link{href: user_google_oauth2_omniauth_authorize_path}
         Sign in with Google
+    %a.homepage__small-link{href:"javascript:toggleSignIn()"}
+      Sign In or Sign up
+    
+    %p Download the mobile app to preview your creations and share them with your friends.
+    %p CabinAR is built using A-frame and ARKit.
+    
+    .homepage_app  
+    = image_tag("app-store-badge-white.svg", class:"homepage__app-image")
 
+  .homepage_image  
+    = image_tag("iphone-mockup.jpg", class:"homepage__logo-image")
 
-      .homepage__or
-        Or Sign In
+.modal-overlay#modal-overlay{style:'display:none',onClick:'toggleSignIn()'}
+.homepage__signin#signinForm{style:"display:none;"}
+  .homepage__signin-guts
+    .homepage__signin-title
+      Sign In
 
-      .homepage__signin-form
-        = form_tag session_path(:user) do
-          .homepage__signin-field
-            = text_field_tag 'user[email]', "",placeholder:"Email"
-          .homepage__signin-field
-            = password_field_tag 'user[password]', "",placeholder:"password"
-          .homepage__signin-field
-            = check_box_tag 'user[remember_me]'
-            = label_tag 'user[remember_me]', 'Remember me'
-          %button Sign in
-          = link_to "Create an account", new_user_registration_path
+    .homepage__signin-form
+      = form_tag session_path(:user) do
+        .homepage__signin-field
+          = text_field_tag 'user[email]', "",placeholder:"Email"
+        .homepage__signin-field
+          = password_field_tag 'user[password]', "",placeholder:"password"
+        .homepage__signin-field
+          = check_box_tag 'user[remember_me]'
+          = label_tag 'user[remember_me]', 'Remember me'
+        %button Sign in
+        = link_to "Create an account", new_user_registration_path
 
 .homepage__footer
   Please contact 
@@ -41,3 +52,10 @@
   = "|"
   = link_to "Privacy Policy", privacy_policy_path
 
+:javascript
+   var visible = false;
+  function toggleSignIn() {
+    visible = !visible;
+    document.getElementById("signinForm").style.display= visible ? 'block' : 'none'
+    document.getElementById("modal-overlay").style.display= visible ? 'block' : 'none'
+  }

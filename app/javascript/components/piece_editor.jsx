@@ -237,8 +237,8 @@ class PieceEditor extends React.Component {
     <div className='editor__tabs'>
       { map(this.tabs(),this.renderTab) }
     </div>
+    { this.activeTab() == 'scene' && this.renderTools() }        
     { this.activeTab() == 'properties' ? this.renderProperties() : this.renderEditor() }
-    { this.activeTab() == 'scene' && this.renderTools() }
     </div>
   }
 
