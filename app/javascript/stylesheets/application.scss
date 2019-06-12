@@ -769,6 +769,7 @@ button, .primary-button {
   }
   
   &__app-image {
+    height:47px;
     
     @include for-phone-only { 
       display: block;

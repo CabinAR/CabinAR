@@ -22,7 +22,8 @@
     %p CabinAR is built using A-frame and ARKit.
     
     .homepage_app  
-    %a{href:"https://apps.apple.com/us/app/cabinar/id1465457047"}= image_tag("app-store-badge-white.svg", class:"homepage__app-image")
+      %a{href:"https://apps.apple.com/us/app/cabinar/id1465457047"}= image_tag("app-store-badge-white.svg", class:"homepage__app-image")
+      %a{href:"ttps://play.google.com/store/apps/details?id=com.cykod.cabinar&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"}= image_tag("play-store-badge.png", class:"homepage__app-image")
 
   .homepage_image  
     = image_tag("iphone-mockup.jpg", class:"homepage__logo-image")
@@ -51,6 +52,8 @@
   for support.
   = "|"
   = link_to "Privacy Policy & Terms of Use", privacy_policy_path
+  %br
+  App Store and the Apple logo are trademarks of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC.
 
 :javascript
    var visible = false;
