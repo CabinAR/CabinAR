@@ -47,15 +47,18 @@ class Space < ApplicationRecord
 
 
   def create_default_piece
-    self.pieces.create({
+    piece = self.pieces.create({
       scene: '<a-sphere color="#FF0099" position="0 1"></a-sphere>
 <a-entity text-geometry="value: Hello; bevelEnabled: true; bevelSize:.0; bevelThickness:.5; size:2" position="-2.5 2.5 0" material="color: #3300ff" scale=""></a-entity>',
       name: "hello",
       user: self.user,
       marker_units: "inches",
-      marker_width: 8.5
+      marker_width: 8.5,
     })
 
+    piece.marker.attach(io: File.open(Rails.root.join('app/assets/images/Hello-Solid.png')), filename: "Hello-Solid.png", content_type: "image/png")
+
+    piece
   end
 
   def create_admin_user_space

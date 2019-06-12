@@ -11,7 +11,7 @@
   .space-form__tabs
     %a.space-form__tab{href:space_user_spaces_path(@space)} Collaborators
     .space-form__tab.space-form__tab--active  Details
-  .js-space-details
+  .space-form__details
     = form_for @space, url: space_path(@space), method: :put do |f|
       .space-form__field
         %label.space-form__label
@@ -49,3 +49,10 @@
 
       .space-form__submit
         = f.submit :save, class: "button"
+
+.space-form
+  .space-form__tabs.space-form__tabs--danger
+    .space-form__tab Danger Zone
+  .space-details
+    %p Warning: Deleting a space is permanent and irreversible. You will lose all of your pieces.
+    = link_to "Delete this space", space_path(@space), data: { method: 'delete', confirm: 'Are you sure you want to delete this space and all the pieces in it permanently?'}, class: 'button button--danger'

@@ -5,7 +5,7 @@ class SpacesController < ApplicationController
     # get myspaces
     @spaces = Space.by_user(current_user)
 
-    if @spaces.length === 0
+    if @spaces.length === 0 && current_user.created_at > 1.day.ago
       space = Space.create_default_for(current_user)
       redirect_to space_path(space)
     end
@@ -25,6 +25,7 @@ class SpacesController < ApplicationController
 
   def create
     @space = Space.create(space_params.merge(user: current_user))
+    @space.create_default_piece
 
     redirect_to space_path(@space.id)
   end
@@ -35,6 +36,14 @@ class SpacesController < ApplicationController
       return redirect_to spaces_path
     end
     
+  end
+
+  def destroy
+    @space = Space.by_user(current_user).find_by_id(space_id)
+    if @space.user_id == current_user.id 
+      @space.destroy
+    end
+    return redirect_to spaces_path
   end
 
 
