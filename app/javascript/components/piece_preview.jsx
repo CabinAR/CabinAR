@@ -40,7 +40,7 @@ class PiecePreview extends React.Component {
     try { 
       //if(xmlChecker.check('<?xml version="1.0" encoding="UTF-8"?><scene>'+ this.props.scene.replace("\n"," ") + '</scene>')) {
         this.previewRef.current.innerHTML = this.props.scene
-        this.assetRef.current.innerHTML = this.props.assets
+        this.assetRef.current.innerHTML = this.props.assets; 
         if(!this.state.inspector) {
           this.previewWindow.installBridge()
         }
@@ -76,6 +76,13 @@ class PiecePreview extends React.Component {
     }
   }
 
+  renderMarkerAsset() {
+    if(this.props.marker_url) {
+      return <img id={`marker-image-${this.props.pieceId}`} crossOrigin="anonymous" src={this.props.marker_url} />
+    }
+    return null;
+  }
+
   renderMarkerImage() {
     const { marker_meter_width, marker_meter_height } = this.props;
 
@@ -83,7 +90,8 @@ class PiecePreview extends React.Component {
       return <a-entity geometry={`primitive: plane; width:  ${marker_meter_width}; height: ${marker_meter_height}` }
       key={`marker-${this.props.pieceId}`}
       id="marker-box"  data-aframe-inspector
-      material={`src: ${this.props.marker_url}`}  shadow position="0 0 0" rotation="-90 0 0" />
+      material={`src: #marker-image-${this.props.pieceId}`}
+       shadow position="0 0 0" rotation="-90 0 0" />
     } else {
        return <a-entity key={`no-marker-${this.props.pieceId}`} geometry="primitive: plane" color="#FFFFFF" data-aframe-inspector  id="marker-box" shadow position="0 0 0" rotation="-90 0 0"  />
     }
@@ -144,7 +152,10 @@ class PiecePreview extends React.Component {
         const { marker_meter_width } = this.props;
 
       return <a-scene background="color: #ECECEC" vr-mode-ui="enabled: false" cursor="rayOrigin: mouse" >
-       <a-assets ref={this.assetRef}></a-assets>
+       <a-assets>
+        {this.renderMarkerAsset()}
+        <div ref={this.assetRef}></div>
+       </a-assets>
 
       {this.renderMarkerImage()}
       <a-entity class='cabinar-wrapper' data-aframe-inspector ref={this.previewRef} scale={`${marker_meter_width} ${marker_meter_width} ${marker_meter_width}`}>
