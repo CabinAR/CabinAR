@@ -56,7 +56,7 @@ class Space < ApplicationRecord
       marker_width: 8.5,
     })
 
-    piece.marker.attach(io: File.open(Rails.root.join('app/assets/images/Hello-Solid.png')), filename: "Hello-Solid.png", content_type: "image/png")
+    piece.marker.attach(io: File.open(Rails.root.join('app/assets/images/Hello-Lines.png')), filename: "Hello-Lines.png", content_type: "image/png")
 
     piece
   end
