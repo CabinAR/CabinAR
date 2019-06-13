@@ -246,6 +246,15 @@ button, .primary-button {
     max-width:60%;
     max-height:60%;
   }
+
+  &__save-needed {
+    background:$action-color;
+    color:white;
+    font-size:16px;
+    padding:5px;
+    margin-bottom:10px;
+    text-align:center;
+  }
 }
 
 .piece-list {

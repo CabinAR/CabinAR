@@ -168,7 +168,7 @@ class PieceEditor extends React.Component {
 
       <div className='properties__field'>
         <label className='properties__label'>Marker:</label>
-        Drag to change marker.
+        &nbsp;Drag an image here to change the marker.
       </div>
        {this.renderMarker()}
     </div>
@@ -181,7 +181,9 @@ class PieceEditor extends React.Component {
 
     if(markerFile) {
       return <div className='editor__image-wrapper'>
+        <div className='editor__save-needed'>
         Save this piece to update marker
+        </div>
          <img className='editor__image' src={markerFile} />
       </div>
     } else if(markerUrl) {
