@@ -37,7 +37,7 @@ class Api::PieceAssetsController < Api::BaseController
   end
 
   def get_piece
-    @piece = current_user.pieces.find_by_id(params[:piece_id].to_i)
+    @piece = Piece.where(space: Space.by_user(current_user)).find_by_id(params[:piece_id].to_i)
     head :not_found unless @piece
   end 
 
