@@ -6,10 +6,12 @@ import AceEditor from 'react-ace';
 import 'brace/mode/html';
 import 'brace/theme/github';
 
-import { map } from "lodash"
+import { map, isEqual } from "lodash"
 
 import {notify} from 'react-notify-toast';
 
+
+const { Range } = brace.acequire("ace/range");
 
 const toastColor = { 
   background: '#505050', 
@@ -34,14 +36,16 @@ class PieceEditor extends React.Component {
     this.props.updatePiece(this.props.pieceId, props)
   }
 
+  cursorChange = (selection) => {
+     this.props.updateCursor(selection.getCursor());
+  }
+
+
   change = (field, e) => {
     let props = {}
     props[field] = e.currentTarget.value
     this.props.updatePiece(this.props.pieceId, props)
   }
-
-
-
 
   editor() {
    if(this.aceEditor.current) {
@@ -77,7 +81,35 @@ class PieceEditor extends React.Component {
       prevProps.tab != this.props.tab &&
       this.editor()) {
       this.setUndoManager()
+      this.clearMarking()
     }
+    if(!isEqual(prevProps.marking, this.props.marking)) {
+      this.setMarking(this.props.marking)
+      //if(this.props.marking[0]) {
+      //  var [ start ] = this.props.marking;
+      //  this.editor().gotoLine(start[0] + 1 ,start[1]);
+      //}
+    }
+  }
+
+  setMarking([codeStart, codeEnd]) {
+
+    this.clearMarking();
+    if(!codeStart || !codeEnd) { return; }
+
+    var range = new Range(codeStart[0], 
+                          codeStart[1],
+                          codeEnd[0],
+                          codeEnd[1])
+    console.log(range)
+    this.marker = this.editorSession().addMarker(range, "selectedpiece", "text", true);
+  }
+
+  clearMarking() {
+    if(this.marker) {
+      this.editorSession().removeMarker(this.marker);
+    }
+    this.marker = null;
   }
 
 
@@ -204,6 +236,7 @@ class PieceEditor extends React.Component {
           name="aframe-editor"
           editorProps={{$blockScrolling: true}}
           onChange={this.changeCode}
+          onCursorChange={this.cursorChange}
         />
       </div>
   }

@@ -6,6 +6,9 @@ export const UPDATE_PIECE  = "UPDATE_PIECE";
 export const SELECT_PIECE = "SELECT_PIECE";
 export const ADD_PIECE = "ADD_PIECE";
 export const DELETE_PIECE = 'DELETE_PIECE';
+export const UPDATE_MARKING = 'UPDATE_MARKING';
+export const UPDATE_MAPPING = 'UPDATE_MAPPING';
+export const UPDATE_CURSOR = 'UPDATE_CURSOR'
 
 import { find, omit } from 'lodash'
 
@@ -125,6 +128,30 @@ export function updatePiece(pieceId, props) {
     props: props
   }
 }
+
+
+export function updateMarking(codeStart, codeEnd) {
+  return {
+    type: UPDATE_MARKING,
+    codeStart: codeStart,
+    codeEnd: codeEnd
+  }
+}
+
+export function updateMapping(mapping) {
+  return {
+    type: UPDATE_MAPPING,
+    mapping: mapping
+  }
+}
+
+export function updateCursor(cursor) {
+  return {
+    type: UPDATE_CURSOR,
+    cursor: cursor 
+  }
+}
+
 
 export function selectPiece(pieceId) {
   return {

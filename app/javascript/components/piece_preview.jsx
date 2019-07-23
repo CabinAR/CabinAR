@@ -31,7 +31,10 @@ class PiecePreview extends React.Component {
 
 
   outputScene = () => {
-    this.props.updatePiece(this.props.pieceId, { scene: this.previewWindow.getEntityInnerRepresentation(this.previewRef.current), refresh: false } ) 
+    //console.log(this.previewWindow.getEntityInnerRepresentation(this.previewRef.current))
+    var { lines, mapping } = this.previewWindow.serializeRoot(this.previewRef.current)
+    this.props.updatePiece(this.props.pieceId, { scene: lines.join("\n"), refresh: false } )
+    this.props.entityMapping(mapping)
   }
 
   refreshNow= () => {
@@ -45,9 +48,12 @@ class PiecePreview extends React.Component {
           this.previewWindow.installBridge()
         }
       //}
+    var { lines, mapping } = this.previewWindow.serializeRoot(this.previewRef.current)
+    this.props.entityMapping(mapping)      
     } catch(err) { 
       console.log(err)
       //note invalid XML
+
    }
   }
 
@@ -63,18 +69,60 @@ class PiecePreview extends React.Component {
     //       (nextProps.code != this.props.code)
   }
 
+
+
+
   componentDidUpdate(prevProps,prevState) {
     
     if(prevProps.pieceId != this.props.pieceId ||
        prevState.iframeMounted != this.state.iframeMounted) {
       // deselect selected piece
       this.refreshNow()
+      this.outputScene()
     } else if(prevProps.scene != this.props.scene) {
       if(this.props.refresh) {
         this.refresh()
+         this.props.codeMarking(null,null)
+      } else {
+        // We were updated from updateScene
+        if(this.aframeInspector() && 
+          this.aframeInspector().selected &&
+          this.aframeInspector().selected.el) {
+            var entity = this.aframeInspector().selected.el
+            this.props.codeMarking(entity.codeStart,entity.codeEnd)
+        }
+      }
+    } else if(prevProps.cursor != this.props.cursor) {
+      this.updateSelectionFromCursor()
+    }
+  }
+
+  updateSelectionFromCursor() {
+    var {row,column} = this.props.cursor;
+
+     var { mapping } = this.props
+    
+    if(mapping) {
+      for(var i = 0;i < mapping.length;i++) {
+        var cur = mapping[i];
+
+        if((row == cur[0][0] && 
+            column >= cur[0][1]) ||
+          (row == cur[1][0] &&
+            column <= cur[1][1]) ||
+          ( row > cur[0][0] &&
+            row < cur[1][0])) {
+          if(cur[2] && cur[2].object3D) {
+            this.selectedEntity = cur[2]
+            this.aframeInspector().selectEntity(cur[2])
+          }
+          break;
+        }
       }
     }
   }
+
+
 
   renderMarkerAsset() {
     if(this.props.marker_url) {
@@ -174,14 +222,24 @@ class PiecePreview extends React.Component {
     this.previewDocument = document
     this.previewWindow = window
     this.Events = window.Events
-    console.log("mounted")
     this.setState({ aframeMounted: true },() => {
       this.refreshNow();
 
       this.Events.emit('transformmodechange',this.props.gizmo)
       this.Events.on("updatedScene",this.outputScene)
       this.Events.on('objectremove', this.removeObject);
+      this.Events.on("entityselect",this.selectObject)
+
+      this.outputScene()
     })
+  }
+
+  selectObject = (entity) => {
+    if(entity != this.selectedEntity) {
+      this.outputScene()
+      this.selectedEntity = entity;
+    }
+    this.props.codeMarking(entity.codeStart,entity.codeEnd)
   }
 
   render() {
@@ -200,8 +258,18 @@ class PiecePreview extends React.Component {
       {
         // Callback is invoked with iframe's window and document instances
         ({document, window}) => {
-          // Render Children
-          window.addEventListener("load",() => this.iframeMounted(document,window))
+          if(!this.state.aframeMounted) {
+            var self = this;
+            // Render Children
+            function prepCallback() {
+              if(window.AFRAME && window.AFRAME.INSPECTOR) {
+                self.iframeMounted(document,window)
+              } else {
+                setTimeout(prepCallback,50)
+              }
+            }
+            setTimeout(prepCallback,50)
+          }
         }
       }
     </FrameContextConsumer>

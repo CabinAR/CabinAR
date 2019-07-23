@@ -13,7 +13,10 @@ require("../bridge")
 
 import { getEntityInnerRepresentation } from "../lib/entity"
 
+import { serializeRoot } from '../lib/serializer'
+
 window.getEntityInnerRepresentation = getEntityInnerRepresentation
+window.serializeRoot = serializeRoot
 
 
 

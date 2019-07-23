@@ -8,7 +8,10 @@ import {
   UPDATE_PIECE,
   SELECT_PIECE,
   ADD_PIECE,
-  DELETE_PIECE
+  DELETE_PIECE,
+  UPDATE_MARKING,
+  UPDATE_MAPPING,
+  UPDATE_CURSOR
 } from './actions'
 
 import { map, uniq, reject } from 'lodash'
@@ -82,6 +85,18 @@ add(DELETE_PIECE, (state, action) => {
   return { ...state, index, pieces, pieceId: nextPieceId }
 })
 
+add(UPDATE_MARKING, (state, action) => {
+  return { ...state, marking: [ action.codeStart, action.codeEnd ] }
+})
+
+add(UPDATE_MAPPING, (state, action) => {
+  return { ...state, mapping: action.mapping }
+})
+
+add(UPDATE_CURSOR, (state, action) => {
+  return { ...state, cursor: action.cursor }
+})
+
 function add(name, reducer) {
   _allreducers[name] = _allreducers[name] || []
   _allreducers[name].push(reducer)
@@ -94,6 +109,8 @@ function run(state,action) {
   })
   return state;
 }
+
+
 
 
 export default run;

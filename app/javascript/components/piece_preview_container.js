@@ -5,14 +5,18 @@ import PiecePreview from "./piece_preview.jsx"
 import { 
   savePiece,
   deletePiece,
-  updatePiece
+  updatePiece,
+  updateMarking,
+  updateMapping
  } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
   const piece = state.index[state.pieceId]
   return { ...piece, 
     pieceId: piece.id, 
-    aframePack: state.aframePack 
+    aframePack: state.aframePack,
+    cursor: state.cursor,
+    mapping: state.mapping
   }
 }
 
@@ -20,7 +24,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     savePiece: (pieceId) => { dispatch(savePiece(pieceId)) },
     deletePiece: (pieceId) => { dispatch(deletePiece(pieceId))},
-    updatePiece: (pieceId, props) => { dispatch(updatePiece(pieceId, props)) }
+    updatePiece: (pieceId, props) => { dispatch(updatePiece(pieceId, props)) },
+    codeMarking: (codeStart,codeEnd) => { dispatch(updateMarking(codeStart,codeEnd))},
+    entityMapping: (mapping) => { dispatch(updateMapping(mapping)) }
   }
 }
 

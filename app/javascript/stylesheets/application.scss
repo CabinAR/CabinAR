@@ -870,3 +870,10 @@ button, .primary-button {
 }
 
 
+.selectedpiece {
+    background: rgba(100, 200, 200, 0.4);
+    position: absolute;
+    width:100% !important;
+    left:0 !important;
+}
+
