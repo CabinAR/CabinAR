@@ -47,8 +47,20 @@ add(LOAD_SPACE,(state, action) => {
 
 add(UPDATE_PIECE, (state, action) => {
   let index = { ...state.index }
-  let piece = { ...index[action.pieceId], dirty: true, ...action.props }
-  index[action.pieceId] = piece
+  let oldPiece = index[action.pieceId]
+  let newPiece = { ...oldPiece, ...action.props }
+
+  var dirty = oldPiece.code != newPiece.code  ||
+              oldPiece.scene != newPiece.scene ||
+              oldPiece.assets != newPiece.assets ||
+              oldPiece.marker != newPiece.marker
+
+  if(action.dirty !== undefined) {
+    dirty = action.dirty
+  }
+
+
+  index[action.pieceId] = { ...newPiece, dirty }
   return { ...state, index }
 })
 
