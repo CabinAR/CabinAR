@@ -7,7 +7,7 @@ class PieceList extends React.Component {
 
   renderPieceImage = (piece) => {
     if(piece.marker_url) {
-      return <div className='piece-list__piece-image'><img src={piece.marker_url} crossOrigin="anonymous" /></div>
+      return <div className='piece-list__piece-image'><img src={piece.marker_url + "?piece-list=true"} /></div>
     }
   }
 
