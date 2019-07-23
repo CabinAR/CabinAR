@@ -53,7 +53,8 @@ add(UPDATE_PIECE, (state, action) => {
   var dirty = oldPiece.code != newPiece.code  ||
               oldPiece.scene != newPiece.scene ||
               oldPiece.assets != newPiece.assets ||
-              oldPiece.marker != newPiece.marker
+              oldPiece.marker != newPiece.marker ||
+              oldPiece.dirty
 
   if(action.dirty !== undefined) {
     dirty = action.dirty
