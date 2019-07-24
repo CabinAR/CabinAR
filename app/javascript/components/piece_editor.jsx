@@ -107,7 +107,7 @@ class PieceEditor extends React.Component {
   }
 
   clearMarking() {
-    if(this.marker) {
+    if(this.marker && this.editor()) {
       this.editorSession().removeMarker(this.marker);
     }
     this.marker = null;
