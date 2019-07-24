@@ -43,16 +43,24 @@ class CabinArApp extends React.Component {
   }
 
   render() {
-    const { pieceId } = this.props;
     // create a list of pieces
     // two tabs - options and code editor
     // right side is a preview
     return  <Dropzone noClick={true} noKeyboard={true} onDrop={this.addAssets}>
     {({getRootProps, getInputProps}) => (
-      <div className='page-dropzpone' {...getRootProps()}>
+      <div className='page-dropzpone' {...getRootProps()} onClick={null} >
         <Notifications/>
-        <input {...getInputProps()} />
-        <div className='page-wrapper' >
+        {this.renderWrapper()}
+        </div>
+    )}
+    </Dropzone>
+  }
+
+
+  renderWrapper() {
+    const { pieceId } = this.props;
+
+    return  <div className='page-wrapper' >
           <div className='page-wrapper__piece-list'>
             <PieceListContainer />
           </div>
@@ -63,9 +71,6 @@ class CabinArApp extends React.Component {
             {pieceId && <PiecePreviewContainer />}
           </div>
         </div>
-        </div>
-    )}
-    </Dropzone>
   }
 
 }

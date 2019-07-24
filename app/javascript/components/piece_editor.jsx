@@ -23,7 +23,8 @@ class PieceEditor extends React.Component {
   constructor(props) {
     super(props)
 
-    this.aceEditor = React.createRef()
+    this.aceEditor = React.createRef();
+    this.uploadRef = React.createRef();
   }
 
   toast = notify.createShowQueue()
@@ -110,6 +111,12 @@ class PieceEditor extends React.Component {
       this.editorSession().removeMarker(this.marker);
     }
     this.marker = null;
+  }
+
+
+  addFile = (e) => {
+    const files = Array.from(e.target.files)  
+    this.props.addAsset(files)
   }
 
 
@@ -200,8 +207,9 @@ class PieceEditor extends React.Component {
 
       <div className='properties__field'>
         <label className='properties__label'>Marker:</label>
-        &nbsp;Drag an image here to change the marker.
+        &nbsp;Drag an image here or click button to change the marker.
       </div>
+       {this.renderUpload("Marker")}
        {this.renderMarker()}
     </div>
     </div>    
@@ -267,6 +275,22 @@ class PieceEditor extends React.Component {
     </div>
   }
 
+  clickUpload = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    this.uploadRef.current.click();
+  }
+
+
+  renderUpload(text) {
+    const label = this.label;
+
+    return <div className='editor__upload'>
+          <button className='properties__label-button' onClick={this.clickUpload}>+ Upload {text}</button> 
+          <input type='file' ref={this.uploadRef} id={label('upload-file')} className='editor__fileInput' onChange={this.addFile} />  
+        </div>
+  }
+
   render() {
     return <div className='editor'>
     <div className='editor__tabs'>
@@ -274,6 +298,7 @@ class PieceEditor extends React.Component {
     </div>
     { this.activeTab() == 'scene' && this.renderTools() }        
     { this.activeTab() == 'properties' ? this.renderProperties() : this.renderEditor() }
+    { this.activeTab() == 'assets' && this.renderUpload('asset') }
     </div>
   }
 

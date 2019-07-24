@@ -4,7 +4,8 @@ import PieceEditor from "./piece_editor"
 
 import { 
   updatePiece,
-  updateCursor
+  updateCursor,
+  addAsset
  } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,7 +17,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     updatePiece: (pieceId, props) => { dispatch(updatePiece(pieceId, props)) },
-    updateCursor: (cursor) => { dispatch(updateCursor(cursor))}
+    updateCursor: (cursor) => { dispatch(updateCursor(cursor))},
+    addAsset: (files) => { dispatch(addAsset(files)) },
   }
 }
 
