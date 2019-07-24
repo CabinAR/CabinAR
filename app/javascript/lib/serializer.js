@@ -239,7 +239,23 @@ function stringifyComponentValue(schema, data) {
     var propertyBag = {};
     Object.keys(data).forEach(function(name) {
       if (schema[name]) {
-        propertyBag[name] = schema[name].stringify(data[name]);
+        try {
+          var schemaName = name;
+
+          // Special case sphericalEnvMap to get the right
+          // stringify function
+          //if(name == "sphericalEnvMap") { schemaName = 'map' }
+          var value = data[name]
+
+          // Special case where the sub-asset is a img w/ an id not a url
+          if(typeof value == 'object') {
+            if(value.tagName == 'IMG') {
+              value = "#" + value.id;
+            }
+          }
+          propertyBag[name] = schema[schemaName].stringify(value);        } catch(error) {
+          propertyBag[name] = undefined; 
+        }
       }
     });
     return AFRAME.utils.styleParser.stringify(propertyBag);
