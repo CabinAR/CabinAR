@@ -56,10 +56,9 @@ add(UPDATE_PIECE, (state, action) => {
               oldPiece.marker != newPiece.marker ||
               oldPiece.dirty
 
-  if(action.dirty !== undefined) {
-    dirty = action.dirty
+  if(action.props.dirty !== undefined) {
+    dirty = action.props.dirty
   }
-
 
   index[action.pieceId] = { ...newPiece, dirty }
   return { ...state, index }
