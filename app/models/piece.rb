@@ -23,6 +23,22 @@ class Piece < ApplicationRecord
   end
 
 
+  def calculate_marker_quality
+    tempfile = Tempfile.new(["markerfile", "." + marker.filename.extension], "#{Rails.root.to_s}/tmp/", mode: File::RDWR|File::CREAT|File::BINARY, :encoding => 'ascii-8bit') 
+
+    tempfile.write(marker.download)
+    tempfile.close
+
+    result = `#{Rails.root}/bin/arcoreimg-osx eval-img --input_image_path=#{tempfile.path}`.strip.to_i
+    tempfile.unlink
+    result
+  end
+
+  def after_attachment_update
+    self.marker_quality = self.calculate_marker_quality 
+    self.save
+  end
+
   def marker_meter_width
     self.marker_width.to_i * (TO_METERS[self.marker_units].to_f)
   end
@@ -39,7 +55,7 @@ class Piece < ApplicationRecord
 
   def to_builder
     Jbuilder.new do |json|
-      json.(self, :id, :name, :published, :marker_units,:marker_width,:code, :scene, :assets)
+      json.(self, :id, :name, :published, :marker_quality,:marker_units,:marker_width,:code, :scene, :assets)
       if self.marker_width.present? && self.marker.present?
         json.marker_url self.marker_url
         json.marker_image_width self.marker.metadata["width"]

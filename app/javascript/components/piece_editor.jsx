@@ -227,7 +227,15 @@ class PieceEditor extends React.Component {
          <img className='editor__image' src={markerFile} />
       </div>
     } else if(markerUrl) {
-      return <img className='editor__image' src={markerUrl} />
+      const markerQuality = this.props.marker_quality
+      const markerClass = parseInt(this.props.marker_quality,10) < 75 ? "editor__marker--warning" : 'editor__marker--ok';
+
+      return <React.Fragment>
+        {markerQuality && <div className={`editor__marker ${markerClass}`}>
+          Marker Quality: {this.props.marker_quality}
+        </div>}
+        <img className='editor__image' src={markerUrl} />
+        </React.Fragment>
     }
   }
 
@@ -290,6 +298,7 @@ class PieceEditor extends React.Component {
           <input type='file' ref={this.uploadRef} id={label('upload-file')} className='editor__fileInput' onChange={this.addFile} />  
         </div>
   }
+  
 
   render() {
     return <div className='editor'>

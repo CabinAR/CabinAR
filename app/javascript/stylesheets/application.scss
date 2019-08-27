@@ -264,6 +264,17 @@ button, .primary-button {
     margin-bottom:10px;
     text-align:center;
   }
+
+  &__marker {
+    padding:5px;
+    text-align:center;
+    background-color: $light-border;
+
+    &--warning {
+      color:white;
+      background-color: $error-color;
+    }
+  }
 }
 
 .piece-list {
