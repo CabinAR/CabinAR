@@ -113,8 +113,12 @@ class PiecePreview extends React.Component {
           ( row > cur[0][0] &&
             row < cur[1][0])) {
           if(cur[2] && cur[2].object3D) {
-            this.selectedEntity = cur[2]
-            this.aframeInspector().selectEntity(cur[2])
+            try {
+              this.selectedEntity = cur[2]
+              this.aframeInspector().selectEntity(cur[2])
+            } catch(e) {
+              this.selectedEntity = null;
+            }
           }
           break;
         }
