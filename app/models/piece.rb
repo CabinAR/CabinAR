@@ -29,7 +29,7 @@ class Piece < ApplicationRecord
     tempfile.write(marker.download)
     tempfile.close
 
-    result = `#{Rails.root}/bin/arcoreimg-osx eval-img --input_image_path=#{tempfile.path}`.strip.to_i
+    result = `#{Rails.root}/bin/#{ENV['ARCOREIMG']} eval-img --input_image_path=#{tempfile.path}`.strip.to_i
     tempfile.unlink
     result
   end
