@@ -228,11 +228,14 @@ class PieceEditor extends React.Component {
       </div>
     } else if(markerUrl) {
       const markerQuality = this.props.marker_quality
-      const markerClass = parseInt(this.props.marker_quality,10) < 75 ? "editor__marker--warning" : 'editor__marker--ok';
+      const markerClass = this.props.marker_quality === 0 ? 'editor__marker--zero' :
+                          parseInt(this.props.marker_quality,10) < 75 ? 
+                          "editor__marker--warning" : 'editor__marker--ok';
 
       return <React.Fragment>
-        {markerQuality && <div className={`editor__marker ${markerClass}`}>
+        {markerQuality !== null && <div className={`editor__marker ${markerClass}`}>
           Marker Quality: {this.props.marker_quality}
+          {this.props.marker_quality === 0 ? ". Unusuable Marker" : ""}
         </div>}
         <img className='editor__image' src={markerUrl} />
         </React.Fragment>

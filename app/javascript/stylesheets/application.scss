@@ -274,6 +274,11 @@ button, .primary-button {
       color:white;
       background-color: $error-color;
     }
+
+    &--zero {
+      color: white;
+      background-color: $error-color;
+    }
   }
 }
 
