@@ -26,7 +26,9 @@ class Api::PiecesController < Api::BaseController
 
 
   def update
-    @piece.update(piece_params)
+    if !@piece.space.locked? || current_user.admin_for?(@piece.space)
+      @piece.update(piece_params)
+    end
 
     SpaceUpdatesChannel.broadcast_to(@piece.space, { update: "piece", data: @piece.to_builder.attributes! })
 

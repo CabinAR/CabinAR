@@ -22,6 +22,10 @@ class User < ApplicationRecord
     end
   end
 
+  def admin_for?(space)
+    user_spaces.where(space_id: space.id, admin: true).present?
+  end
+
 
   def to_builder
     Jbuilder.new do |json|
