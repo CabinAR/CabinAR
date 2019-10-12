@@ -10,7 +10,7 @@ class UserSpace < ApplicationRecord
    validates :email, presence: true, 'valid_email_2/email': true
 
    def convert!
-     user = User.where(email:self.email, user_id: nil).take
+     user = User.where(email:self.email).take
      self.update(user: user)
    end
 
