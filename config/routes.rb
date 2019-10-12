@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :spaces do
     resources :user_spaces
   end
+  get "/discourse/sso", to: "discourse_sso#sso"
 
   get "/hello", to: "home#hello"
   get "/privacy-policy", to: "home#privacy"
