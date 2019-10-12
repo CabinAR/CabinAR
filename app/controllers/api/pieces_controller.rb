@@ -20,8 +20,13 @@ class Api::PiecesController < Api::BaseController
 
   def create
     return head 404 unless space
-    @piece = current_user.pieces.create(space_id: space.id, marker_units: "inches", marker_width: 12 )
-    render json: @piece.to_builder.attributes! 
+
+    if !space.locked? || current_user.admin_for?(space)
+      @piece = current_user.pieces.create(space_id: space.id, marker_units: "inches", marker_width: 12 )
+      render json: @piece.to_builder.attributes! 
+    else
+      head 404
+    end
   end
 
 
@@ -37,8 +42,12 @@ class Api::PiecesController < Api::BaseController
 
 
   def destroy
-    @piece.destroy 
-    render json: @piece.as_json 
+    if !@piece.space.locked? || current_user.admin_for?(@piece.space)
+      @piece.destroy 
+      render json: @piece.as_json 
+    else
+      head 404
+    end
   end
 
 
