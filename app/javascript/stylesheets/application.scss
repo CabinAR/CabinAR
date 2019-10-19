@@ -144,25 +144,77 @@ button, .primary-button {
   align-items:stretch;
 
   &__piece-list {
-    flex: 1 0 200px;
+    flex: 0 0 200px;
     background-color: white;
     border-right:1px solid $secondary-color; 
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.06), 0 3px 3px rgba(0, 0, 0, 0.13);
     z-index:10; 
+    position:relative;
+
+    &--hidden {
+      display:none;
+    }
   }
+
+  &__hide-tab { 
+    position:absolute;
+    right:-1px;
+    top:-1px;
+    width:20px;
+    height:20px;
+    border:1px solid $secondary-color;
+    background-color:white;
+    text-align:center;
+    cursor:pointer;
+  }
+
+  &__show-tab { 
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:20px;
+    height:20px;
+    background-color:white;
+    text-align:center;
+    cursor:pointer;
+    z-index:5;
+  }
+
     
   &__editor {
-    flex: 1 1 40%;
+    flex: 1 0 40%;
+    min-width:375px;
     position:relative;
     background-color: white;
     border-right:1px solid $secondary-color; 
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
     z-index:1;
-  
+    border-right:5px solid gray;
   }
 
+  &__resizer {
+    position:absolute;
+    cursor:pointer;
+    top:0px;
+    height:100%;
+    left:100%;
+    width:10px;
+    cursor:pointer;
+  }
+
+  &__blocker {
+    width: 100%;
+    height:100%;
+    position:absolute;
+    left:0px;
+    top:0px;
+  }
+
+
   &__preview {
-    flex: 1 1 60%;
+    position:relative;
+    flex: 0 1 auto;
+    min-width:200px !important;
   }
   
 }
@@ -292,7 +344,7 @@ button, .primary-button {
 
   &__back {
     position:absolute;
-    width:100%;
+    width:60px;
     top:5px;
     left:10px;
     cursor:pointer;
