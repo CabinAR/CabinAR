@@ -8,7 +8,11 @@
         My Spaces &raquo;
       %a.titlebar__item.titlebar__my-account{ href: account_path,class: local_assigns[:my_account] ? "titlebar__item--active" : "" }
         My Account
-
+      %a.titlebar__item{ href: "https://forum.cabin-ar.com/login"}
+        Forum
       .titlebar__spacer
       %a.titlebar__item.titlebar__logout{href: destroy_user_session_path, data: { method: "delete" }}
         Logout
+    - else
+      %a.titlebar__item{ href: "https://forum.cabin-ar.com/ "}
+        Forum
