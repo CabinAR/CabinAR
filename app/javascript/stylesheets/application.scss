@@ -43,6 +43,8 @@ button, .primary-button {
 
     &:hover { color:#000000; background-color:$action-color;}
 
+    &:disabled, &:disabled:hover { background-color:#ccc; color:white; }
+
 }
 
 .hidden { 
@@ -384,6 +386,13 @@ button, .primary-button {
     img { height: 24px; }
     float:left;
     padding-right: 10px;
+
+  }
+
+  &__piece-image-blank {
+    height:22px;
+    width:22px;
+    border:1px solid $light-border;
   }
 
   &__piece-unsaved {
@@ -414,7 +423,7 @@ button, .primary-button {
   }
 
   &__label {
-    padding-bottom:3px;
+    padding-bottom:5px;
   }
 
   &__input input, &__input select {
@@ -431,6 +440,18 @@ button, .primary-button {
     border:1px solid black;
     padding: 2px 6px;
     border-radius:5px;
+  }
+
+
+  &__danger-zone-title {
+    padding-bottom:10px;
+    font-size:18px;
+  }
+
+  &__danger-zone { 
+    border:1px solid red;
+    padding:5px;
+    margin-top:40px;
   }
 }
 
@@ -458,14 +479,6 @@ button, .primary-button {
   width: 100%;
   height:100%;
     
-    &__delete {
-        background-color:#ffffff00;
-        font-size:.7em;
-        color:black;
-        &:hover { color:$action-color; background-color:#ffffff00;}
-        &:active { background-color:#ffffff00; color: action-color; font-weight:bold; }
-        &:active, &:focus { outline: none; }  
-    }    
 
   &__actions {
     position:absolute;
@@ -954,3 +967,54 @@ button, .primary-button {
     left:0 !important;
 }
 
+
+.save-as {
+  &__wrapper {
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0px;
+    top:0px;
+    z-index:10000;
+  }
+
+  &__title {
+    color:$primary-color;
+    font-size:28px;
+    font-weight:16px;
+
+  }
+
+
+  &__overlay {
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0px;
+    top:0px;
+    background-color:rgba(0,0,0,0.7);
+  }
+
+  &__modal {
+    position:absolute;
+    width:400px;
+    height:200px;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    margin:auto;
+    padding:20px;
+    background-color:white;
+    border:3px solid black;
+    border-radius:10px;
+  }
+
+  &__actions {
+
+    button { margin-left:10px; }
+    position:absolute;
+    bottom:10px;
+    right:10px;
+  }
+}

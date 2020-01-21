@@ -14,6 +14,7 @@ class User < ApplicationRecord
   before_create :generate_token!
 
   after_create :convert_user_spaces
+  after_create :add_to_resources
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -43,7 +44,7 @@ class User < ApplicationRecord
   def generate_token!
     if !self.api_token.present? 
      self.api_token = token_try
-     while User.find_by_api_token(api_token)
+     while User.unscoped.find_by_api_token(api_token)
        self.api_token = token_try
      end
    end
@@ -60,4 +61,13 @@ class User < ApplicationRecord
     us.convert!
   end
  end
+
+
+ def add_to_resources
+  if ENV['RESOURCE_SPACE_ID'].present?
+    space = Space.find_by_id(ENV['RESOURCE_SPACE_ID'].to_i)
+    space&.add_user(self)
+  end
+ end
+
 end

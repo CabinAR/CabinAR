@@ -35,6 +35,15 @@
 
       .space-form__field
         %label.space-form__label
+          Locked 
+        .space-form__checkbox
+          %label
+            = f.check_box :locked
+            Lock editing this space for Collaborators who are not admins
+
+
+      .space-form__field
+        %label.space-form__label
           Icon 
         .space-form__input
           = f.file_field :icon

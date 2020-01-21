@@ -32,7 +32,7 @@ class SpacesController < ApplicationController
 
   def edit
     @space = Space.by_user(current_user).find_by_id(space_id)
-    if @space.user_id != current_user.id 
+    if !current_user.admin_for?(@space)
       return redirect_to spaces_path
     end
     
@@ -40,7 +40,7 @@ class SpacesController < ApplicationController
 
   def destroy
     @space = Space.by_user(current_user).find_by_id(space_id)
-    if @space.user_id == current_user.id 
+    if current_user.admin_for?(@space)
       @space.destroy
     end
     return redirect_to spaces_path
@@ -49,14 +49,17 @@ class SpacesController < ApplicationController
 
   def update
     @space = Space.by_user(current_user).find_by_id(space_id)
-    @space.update(space_params)
+    if current_user.admin_for?(@space)
+      @space.update(space_params)
+    end
     redirect_to spaces_path
   end
+
 
   protected
 
   def space_params
-    params.require(:space).permit(:name,:published,:latitude,:longitude,:radius,:icon,:tagline)
+    params.require(:space).permit(:name,:published,:locked, :latitude,:longitude,:radius,:icon,:tagline)
   end
 
   def space_id

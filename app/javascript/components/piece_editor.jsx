@@ -94,16 +94,17 @@ class PieceEditor extends React.Component {
   }
 
   setMarking([codeStart, codeEnd]) {
-
     this.clearMarking();
-    if(!codeStart || !codeEnd) { return; }
+    if(this.editor() && this.activeTab() == "scene") { 
 
-    var range = new Range(codeStart[0], 
-                          codeStart[1],
-                          codeEnd[0],
-                          codeEnd[1])
-    console.log(range)
-    this.marker = this.editorSession().addMarker(range, "selectedpiece", "text", true);
+      if(!codeStart || !codeEnd) { return; }
+
+      var range = new Range(codeStart[0], 
+                            codeStart[1],
+                            codeEnd[0],
+                            codeEnd[1])
+      this.marker = this.editorSession().addMarker(range, "selectedpiece", "text", true);
+    }
   }
 
   clearMarking() {
@@ -165,6 +166,13 @@ class PieceEditor extends React.Component {
     return `piece-${this.props.pieceId}-${field}`
   }
 
+  deletePiece = () => {
+    if(confirm("Are you sure you want to delete this piece?")) {
+      this.props.deletePiece(this.props.pieceId);
+    }
+  }
+
+
   renderProperties() { 
     const label = this.label;
 
@@ -211,6 +219,11 @@ class PieceEditor extends React.Component {
       </div>
        {this.renderUpload("Marker")}
        {this.renderMarker()}
+
+       <div className="properties__danger-zone">
+         <div className="properties__danger-zone-title">Danger Zone</div>
+         <button className='properties__danger' onClick={this.deletePiece}>Delete this piece</button>
+       </div>
     </div>
     </div>    
   }

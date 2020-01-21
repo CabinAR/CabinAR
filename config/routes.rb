@@ -14,6 +14,9 @@ Rails.application.routes.draw do
     resources :spaces do
       resources :pieces, shallow: true do
         resources :assets, controller: "piece_assets", only: :create
+        collection do 
+          post :save_as
+        end
       end
     end
   end

@@ -14,7 +14,7 @@ class Api::SpacesController < Api::BaseController
     end
 
     spaces = spaces.uniq.sort_by { |s| s.name }
-    render json: spaces.as_json
+    render json: spaces.as_json(for_user: current_user)
   end
 
 
@@ -27,12 +27,13 @@ class Api::SpacesController < Api::BaseController
     end
 
     if space
-      render json: space.as_json(with_pieces: true)
+      render json: space.as_json(with_pieces: true, for_user: current_user)
     else
       head :not_found
     end
 
   end
+
 
 
 end

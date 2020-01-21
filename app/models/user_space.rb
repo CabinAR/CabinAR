@@ -21,6 +21,6 @@ class UserSpace < ApplicationRecord
    end
 
    def find_user
-    self.user = User.where(email: self.email).take
+    self.user ||= User.where(email: self.email).take
   end
 end

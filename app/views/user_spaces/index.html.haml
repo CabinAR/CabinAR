@@ -15,6 +15,11 @@
             = user_space.user&.email || user_space.email
             - if !user_space.user_id
               %em (invited)
+            - else 
+              - if !user_space.admin?
+                = link_to "(make admin)", space_user_space_path(@space.id, user_space, admin: true), method: :put, data: { confirm: "Make this user an admin (can change collaborators)?" }
+              - elsif user_space.user_id != current_user.id
+                = link_to "(remove as admin)", space_user_space_path(@space.id, user_space, admin: false), method: :put, data: { confirm: "Remove admin privileges from this user?" }
           .collaborator__actions
             - if user_space.admin?
               Admin

@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class Piece < ApplicationRecord
   belongs_to :user
   belongs_to :space
@@ -20,6 +22,11 @@ class Piece < ApplicationRecord
     else
       "#{ENV['ASSET_PATH']}#{self.marker.key}"
     end
+  end
+
+  def add_marker(url)
+    img = open(url)
+    self.marker.attach(io: img, filename: "temp.#{img.content_type_parse.first.split("/").last}", content_type: img.content_type_parse.first)
   end
 
 

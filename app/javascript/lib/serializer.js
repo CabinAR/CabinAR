@@ -30,14 +30,35 @@ function linesRange(outputLines) {
   return [ rows-1, cols]
 }
 
-function outputEntityTagStart(entity, outputLines) {
+function outputEntityTagStart(entity, outputLines, level) {
   // loop over all the attributes in a tag
   // downcase the tag name
   let cleanedAttributes = outputAttributes(entity);
   let spacer = cleanedAttributes.length == 0 ? "" : " ";
   let tagStart = `<${entity.tagName.toLowerCase()}${spacer}`;
 
-  return `${tagStart}${cleanedAttributes.join(" ")}>`
+  const indentedAttributes = indentAttributes(level, tagStart.length, cleanedAttributes)
+
+  return `${tagStart}${indentedAttributes}>`
+}
+
+function indentAttributes(level, startTagLength, attr) {
+  if(attr.join(" ").length > 30 && attr.length > 1) {
+    let output = ""
+    for(let i = 0;i < attr.length;i++) { 
+      if(i==0) {
+        output += attr[i] + "\n"
+      } else {
+        output += prefixForLevel(level) + " ".repeat(startTagLength) + attr[i]
+        if(i < attr.length - 1) {
+          output +="\n"
+        }
+      }
+    }
+    return output;
+  } else {
+    return attr.join(" ")
+  }
 }
 
 export function serializeRoot(entity) {
@@ -67,7 +88,7 @@ export function serializeEntity(entity, outputLines, nodeMapping, level) {
   if(level > 0) {
     appendNodeText(outputLines,prefixForLevel(level))
     entity.codeStart = linesRange(outputLines)
-    appendNodeText(outputLines,outputEntityTagStart(entity,outputLines))
+    appendNodeText(outputLines,outputEntityTagStart(entity,outputLines,level))
   }
   var children = entity.childNodes;
   for (var i = 0, l = children.length; i < l; i++) {

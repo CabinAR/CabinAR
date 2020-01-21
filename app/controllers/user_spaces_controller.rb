@@ -24,11 +24,19 @@ class UserSpacesController < ApplicationController
   end
 
 
+  def update
+    user_space = @space.user_spaces.find(params[:id].to_i)
+    user_space.admin = params[:admin].to_s == "true"
+    user_space.save
+    redirect_to space_user_spaces_path(@space)
+  end
+
 
   protected 
 
   def get_space
     @space = current_user.spaces.find_by_id(params[:space_id].to_i)
+    return head 404 unless current_user.admin_for?(@space)
     head 404 unless @space
   end
 

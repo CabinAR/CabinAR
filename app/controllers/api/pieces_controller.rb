@@ -1,3 +1,5 @@
+
+
 class Api::PiecesController < Api::BaseController
   # Pieces are only for users who are logged in
 
@@ -30,6 +32,20 @@ class Api::PiecesController < Api::BaseController
   end
 
 
+  def save_as
+    if !space.locked? || current_user.admin_for?(space)
+      @piece = current_user.pieces.create({ space_id: space.id }.merge(piece_params))
+
+      if marker_url.present?
+        @piece.add_marker(marker_url)
+      end
+      render json: @piece.to_builder.attributes! 
+    else
+      head 404
+    end
+  end
+
+
   def update
     if !@piece.space.locked? || current_user.admin_for?(@piece.space)
       @piece.update(piece_params)
@@ -52,6 +68,10 @@ class Api::PiecesController < Api::BaseController
 
 
   protected
+
+  def marker_url
+    params.require(:piece).permit(:marker_url)[:marker_url]
+  end
 
   def piece_params
     params.require(:piece).permit(:name, :marker_units, :marker_width, :code, :scene, :assets, :marker)

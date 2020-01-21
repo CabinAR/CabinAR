@@ -83,6 +83,18 @@ class CabinAPI {
       )
   }
 
+  static savePieceAs(piece, spaceId) {
+    return CabinAPI.sendData(
+       `/api/spaces/${spaceId}/pieces/save_as`,
+       { piece: piece },
+       "POST"
+      )
+  }
+
+  static getSpaces() {
+    return CabinAPI.getData(`/api/spaces`)
+  }
+
   static getData(url) {
     return window.fetch(url)
      .then(function(response) { 

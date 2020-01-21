@@ -7,7 +7,8 @@ import {
   deletePiece,
   updatePiece,
   updateMarking,
-  updateMapping
+  updateMapping,
+  showSaveAs
  } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,14 +17,15 @@ const mapStateToProps = (state, ownProps) => {
     pieceId: piece.id, 
     aframePack: state.aframePack,
     cursor: state.cursor,
-    mapping: state.mapping
+    mapping: state.mapping,
+    editable: state.space.editable
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    showSaveAs: () => { dispatch(showSaveAs(true)) },
     savePiece: (pieceId) => { dispatch(savePiece(pieceId)) },
-    deletePiece: (pieceId) => { dispatch(deletePiece(pieceId))},
     updatePiece: (pieceId, props) => { dispatch(updatePiece(pieceId, props)) },
     codeMarking: (codeStart,codeEnd) => { dispatch(updateMarking(codeStart,codeEnd))},
     entityMapping: (mapping) => { dispatch(updateMapping(mapping)) }

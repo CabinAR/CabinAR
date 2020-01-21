@@ -23,11 +23,15 @@ class Space < ApplicationRecord
     end
   end
 
+  def add_user(user, admin: false)
+    self.user_spaces.create(user: user, email: user.email, admin: admin)
+  end
 
-
-  def as_json(with_pieces: false)
+  def as_json(with_pieces: false, for_user: nil)
     Jbuilder.new do |json|
       json.(self,:id,:name,:longitude,:latitude,:radius,:tagline)
+
+      json.editable self.can_edit?(for_user)
 
       if self.icon.present?
         json.icon_url self.icon_url
@@ -45,6 +49,10 @@ class Space < ApplicationRecord
     space
   end
 
+
+  def can_edit?(user)
+    user && (!self.locked? || user.admin_for?(self))
+  end
 
   def create_default_piece
     piece = self.pieces.create({

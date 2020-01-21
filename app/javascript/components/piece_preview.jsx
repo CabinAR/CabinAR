@@ -69,7 +69,9 @@ class PiecePreview extends React.Component {
     //       (nextProps.code != this.props.code)
   }
 
-
+  activeTab() {
+    return this.props.tab || "scene"
+  }
 
 
   componentDidUpdate(prevProps,prevState) {
@@ -98,6 +100,9 @@ class PiecePreview extends React.Component {
   }
 
   updateSelectionFromCursor() {
+    // Don't update from assets
+    if(this.activeTab() != "scene") {  return; }
+
     var {row,column} = this.props.cursor;
 
      var { mapping } = this.props
@@ -153,11 +158,6 @@ class PiecePreview extends React.Component {
     this.props.savePiece(this.props.pieceId);
   }
 
-  deletePiece = () => {
-    if(confirm("Are you sure you want to delete this piece?")) {
-      this.props.deletePiece(this.props.pieceId);
-    }
-  }
 
   selectTool = (tool) => {
     this.Events.emit('transformmodechange',tool)
@@ -247,12 +247,12 @@ class PiecePreview extends React.Component {
   }
 
   render() {
-    var { dirty } = this.props;
+    var { dirty, editable } = this.props;
     
     return <div className='preview'>
     <div className='preview__actions'>
-      <button className='preview__delete' onClick={this.deletePiece}>Delete</button>
-      <button className={`preview__action button ${dirty ? 'preview__action--dirty' : ''}`} onClick={this.savePiece}>Save</button>
+      { editable && <button className={`preview__action button ${dirty ? 'preview__action--dirty' : ''}`} onClick={this.savePiece}>Save</button> }
+      <button className="preview__action button" onClick={this.props.showSaveAs}>...</button>
     </div>
     <div className='preview__wrapper'>
       <Frame initialContent={this.iframeHead()} mountTarget='#preview' className='preview__iframe' ><div>

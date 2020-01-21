@@ -10,7 +10,8 @@ import {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    pieceId: state.pieceId
+    pieceId: state.pieceId,
+    showSaveAsModal: state.showSaveAsModal
   }
 }
 

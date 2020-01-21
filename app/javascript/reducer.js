@@ -11,7 +11,9 @@ import {
   DELETE_PIECE,
   UPDATE_MARKING,
   UPDATE_MAPPING,
-  UPDATE_CURSOR
+  UPDATE_CURSOR,
+  SHOW_SAVE_AS,
+  REFRESH_SPACES
 } from './actions'
 
 import { map, uniq, reject } from 'lodash'
@@ -84,6 +86,11 @@ add(ADD_PIECE, (state, action) => {
   return { ...state, index, pieces, pieceId: action.piece.id }
 })
 
+add(SHOW_SAVE_AS, (state, action) => {
+  return {...state, showSaveAsModal: action.show }
+
+})
+
 add(DELETE_PIECE, (state, action) => {
   let pieceId = action.pieceId
 
@@ -107,6 +114,10 @@ add(UPDATE_MAPPING, (state, action) => {
 
 add(UPDATE_CURSOR, (state, action) => {
   return { ...state, cursor: action.cursor }
+})
+
+add(REFRESH_SPACES, (state, action) => {
+  return {...state, spaces: action.spaces }
 })
 
 function add(name, reducer) {

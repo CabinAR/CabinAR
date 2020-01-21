@@ -9,6 +9,8 @@ export const DELETE_PIECE = 'DELETE_PIECE';
 export const UPDATE_MARKING = 'UPDATE_MARKING';
 export const UPDATE_MAPPING = 'UPDATE_MAPPING';
 export const UPDATE_CURSOR = 'UPDATE_CURSOR'
+export const SHOW_SAVE_AS = 'SHOW_SAVE_AS'
+export const REFRESH_SPACES = 'REFRESH_SPACES'
 
 import { find, omit } from 'lodash'
 
@@ -161,6 +163,14 @@ export function selectPiece(pieceId) {
 }
 
 
+export function showSaveAs(show) {
+  return {
+    type: SHOW_SAVE_AS,
+    show: show
+  }
+}
+
+
 export function addPiece() {
   return function(dispatch,getState) {
     const spaceId = getState().spaceId;
@@ -168,6 +178,17 @@ export function addPiece() {
       dispatch({
         type: ADD_PIECE,
         piece: data
+      })
+    })
+  }
+}
+
+export function refreshSpaces() {
+  return function(dispatch, getState) {
+    CabinAPI.getSpaces().then((data) => {
+      dispatch({
+        type: REFRESH_SPACES,
+        spaces: data
       })
     })
   }
