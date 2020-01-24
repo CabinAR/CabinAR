@@ -252,7 +252,7 @@ class PiecePreview extends React.Component {
     return <div className='preview'>
     <div className='preview__actions'>
       { editable && <button className={`preview__action button ${dirty ? 'preview__action--dirty' : ''}`} onClick={this.savePiece}>Save</button> }
-      <button className="preview__action button" onClick={this.props.showSaveAs}>...</button>
+      <button className="preview__action button" onClick={this.props.showSaveAs}>&#8231;&#8202;&#8231;&#8202;&#8231;</button>
     </div>
     <div className='preview__wrapper'>
       <Frame initialContent={this.iframeHead()} mountTarget='#preview' className='preview__iframe' ><div>

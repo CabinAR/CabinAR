@@ -8,18 +8,19 @@
     .homepage__header
       Make and share web-based augmented reality.
     .homepage__text
-      %p  CabinAR is an free, web-based application that allows you to make and share marker-based augmented reality. Create an account to use the online editor and build original content.  
+      %p  CabinAR is a free, web-based application that allows you to make and share marker-based augmented reality. Create an account to use the online editor and build original content.  
     - if current_user
       %a.homepage__link{href: spaces_path}
         Go To My Spaces
     - else
       %a.homepage__link{href: user_google_oauth2_omniauth_authorize_path}
-        Sign in with Google
+        Log in with Google
       %a.homepage__small-link{href:"javascript:toggleSignIn()"}
-        Sign In or Sign up
+        or Sign Up
     
     %p Download the mobile app to preview your creations and share them with your friends.
-    %p CabinAR is built using A-frame and ARKit.
+    .homepage__subtext
+      CabinAR is built using A-frame and ARKit.
     
     .homepage_app  
       %a{href:"https://apps.apple.com/us/app/cabinar/id1465457047"}= image_tag("app-store-badge-white.svg", class:"homepage__app-image")

@@ -1,13 +1,13 @@
 * { box-sizing: border-box; }
 
 $primary-color: #000000;
-$secondary-color: #0f0f0f;
-$light-color: #a3a3a3;
+$secondary-color: #777677;
+$light-color: #777677;
 $action-color: #EB008B;
 $light-border: #dedede;
 $action-light:#ff50a1;
 
-$error-color: #aa1111;
+$error-color: #ff0b00;
 
 $titlebar: #ffffff;
 $titlebar-item: #ccc;
@@ -63,11 +63,11 @@ button, .primary-button {
 
 
 .button {
-  color: $primary-color;
-  background-color: rgba(255,255,255,.5);
+  color: white;
+  background-color: $action-color;
   padding: 7px 10px;
   margin:1px;    
-  border: 1px solid $primary-color;
+  border: 1px solid $action-color;
   border-radius:30px;    
   text-decoration:none;
   text-transform: uppercase;
@@ -75,9 +75,27 @@ button, .primary-button {
   letter-spacing: .05em;
   cursor: pointer;
   &:hover { color:$action-color; background-color:white; border-color:$action-color;}
-  &:active { background-color:$action-color; color: white; }
+  &:active { background-color:$action-light; color: white; }
   &:active, &:focus { outline: none; }  
     
+}
+
+.button-light {
+  color: $action-color;
+  background-color: rgba(255,255,255,.5);
+  padding: 7px 10px;
+  margin:1px;    
+  border: 1px solid $action-color;
+  border-radius:30px;    
+  text-decoration:none;
+  text-transform: uppercase;
+  font-size: .7em;
+  letter-spacing: .05em;
+  cursor: pointer;
+  &:hover { color:white; background-color:$action-color; border-color:$action-color;}
+  &:active { background-color:$action-light; color: white; }
+  &:active, &:focus { outline: none; }
+  
 }
 
 .titlebar {
@@ -101,6 +119,9 @@ button, .primary-button {
     margin-left:2px;
     padding:16px 20px;
     border-top: 2px solid #ffffff;
+    font-size: 14px;
+    letter-spacing: .03em;
+    font-weight: 400;
     
     @include for-phone-only {
       padding: 7px 0px 0 15px;
@@ -109,7 +130,8 @@ button, .primary-button {
 
 
     &--active { 
-      border-top:2px solid $titlebar-item-active;
+      font-weight:700;
+      color:$action-color;
     }
   }
 
@@ -191,7 +213,6 @@ button, .primary-button {
     border-right:1px solid $secondary-color; 
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
     z-index:1;
-    border-right:5px solid gray;
   }
 
   &__resizer {
@@ -235,10 +256,11 @@ button, .primary-button {
   }
 
   &__upload {
-    flex: 0 0 40px;
+    flex: 0 0 80px;
     position:relative;
-    text-align:center;
-  }
+    /* text-align: center; */
+    margin-bottom: 20px;
+    }
 
   &__tools {
     flex: 0 0 auto;
@@ -250,7 +272,10 @@ button, .primary-button {
     margin: 0 5px 5px 5px;
     font-size:.6em;
     padding:5px 12px;
-    border-radius:20px;  
+    border-radius:20px; 
+    background-color:rgba(255,255,255,.5); 
+    color: $secondary-color;
+    border: 1px solid $secondary-color;
     
   }
 
@@ -281,9 +306,9 @@ button, .primary-button {
     &:hover { color:$action-color; border-bottom:3px solid $action-light;}  
 
     &--active {
+      color:$action-color;
+      font-weight:700;
       position:relative;
-      top:1px;
-      border-bottom:3px solid $action-color;
       background-color:white;
 
     }
@@ -291,7 +316,7 @@ button, .primary-button {
   }
 
   &__properties {
-    padding:10px;
+    padding:10px 20px;
     flex: 1 1 auto;
     overflow-x:hidden;
     overflow-y: auto;
@@ -308,6 +333,7 @@ button, .primary-button {
   &__image {
     max-width:60%;
     max-height:60%;
+    border:1px solid $light-border;
   }
 
   &__save-needed {
@@ -320,9 +346,10 @@ button, .primary-button {
   }
 
   &__marker {
-    padding:5px;
+    color:$light-color;
+    /*padding:5px;
     text-align:center;
-    background-color: $light-border;
+    background-color: $light-border;*/
 
     &--warning {
       color:white;
@@ -345,23 +372,24 @@ button, .primary-button {
   color:$primary-color;    
 
   &__back {
+    color:$secondary-color;
     position:absolute;
     width:60px;
     top:5px;
     left:10px;
     cursor:pointer;
     text-transform:none;
-    font-size:.8em;
+    font-size:.7em;
     &:hover { color:$action-color;}
   }
     
     &__name {
-    font-size: 1.3em;
+    font-size: 1.5em;
     margin: 20px 0 20px 10px;
     }    
 
   &__piece {
-    padding:10px 0px 15px 0px;
+    padding:20px 0px;
     overflow:hidden;
     cursor:pointer;
 
@@ -407,10 +435,9 @@ button, .primary-button {
   }
 
   &__add-piece {
-    position:fixed;
-    bottom:8px;
-    left:12px;
-    background: white;  
+    position: fixed;
+    left: 12px;
+    margin-top: 10px;
   }
 
 
@@ -424,14 +451,17 @@ button, .primary-button {
 
   &__label {
     padding-bottom:5px;
+    font-size: 11px;
+    color: $light-color;
+    letter-spacing: .03em;
   }
 
   &__input input, &__input select {
     width:100%;
     border:1px solid $light-border;
-    padding:4px 6px;
+    padding:10px;
     display:block;
-    margin-bottom:2px;
+    margin-bottom: 6px;
   }
 
   &__label-button {
@@ -442,16 +472,22 @@ button, .primary-button {
     border-radius:5px;
   }
 
-
+  &__danger {
+    color:white;
+    background-color:$error-color;
+    &:hover { color:$error-color; background-color:black;}
+  }
+  
   &__danger-zone-title {
     padding-bottom:10px;
-    font-size:18px;
+    font-size:14px;
+    color:$error-color;
   }
 
   &__danger-zone { 
-    border:1px solid red;
+    border:1px solid $error-color;
     padding:5px;
-    margin-top:40px;
+    margin-top:80px;
   }
 }
 
@@ -490,11 +526,11 @@ button, .primary-button {
   &__action {
     margin-left: 5px;
     cursor: pointer;  
-    background:black;
-    border:1px solid black;
+    background:$action-color;
+    border:1px solid $action-color;
     color:white;
     
-    &:hover { background-color:black; border-color:black; color:white;}
+    &:hover { background-color:white; border-color:$action-color; color:$action-color;}
     &:active { background-color:white; color: $action-color; border-color:$action-color;  }
     &:active, &:focus { outline: none; }
     
@@ -515,14 +551,14 @@ button, .primary-button {
 
   &__toggle {
     position:absolute;
-    right:20px;
-    top:50px;
+    right: 50%;
+    top: 10px;
   }
 
   &__tools {
     position:absolute;
     left:10px;
-    top:50px;
+    top:10px;
   }
 
   &__tool {
@@ -583,7 +619,7 @@ button, .primary-button {
 
   &__edit {
     padding:10px;
-    flex: 0 0 40px;
+    flex: 0 0 20px;
     font-size:24px;
     text-decoration:none;
     &:hover {
@@ -774,7 +810,7 @@ button, .primary-button {
     max-width: 1000px;
     display: flex;
     justify-content: center;
-    margin: 50px 40px;
+    margin: 50px 40px 80px 40px;
   
   @include for-phone-only {
     margin-top: 0;
@@ -800,17 +836,23 @@ button, .primary-button {
   }
     
   &__header {
-    font-size:55px;
-    font-weight:bold;
-    line-height:50px;  
+    font-size:75px;
+    font-weight:300;
+    line-height:.9em; 
+    color:$secondary-color;
     
     @include for-phone-only {    
-      font-size: 30px;
-      font-weight: bold;
+      font-size: 50px;
       line-height: 1em;
       text-align: center;
       margin-top: 20px;
     }
+  }
+  
+  &__subtext {
+    font-size:15px;
+    margin: 40px 0 10px 0;
+    color: $light-color;
   }
     
   &__logo-image {
@@ -836,13 +878,14 @@ button, .primary-button {
     display:inline-block;
     background-color:$action-color;
     color:white;
-    padding:10px 20px;
+    padding: 15px 25px;
     text-decoration:none;
-    font-size:16px;
+    font-size:15px;
     text-align:center;
-    margin: 0px 0px 10px 0px;
+    margin: 20px 0;
     text-transform:uppercase;
     letter-spacing: .03em;  
+    border-radius:30px;
     &:hover { color:white; background-color:$action-light;}
     &:active { background-color:black; color: white; }
     &:active, &:focus { outline: none; }  
@@ -850,7 +893,7 @@ button, .primary-button {
     @include for-phone-only { 
       display: block;
       width: 70%;
-      margin: 10px auto;
+      margin: 30px auto;
     }
   }
   
@@ -859,6 +902,7 @@ button, .primary-button {
     margin-left: 10px;
     font-size: 1em;
     text-decoration: underline;
+    color:$light-color;
     
     @include for-phone-only { 
       display:block;
@@ -1006,7 +1050,6 @@ button, .primary-button {
     margin:auto;
     padding:20px;
     background-color:white;
-    border:3px solid black;
     border-radius:10px;
   }
 

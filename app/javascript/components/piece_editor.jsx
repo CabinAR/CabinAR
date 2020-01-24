@@ -221,8 +221,8 @@ class PieceEditor extends React.Component {
        {this.renderMarker()}
 
        <div className="properties__danger-zone">
-         <div className="properties__danger-zone-title">Danger Zone</div>
-         <button className='properties__danger' onClick={this.deletePiece}>Delete this piece</button>
+         <div className="properties__danger-zone-title">Danger Zone - this can't be undone!</div>
+         <button className='properties__danger button' onClick={this.deletePiece}>Delete this piece FOREVER</button>
        </div>
     </div>
     </div>    
@@ -310,8 +310,8 @@ class PieceEditor extends React.Component {
     const label = this.label;
 
     return <div className='editor__upload'>
-          <button className='properties__label-button' onClick={this.clickUpload}>+ Upload {text}</button> 
-          <input type='file' ref={this.uploadRef} id={label('upload-file')} className='editor__fileInput' onChange={this.addFile} />  
+          <input type='file' ref={this.uploadRef} id={label('upload-file')} className='editor__fileInput' onChange={this.addFile} />
+          <button className='button-light' onClick={this.clickUpload}>+ Upload {text}</button>   
         </div>
   }
   
