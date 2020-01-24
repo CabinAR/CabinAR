@@ -61,15 +61,15 @@ class SaveAsModal extends React.Component {
     const { spaces, closeSaveAs } = this.props;
 
 
-    return <div className="save-as__wrapper">
-      <div className="save-as__overlay"></div>
-      <div className="save-as__modal">
-        <div className='save-as__title'>Save As...</div>
+    return <div className="modal__wrapper">
+      <div className="modal__overlay"></div>
+      <div className="modal__modal">
+        <div className='modal__title'>Save As...</div>
         { saved ? this.renderLink() : this.renderSelect() }
 
-        <div className="save-as__actions">
-          <button className="save-as__cancel" onClick={this.props.closeSaveAs}>{saved ? 'close' : 'cancel' }</button>
-          {!saved && <button className="save-as__save" disabled={!spaceId || saving} onClick={this.saveAs}>{saving ? "Saving..." : "Save" }</button>}
+        <div className="modal__actions">
+          <button className="modal__cancel" onClick={this.props.closeSaveAs}>{saved ? 'close' : 'cancel' }</button>
+          {!saved && <button className="modal__save" disabled={!spaceId || saving} onClick={this.saveAs}>{saving ? "Saving..." : "Save" }</button>}
         </div>
       </div>
     </div>

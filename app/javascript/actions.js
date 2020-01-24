@@ -11,6 +11,7 @@ export const UPDATE_MAPPING = 'UPDATE_MAPPING';
 export const UPDATE_CURSOR = 'UPDATE_CURSOR'
 export const SHOW_SAVE_AS = 'SHOW_SAVE_AS'
 export const REFRESH_SPACES = 'REFRESH_SPACES'
+export const SHOW_QR = 'SHOW_QR'
 
 import { find, omit } from 'lodash'
 
@@ -170,6 +171,12 @@ export function showSaveAs(show) {
   }
 }
 
+export function showQr(show) {
+  return {
+    type: SHOW_QR,
+    show: show
+  }
+}
 
 export function addPiece() {
   return function(dispatch,getState) {

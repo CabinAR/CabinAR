@@ -388,6 +388,14 @@ button, .primary-button {
     margin: 20px 0 20px 10px;
     }    
 
+
+    &__preview-link {
+      font-size:0.7em;
+      color:$action-color;
+      text-decoration:underline;
+      padding-left:5px;
+    }
+
   &__piece {
     padding:20px 0px;
     overflow:hidden;
@@ -1017,7 +1025,7 @@ button, .primary-button {
 }
 
 
-.save-as {
+.modal {
   &__wrapper {
     position:absolute;
     width:100%;
@@ -1025,6 +1033,7 @@ button, .primary-button {
     left:0px;
     top:0px;
     z-index:10000;
+
   }
 
   &__title {
@@ -1056,6 +1065,15 @@ button, .primary-button {
     padding:20px;
     background-color:white;
     border-radius:10px;
+
+
+    &--qr { height:500px; }
+  }
+
+
+  &__qr { 
+    padding:10px;
+    margin:0 auto;
   }
 
   &__actions {

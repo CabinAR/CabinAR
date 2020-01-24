@@ -10,6 +10,7 @@ import PieceListContainer from './piece_list_container'
 import PieceEditorContainer from './piece_editor_container'
 import PiecePreviewContainer from './piece_preview_container'
 import SaveAsModalContainer from './save_as_modal_container'
+import QrModalContainer from './qr_modal_container'
 
 import Notifications from 'react-notify-toast';
 
@@ -128,6 +129,7 @@ class CabinArApp extends React.Component {
             {this.state.dragging && <div className='page-wrapper__blocker'></div>}
           </div>
           {this.props.showSaveAsModal && <SaveAsModalContainer/>}
+          {this.props.showQrModal && <QrModalContainer/>}
         </div>
   }
 

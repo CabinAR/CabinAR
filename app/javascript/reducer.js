@@ -13,7 +13,8 @@ import {
   UPDATE_MAPPING,
   UPDATE_CURSOR,
   SHOW_SAVE_AS,
-  REFRESH_SPACES
+  REFRESH_SPACES,
+  SHOW_QR
 } from './actions'
 
 import { map, uniq, reject } from 'lodash'
@@ -90,6 +91,12 @@ add(SHOW_SAVE_AS, (state, action) => {
   return {...state, showSaveAsModal: action.show }
 
 })
+
+add(SHOW_QR, (state, action) => {
+  return {...state, showQrModal: action.show }
+
+})
+
 
 add(DELETE_PIECE, (state, action) => {
   let pieceId = action.pieceId

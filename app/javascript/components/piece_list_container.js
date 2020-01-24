@@ -6,7 +6,8 @@ import { map, find, sortBy } from "lodash"
 
 import {
   selectPiece,
-  addPiece 
+  addPiece,
+  showQr
 } from "../actions"
 
 const mapStateToProps = (state, ownProps) => {
@@ -25,7 +26,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return { 
     selectPiece: (pieceId) => { dispatch(selectPiece(pieceId)) },
-    addPiece: () => { dispatch(addPiece()) }
+    addPiece: () => { dispatch(addPiece()) },
+    showQrModal: () => { dispatch(showQr(true)) }
   }
 }
 

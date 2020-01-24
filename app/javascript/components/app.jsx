@@ -37,6 +37,8 @@ class App extends React.Component {
   baseStore() {
     return {
       spaceId: this.props.spaceId,
+      cabinKey: this.props.cabinKey,
+      rootUrl: this.props.rootUrl,
       pieceId: null,
       space: {},
       pieces: [],
@@ -44,6 +46,7 @@ class App extends React.Component {
       gizmo: 'translate',
       aframePack: this.props.aframePack,
       showSaveAsModal: false,
+      showQrModal: false,
       spaces: []
     }
   }

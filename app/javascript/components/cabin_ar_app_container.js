@@ -11,7 +11,8 @@ import {
 const mapStateToProps = (state, ownProps) => {
   return {
     pieceId: state.pieceId,
-    showSaveAsModal: state.showSaveAsModal
+    showSaveAsModal: state.showSaveAsModal,
+    showQrModal: state.showQrModal
   }
 }
 
