@@ -89,8 +89,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = { :host => 'www.cabin-ar.com' }
-  config.action_controller.default_url_options = {:host => "www.cabin-ar.com"}
+  config.action_mailer.default_url_options = { :host => ENV.fetch('DOMAIN_NAME','www.cabin-ar.com') }
+  config.action_controller.default_url_options = {:host => ENV.fetch('DOMAIN_NAME',"www.cabin-ar.com")}
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
