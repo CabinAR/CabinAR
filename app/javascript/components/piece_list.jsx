@@ -48,7 +48,7 @@ class PieceList extends React.Component {
         <div className='piece-list__title'>
       <div className='piece-list__back'  onClick={this.gotoMySpaces}>&laquo; back</div>
     <div className='piece-list__name' >{name} 
-      <a className='piece-list__preview-link' href='javascript:void(0);' onClick={this.props.showQrModal}>(preview)</a>
+      <a className='piece-list__preview-link' href='javascript:void(0);' onClick={this.props.showQrModal}>(o)</a>
     </div>
             </div>
       {map(this.props.pieces, this.renderPiece)}
