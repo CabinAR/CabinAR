@@ -176,7 +176,9 @@ class PieceEditor extends React.Component {
   renderProperties() { 
     const label = this.label;
 
-    return <div className='editor__properties'>
+    return [
+      this.renderUpload("Marker"),
+      <div className='editor__properties'>
 
     <div className='properties'>
 
@@ -217,7 +219,6 @@ class PieceEditor extends React.Component {
         <label className='properties__label'>Marker:</label>
         &nbsp;Drag an image here or click button to change the marker.
       </div>
-       {this.renderUpload("Marker")}
        {this.renderMarker()}
 
        <div className="properties__danger-zone">
@@ -226,6 +227,7 @@ class PieceEditor extends React.Component {
        </div>
     </div>
     </div>    
+      ]
   }
 
   renderMarker() {
@@ -309,9 +311,9 @@ class PieceEditor extends React.Component {
   renderUpload(text) {
     const label = this.label;
 
-    return <div className='editor__upload'>
-          <input type='file' ref={this.uploadRef} id={label('upload-file')} className='editor__fileInput' onChange={this.addFile} />
-          <button className='button-light' onClick={this.clickUpload}>+ Upload {text}</button>   
+    return <div className='editor__tools'>
+          <button className='button editor__tool' onClick={this.clickUpload}>+ Upload {text}</button> 
+          <input type='file' ref={this.uploadRef} id={label('upload-file')} className='editor__fileInput' onChange={this.addFile} />  
         </div>
   }
   
@@ -322,8 +324,8 @@ class PieceEditor extends React.Component {
       { map(this.tabs(),this.renderTab) }
     </div>
     { this.activeTab() == 'scene' && this.renderTools() }        
-    { this.activeTab() == 'properties' ? this.renderProperties() : this.renderEditor() }
     { this.activeTab() == 'assets' && this.renderUpload('asset') }
+    { this.activeTab() == 'properties' ? this.renderProperties() : this.renderEditor() }
     </div>
   }
 

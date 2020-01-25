@@ -280,8 +280,8 @@ class PiecePreview extends React.Component {
       </Frame>
 
       <div className='preview__toggle'>
-        {this.renderToggle(true,'||')}
-        {this.renderToggle(false,'>')}
+        {this.renderToggle(true,'॥')}
+        {this.renderToggle(false,'▹')}
         </div>
       <div className='preview__tools'>
         {this.renderTool('translate','P')}
