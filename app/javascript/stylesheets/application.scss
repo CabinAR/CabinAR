@@ -553,29 +553,34 @@ button, .primary-button {
     position:absolute;
     right: 50%;
     top: 10px;
+    display:flex;
   }
 
   &__tools {
     position:absolute;
     left:10px;
     top:10px;
+    display:flex;
   }
 
   &__tool {
-    display:inline-block;
+    flex:auto;
+    display:flex;
     border-radius:30px;
     padding: 5px 12px;
-    margin:2px;
     color: $primary-color;
     background-color: rgba(255,255,255,.6);
     border: 1px solid $primary-color;
     text-transform: uppercase;
     letter-spacing: .05em;
-    margin-left: 5px;
     cursor: pointer;  
     &:hover { background-color:$action-color; color:white; border-color:$action-color;}
     &:active { background-color:$action-color; color: white; }
     &:active, &:focus { outline: none; }  
+
+    &--left { padding-left:15px; border-top-right-radius:0px;  border-bottom-right-radius:0px;}
+    &--center { border-radius:0px; }  
+    &--right { padding-right:15px; border-top-left-radius:0px;  border-bottom-left-radius:0px;}
 
     &--active {
       background-color:$primary-color;
@@ -977,7 +982,7 @@ button, .primary-button {
      don't focus on the number "1000" here, but rather,
      you should have a documented system for z-index and 
      follow that system. This number should be pretty
-     high on the scale in that system.
+     high oneith  the scale in that system.
   */
   z-index: 1000;
   

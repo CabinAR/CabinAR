@@ -183,19 +183,21 @@ class PiecePreview extends React.Component {
     return this.previewWindow.AFRAME.INSPECTOR;
   }
 
-  renderTool = (tool, label) => {
+  renderTool = (tool, label, position) => {
     var cls = 'preview__tool'
     if(this.state.tool == tool) {
       cls +=" preview__tool--active"
     }
-    return <div onClick={(e)=> this.selectTool(tool) } className={cls}>{label}</div>
+    cls += ` preview__tool--${position}`
+    return <div onClick={(e)=> this.selectTool(tool) } className={cls}><div className='preview__tool-content'>{label}</div></div>
   }
 
-  renderToggle = (on, label) => {
+  renderToggle = (on, label, position) => {
     var cls = 'preview__tool'
     if(this.state.inspector == on) {
       cls +=" preview__tool--active"
     }
+    cls += ` preview__tool--${position}`
     return <div onClick={(e)=> this.toggleInspector(on) } className={cls}>{label}</div>
   }
 
@@ -280,13 +282,13 @@ class PiecePreview extends React.Component {
       </Frame>
 
       <div className='preview__toggle'>
-        {this.renderToggle(true,'॥')}
-        {this.renderToggle(false,'▹')}
+        {this.renderToggle(true,'॥','left')}
+        {this.renderToggle(false,'▹','right')}
         </div>
       <div className='preview__tools'>
-        {this.renderTool('translate','P')}
-        {this.renderTool('rotate','R')}
-        {this.renderTool('scale','S')}
+        {this.renderTool('translate','P','left')}
+        {this.renderTool('rotate','R','center')}
+        {this.renderTool('scale','S','right')}
       </div>
     </div>
     </div>
