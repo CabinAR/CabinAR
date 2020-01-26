@@ -134,6 +134,15 @@ button, .primary-button {
       color:$action-color;
     }
   }
+  
+  &__my-account, &__logout {
+    text-transform:uppercase;
+    font-size: 11px;
+    margin-top: 3px;
+    letter-spacing: .05em;
+    color:$action-color;
+    padding-left:0;
+  }
 
   &__spacer {
     flex: 1 0 auto;
@@ -559,7 +568,7 @@ button, .primary-button {
 
   &__toggle {
     position:absolute;
-    right: 50%;
+    right: 35%;
     top: 10px;
     display:flex;
   }
@@ -573,6 +582,7 @@ button, .primary-button {
 
   &__tool {
     flex:auto;
+    align-items: center;
     display:flex;
     border-radius:30px;
     padding: 5px 12px;
@@ -581,8 +591,24 @@ button, .primary-button {
     border: 1px solid $primary-color;
     text-transform: uppercase;
     letter-spacing: .05em;
-    cursor: pointer;  
-    &:hover { background-color:$action-color; color:white; border-color:$action-color;}
+    cursor: pointer; 
+    font-size:11px;
+        svg.preview__tool-icon {
+          fill:$primary-color;
+          width:15px;
+          height:15px;
+          padding-right:3px; 
+
+      }
+    
+    &:hover { 
+      background-color:$action-color; color:white; border-color:$action-color;
+      
+      svg.preview__tool-icon {
+        fill:white;
+
+      }
+    }
     &:active { background-color:$action-color; color: white; }
     &:active, &:focus { outline: none; }  
 
@@ -594,7 +620,17 @@ button, .primary-button {
       background-color:$primary-color;
       color:white;
       border-color: $primary-color; 
-      &:hover { background-color:white; color:$action-color;}        
+      &:hover { 
+        background-color:white; color:$action-color; 
+        svg.preview__tool-icon {
+         fill:$action-color; 
+      }
+      
+      }  
+      
+       svg.preview__tool-icon {
+        fill:white; 
+      }
     }
       
   }
@@ -852,7 +888,7 @@ button, .primary-button {
     font-size:75px;
     font-weight:300;
     line-height:.9em; 
-    color:$secondary-color;
+    color:$primary-color;
     
     @include for-phone-only {    
       font-size: 50px;

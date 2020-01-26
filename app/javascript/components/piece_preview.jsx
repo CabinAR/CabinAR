@@ -4,6 +4,7 @@ import { debounce } from "lodash"
 
 import Frame, { FrameContextConsumer } from 'react-frame-component';
 
+import Icon from "../icons/icon"
 
 import xmlChecker from 'xmlchecker'
 
@@ -189,7 +190,7 @@ class PiecePreview extends React.Component {
       cls +=" preview__tool--active"
     }
     cls += ` preview__tool--${position}`
-    return <div onClick={(e)=> this.selectTool(tool) } className={cls}><div className='preview__tool-content'>{label}</div></div>
+    return <div onClick={(e)=> this.selectTool(tool) } className={cls}><Icon className="preview__tool-icon" icon={tool} width={16} height={16}/><div className='preview__tool-content'>{label}</div></div>
   }
 
   renderToggle = (on, label, position) => {
@@ -286,9 +287,9 @@ class PiecePreview extends React.Component {
         {this.renderToggle(false,'▹','right')}
         </div>
       <div className='preview__tools'>
-        {this.renderTool('translate','P','left')}
-        {this.renderTool('rotate','R','center')}
-        {this.renderTool('scale','S','right')}
+        {this.renderTool('translate','Move','left')}
+        {this.renderTool('rotate','Rotate','center')}
+        {this.renderTool('scale','Scale','right')}
       </div>
     </div>
     </div>
