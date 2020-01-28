@@ -5,6 +5,8 @@ class UserSpace < ApplicationRecord
    before_validation :trim_email
    before_create :find_user
 
+   scope :admin, -> { where(admin: true) }
+
    validates :email, uniqueness: { scope: :space_id }
    validates :user, uniqueness: { scope: :space_id }, allow_nil: true
    validates :email, presence: true, 'valid_email_2/email': true

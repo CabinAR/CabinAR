@@ -5,7 +5,7 @@ class SpacesController < ApplicationController
     # get myspaces
     @spaces = Space.by_user(current_user)
 
-    if @spaces.length === 0 && current_user.created_at > 1.day.ago
+    if current_user.user_spaces.admin.count === 0 && current_user.created_at > 1.day.ago
       space = Space.create_default_for(current_user)
       redirect_to space_path(space)
     end
