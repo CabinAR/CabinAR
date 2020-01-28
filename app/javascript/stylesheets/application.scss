@@ -547,7 +547,7 @@ button, .primary-button {
     border:1px solid $action-color;
     color:$action-color;
     
-    &:hover { background-color:white; border-color:$action-color; color:$action-color;}
+    &:hover { background-color:white; border-color:white; color:$action-color;}
     &:active { background-color:white; color: $action-color; border-color:$action-color;  }
     &:active, &:focus { outline: none; }
     
