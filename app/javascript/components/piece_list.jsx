@@ -2,6 +2,8 @@ import React from 'react'
 
 import { map } from "lodash"
 
+import Icon from "../icons/icon"
+
 class PieceList extends React.Component {
 
 
@@ -48,7 +50,7 @@ class PieceList extends React.Component {
         <div className='piece-list__title'>
       <div className='piece-list__back'  onClick={this.gotoMySpaces}>&laquo; back</div>
     <div className='piece-list__name' >{name} 
-      <a className='piece-list__preview-link' href='javascript:void(0);' onClick={this.props.showQrModal}>(o)</a>
+      <a className='piece-list__preview-link' href='javascript:void(0);' onClick={this.props.showQrModal}><Icon className="piece-list__icon" icon="phone" width={20} height={20}/></a>
     </div>
             </div>
       {map(this.props.pieces, this.renderPiece)}

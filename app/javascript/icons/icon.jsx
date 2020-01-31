@@ -16,6 +16,10 @@ class Icon extends React.Component {
   scale() {
     return <React.Fragment><path fill="none" d="M0 0h24v24H0V0z"/><path d="M5.14,1.14V13.41H1.26V23h9.61V19.14H23.14v-18Zm4,18v2.13H3V15.15H9.13v4Zm12-2H10.87V13.41H7.14V3.14h14Z"/><polygon points="12.96 12.45 17 8.41 17 11 19 11 19 5 13 5 13 7 15.59 7 11.55 11.04 12.96 12.45"/></React.Fragment>
   }
+
+  phone() {
+    return <React.Fragment><path d="M5.3.55v21.9H18.7V.55Zm11.5,20H7.2V19h9.6Zm0-3.5H7.2V6h9.6Zm0-13H7.2V2.45h9.6Z"/><polygon points="11 10.91 11 15.26 13 15.26 13 10.91 14.41 12.33 15.83 10.91 12 7.09 8.17 10.91 9.59 12.33 11 10.91"/></React.Fragment>
+  }
   
   
   render() {

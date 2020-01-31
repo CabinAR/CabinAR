@@ -399,10 +399,13 @@ button, .primary-button {
 
 
     &__preview-link {
-      font-size:0.7em;
-      color:$action-color;
       text-decoration:underline;
       padding-left:5px;
+      position:relative;
+      top:5px;
+      svg.piece-list__icon {
+        fill:$action-color;
+      }
     }
 
   &__piece {
