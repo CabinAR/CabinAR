@@ -1,7 +1,7 @@
 require 'airbrake-ruby'
 
 Airbrake.configure do |c|
-  c.project_id = 245555
-  c.project_key = '71b4490583d3eef005110b61cb49bfee'
+  c.project_id = ENV['AIRBRAKE_PROJECT_ID']
+  c.project_key =  ENV['AIRBRAKE_PROJECT_KEY'] 
   c.performance_stats = false
 end
