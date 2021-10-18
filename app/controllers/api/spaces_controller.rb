@@ -20,7 +20,8 @@ class Api::SpacesController < Api::BaseController
 
   def show
     # get a space, only a published one unless it's mine
-    space = Space.published.find_by_id(params[:id].to_s)
+    # space = Space.published.find_by_id(params[:id].to_s)
+    space = Space.find_by_id(params[:id].to_s)
 
     if !space && current_user
       space = Space.by_user(current_user).find_by_id(params[:id].to_s)
